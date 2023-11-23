@@ -1,0 +1,74 @@
+-- Questão 02 --
+Token     Lexema    Linha     Coluna    
+PLUS      +         1         0         
+MINUS     -         1         1         
+MINUS     -         1         2         
+PLUS      +         1         3         
+PLUS      +         1         4         
+MINUS     -         1         5         
+WARNING: No t_error rule is defined
+
+Resp: Ele identifica qual o Token digitado e a posição em que foi lido
+
+-- Questão 03 --
+
+WARNING: No t_error rule is defined
+Token     Lexema    Linha     Coluna    
+PLUS      +         1         0         
+MINUS     -         1         1         
+MINUS     -         1         2         
+Traceback (most recent call last):
+  File "/content/exemplo01.py", line 14, in <module>
+    for tok in lexer:
+  File "/usr/local/lib/python3.10/dist-packages/ply/lex.py", line 419, in next
+    t = self.token()
+  File "/usr/local/lib/python3.10/dist-packages/ply/lex.py", line 396, in token
+    raise LexError("Illegal character '%s' at index %d" % (lexdata[lexpos], lexpos), lexdata[lexpos:])
+ply.lex.LexError: Illegal character ' ' at index 3
+
+Resp: Mal sucedida, a linguagem não interpreta os espaços em brancos nem faz tratamento
+
+
+-- Questão 04 --
+
+WARNING: No t_error rule is defined
+Token     Lexema    Linha     Coluna    
+PLUS      +         1         0         
+MINUS     -         1         4         
+MINUS     -         1         6         
+MINUS     -         1         7         
+PLUS      +         1         8         
+PLUS      +         1         11        
+PLUS      +         1         14 
+
+Resp: Desta vez espaços em brancos, \n e \t são reconhecidos. As linhas estão
+erradas, com o \n deveria modificar as linhas.
+
+-- Questão 05 --
+
+WARNING: No t_error rule is defined
+Token     Lexema    Linha     Coluna    
+PLUS      +         1         0         
+MINUS     -         2         4         
+MINUS     -         2         6         
+MINUS     -         2         7         
+PLUS      +         2         8         
+PLUS      +         3         11        
+PLUS      +         3         14        
+
+Resp: Agora as linhas mudam a cada \n inserido
+
+-- Questão 07 -- 
+
+WARNING: No t_error rule is defined
+PLUS + 1 0
+MINUS - 1 3
+MINUS - 1 5
+MINUS - 1 6
+PLUS + 1 7
+PLUS + 1 9
+PLUS + 1 12
+ID estada 2 14
+
+-- Questão 07 --
+Possui erro léxico
