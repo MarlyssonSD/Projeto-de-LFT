@@ -1,4 +1,4 @@
-<h1 align="center"> 📚Projeto de LFT.🖥 </h1>
+<h1 align="center"> 📚Linguagens Formais e Tradutores (LFT).🖥 </h1>
 
 <p align="center">
 Repositório de materiais usados para a disciplina de Linguagens Formais e Tradutores na Universidade Federal de Sergipe(UFS)🚀
