@@ -1,0 +1,151 @@
+1)Não, aparece erro:
+1- Symbol 'exp1' used, but not defined as a token or a rule == Indica que o exp1 não foi definido 
+2- Token 'DIVISAO' defined, but not used,Token 'MULTIPLICACAO' defined, but not used, Token 'NUMERO' defined, but not used ==  não está sendo utilizado na gramática
+
+ERRO:
+aluno@aluno-VirtualBox:~/Documentos/atv$  /usr/bin/env /bin/python3 /home/aluno/.vscode/extensions/ms-python.python-2023.20.0/pythonFiles/lib/python/debugpy/adapter/../../debugpy/launcher 44181 -- /home/aluno/Documentos/atv/atv.py 
+WARNING: no p_error() function is defined
+ERROR: /home/aluno/Documentos/atv/atv.py:10: Symbol 'exp1' used, but not defined as a token or a rule
+ERROR: /home/aluno/Documentos/atv/atv.py:14: Symbol 'exp1' used, but not defined as a token or a rule
+ERROR: /home/aluno/Documentos/atv/atv.py:18: Symbol 'exp1' used, but not defined as a token or a rule
+WARNING: Token 'DIVISAO' defined, but not used
+WARNING: Token 'MULTIPLICACAO' defined, but not used
+WARNING: Token 'NUMERO' defined, but not used
+WARNING: There are 3 unused tokens
+ERROR: Infinite recursion detected for symbol 'exp'
+Traceback (most recent call last):
+  File "/home/aluno/Documentos/atv/atv.py", line 21, in <module>
+    parser = yacc.yacc()              #Criação do analisador sintático
+  File "/usr/lib/python3/dist-packages/ply/yacc.py", line 3432, in yacc
+    raise YaccError('Unable to build parser')
+ply.yacc.YaccError: Unable to build parser
+aluno@aluno-VirtualBox:~/Documentos/atv$ 
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+2) Modificacao: 
+# -------------------------
+# calcparser.py
+#----------------------
+
+import ply.yacc as yacc
+import ply.lex as lex
+from lingexpslex import tokens
+
+def p_exp_soma(p):
+    '''exp : exp SOMA exp1'''
+    p[0] = p[1] + p[3]
+
+def p_exp_subtracao(p):
+    '''exp : exp SUBTRACAO exp1'''
+
+def p_exp_exp1(p):
+   '''exp : exp1'''
+
+def p_exp_multiplicaca(p):
+    '''exp1 : exp1 MULTIPLICACAO exp2'''
+    
+def p_exp_divisao(p):
+    '''exp1 : exp1 DIVISAO exp2'''
+
+def p_exp1_exp2(p):
+   '''exp2 : num'''
+
+parser = yacc.yacc()              #Criação do analisador sintático
+ 
+result = parser.parse(debug=True) #Execução da análise sintática.
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+3) Ainda apresenta erro devido não ter um ação para fazer, como as expressoes (p[0] = p[1] + p[3])
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+4) Problema com a recursividade infinita nas regras de analisador sintático.
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+5) Mudar o teste para 3 + 4:
+# # Test it out
+data = '''
+3 + 4
+ '''
+	
+Árvore:
+     +
+    / \
+   3   4
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+6) Não funciona, modificação:
+def p_exp_soma(p):
+    '''exp : exp SOMA exp1'''
+    p[0] = p[1] + p[3]
+
+def p_exp_subtracao(p):
+    '''exp : exp SUBTRACAO exp1'''
+    p[0] = p[1] - p[3]
+
+def p_exp_exp1(p):
+   '''exp : exp1'''
+   p[0] = p[1]
+
+def p_exp_multiplicaca(p):
+    '''exp1 : exp1 MULTIPLICACAO exp2'''
+    p[0] = p[1] * p[3]
+
+def p_exp_divisao(p):
+    '''exp1 : exp1 DIVISAO exp2'''
+    p[0] = p[1] / p[3]
+
+def p_exp1_num(p):
+   '''exp1 : num'''
+    p[0] = p[1]
+   
+-----------------------------------------------------------------------------------------------------------------------------
+
+7) Ainda não funciona
+
+# -------------------------
+# calcparser.py
+# ----------------------
+
+import ply.yacc as yacc
+import ply.lex as lex
+from lingexpslex import tokens
+
+
+def p_exp_soma(p):
+    '''exp : exp SOMA exp1'''
+    p[0] = p[1] + p[3]
+
+
+def p_exp_subtracao(p):
+    '''exp : exp SUBTRACAO exp1'''
+    p[0] = p[1] - p[3]
+
+
+def p_exp_exp1(p):
+    '''exp : exp1'''
+    p[0] = p[1]
+
+
+def p_exp_multiplicaca(p):
+    '''exp1 : exp1 MULTIPLICACAO exp2'''
+    p[0] = p[1] * p[3]
+
+
+def p_exp_divisao(p):
+    '''exp1 : exp1 DIVISAO exp2'''
+    p[0] = p[1] / p[3]
+
+def p_exp1_num(p):
+   '''exp1 : num'''
+    p[0] = p[1]
+
+
+parser = yacc.yacc()  # Criação do analisador sintático
+
+result = parser.parse(debug=True) #Execução da análise sintática.
+
