@@ -40,7 +40,10 @@ reservadas = {
   'import' : 'IMPORT',
   'transient' : 'TRANSIENT',
 }
-tokens = ['COMMA','ID','NUMBER'] + list(reservadas.values())
+tokens = ['IGUAL', 'SOMA', 'VEZES', 'POT', 'LPAREN', 'RPAREN', 'COMMA', 'LCHAV', 'RCHAV', 'PV', 'PLUS', 'MINUS',
+          'TIMES', 'DIVIDE', 'EQ', 'NEQ', 'LT', 'GT', 'LEQ', 'GEQ', 'AND', 'OR', 'NOT', 'BITWISE_AND', 'BITWISE_OR',
+          'BITWISE_XOR', 'BITWISE_NOT', 'LSHIFT', 'RSHIFT', 'URSHIFT', 'PLUS_EQ', 'MINUS_EQ', 'TIMES_EQ', 'DIVIDE_EQ',+
+          'MOD_EQ', 'BITWISE_AND_EQ', 'BITWISE_OR_EQ', 'BITWISE_XOR_EQ', 'LSHIFT_EQ', 'RSHIFT_EQ', 'URSHIFT_EQ'] + list(reservadas.values())
 
 "T_IGUAL": r'=',
 "T_SOMA": r'\+',
@@ -85,7 +88,7 @@ tokens = ['COMMA','ID','NUMBER'] + list(reservadas.values())
 "T_URSHIFT_EQ": r'>>>='
 
 def t_ID(t):
-   r'[a-zA-Z_][a-zA-Z_0-9]*'
+   r'[a-zA-Z_][a-zA-Z_0-9][*'aqui tem que por para funcionar numeros com ,]
    t.type = reservadas.get(t.value,'ID')
    return t
 
