@@ -6,7 +6,21 @@ Java possui diversas palavras reservadas: **private, protected, public, abstract
 
 **2- Operadores**
 
-| teste | descri |
+https://www.javatpoint.com/pt/operadores-em-java
+
+**Operações matemáticas**
+  
+| Grau de precedência  | Operador | Associatividade |
+| -------------------- | -------- | --------------- |
+| 1 | "- +" | Esquerda -> Direita |
+| 2 | "* / %" | Esquerda -> Direita |
+
+| Símbolo | Tipo |
+| ----| ---------- |
+| "= += -= *= /=" | Atribuição |
+| "> < <= >=" | Comparação |
+| "== =!" | Igualdade |
+| && \|\| | Lógico |
 
 
 **3- Delimitadores**
@@ -22,3 +36,5 @@ Por padrão a linguagem Java identifica qualquer sequência que seja iniciada po
 Java possui suporte para números inteiros, números com ponto flutuante e também números positivos e negativos.
 
 **6- Erros**
+
+**7- Comentários**
