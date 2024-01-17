@@ -12,8 +12,8 @@ https://www.javatpoint.com/pt/operadores-em-java
   
 | Grau de precedência  | Operador | Associatividade |
 | -------------------- | -------- | --------------- |
-| 1 | "- +" | Esquerda -> Direita |
-| 2 | "* / %" | Esquerda -> Direita |
+| 1 | "* / %" | Esquerda -> Direita |
+| 2 | "- +" | Esquerda -> Direita |
 
 | Símbolo | Tipo |
 | ----| ---------- |
@@ -37,7 +37,7 @@ Java possui suporte para números inteiros, números com ponto flutuante e tamb�
 
 **6- Erros**
 
-Java ignora os espaços em brancos e não necessita de identação obrigatória pois os delimitadores limitam até onde será lido de uma determinada instrução por meio do ; ou {}.
+Java ignora os espaços em brancos e não necessita de identação obrigatória pois os delimitadores limitam até onde os comandos serão lidos de uma determinada instrução por meio do ; ou {}.
 
 **7- Comentários**
 É possível fazer comentários por meio de // que irá comentar aquela única linha, ou utilizando /* texto */ é possível comentar várias linhas de uma só vez.
