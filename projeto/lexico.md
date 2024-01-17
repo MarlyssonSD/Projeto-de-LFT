@@ -40,4 +40,4 @@ Java possui suporte para números inteiros, números com ponto flutuante e tamb�
 Java ignora os espaços em brancos e não necessita de identação obrigatória pois os delimitadores limitam até onde será lido de uma determinada instrução por meio do ; ou {}.
 
 **7- Comentários**
-É possível fazer comentários por meio de // que irá comentar aquela única linha, ou utilizando /* <texto> */ é possível comentar várias linhas de uma só vez.
+É possível fazer comentários por meio de // que irá comentar aquela única linha, ou utilizando /* texto */ é possível comentar várias linhas de uma só vez.
