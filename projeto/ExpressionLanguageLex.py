@@ -88,19 +88,30 @@ tokens = ['IGUAL', 'SOMA', 'VEZES', 'POT', 'LPAREN', 'RPAREN', 'COMMA', 'LCHAV',
 "T_URSHIFT_EQ": r'>>>='
 
 def t_ID(t):
-   r'[a-zA-Z_][a-zA-Z_0-9][*'aqui tem que por para funcionar numeros com ,]
+   r'[a-zA-Z_][a-zA-Z_0-9]*'
    t.type = reservadas.get(t.value,'ID')
    return t
 
-def t_NUMBER(t):
+def t_NUMBER_INT(t):
    r'\d+'
    t.value = int(t.value)
+   return t
+  
+  #0(x|X)[a-fA-F0-9]+
+def t_NUMBER_FLOAT(t):
+   r'\d+\.\d+'
+   t.value = float(t.value)
+   return t
+
+def t_NUMBER_DOUBLE(t):
+   r'\d+\.\d+d'
+   t.value = double(t.value)
    return t
 
 def t_newline(t):
    r'\n+'
    t.lexer.lineno += len(t.value)
-
+# /\* [^ *\\] comentário (add comentário de linha //)
 t_ignore = ' \t'
 
 def t_error(t):
