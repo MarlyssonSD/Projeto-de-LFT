@@ -38,7 +38,7 @@ reservadas = {
   'implements' : 'IMPLEMENTS',
   'package' : 'PACKAGE?',
   'import' : 'IMPORT',
-  'transient' : 'TRANSIENT',
+  'transient' : 'TRANSIENT'
 }
 tokens = ['IGUAL', 'SOMA', 'VEZES', 'POT', 'LPAREN', 'RPAREN', 'COMMA', 'LCHAV', 'RCHAV', 'PV', 'PLUS', 'MINUS',
           'TIMES', 'DIVIDE', 'EQ', 'NEQ', 'LT', 'GT', 'LEQ', 'GEQ', 'AND', 'OR', 'NOT', 'BITWISE_AND', 'BITWISE_OR',
@@ -92,26 +92,57 @@ def t_ID(t):
    t.type = reservadas.get(t.value,'ID')
    return t
 
-def t_NUMBER_INT(t):
-   r'\d+'
+
+def t_NUMBER_BIN(t):
+   r'0b[01]+' #ou ... [0|1]
+   t.value = int(t.value) #int() mesmo?
+   return t
+
+def t_NUMBER_OCTAL(t):
+ r'0[0-7]+'
+ t.value = int(t.value)
+ return t
+    
+def t_NUMBER_HEXA(t):
+   r'0(x|X)[a-fA-F0-9]+' #para que o underline?
    t.value = int(t.value)
    return t
   
-  #0(x|X)[a-fA-F0-9]+
-def t_NUMBER_FLOAT(t):
-   r'\d+\.\d+'
-   t.value = float(t.value)
-   return t
-
 def t_NUMBER_DOUBLE(t):
    r'\d+\.\d+d'
    t.value = double(t.value)
    return t
 
+def t_NUMBER_FLOAT(t):
+   r'\d+\.\d+'
+   t.value = float(t.value)
+   return t
+  
+def t_NUMBER_INT(t):
+   r'\d+'
+   t.value = int(t.value)
+   return t
+
+def t_CHAR(t): #trabalhar melhor, sem considerar \n \t etc
+  r"'.'"
+  return t
+  
+def t_String(t):
+  return t
+
 def t_newline(t):
    r'\n+'
    t.lexer.lineno += len(t.value)
-# /\* [^ *\\] comentário (add comentário de linha //)
+t_ignore = ' \t'
+
+def t_comments_1(t):
+   r'/\* [^ *\\'
+   t.lexer.lineno += len(t.value)
+t_ignore = ' \t'
+
+def t_comments_2(t):
+   r'//// [^ \n' #ignorar tudo até encontrar quebra de linha
+   t.lexer.lineno += len(t.value)
 t_ignore = ' \t'
 
 def t_error(t):
@@ -120,7 +151,7 @@ def t_error(t):
 
 
 def main():
-   f = open("input1.su", "r")
+   f = open("teste.java", "r")
    lexer = lex.lex(debug=1)
    lexer.input(f.read())
    print('\n\n# lexer output:')
