@@ -38,7 +38,7 @@ reservadas = {
   'implements' : 'IMPLEMENTS',
   'package' : 'PACKAGE?',
   'import' : 'IMPORT',
-  'transient' : 'TRANSIENT',
+  'transient' : 'TRANSIENT'
 }
 tokens = ['IGUAL', 'SOMA', 'VEZES', 'POT', 'LPAREN', 'RPAREN', 'COMMA', 'LCHAV', 'RCHAV', 'PV', 'PLUS', 'MINUS',
           'TIMES', 'DIVIDE', 'EQ', 'NEQ', 'LT', 'GT', 'LEQ', 'GEQ', 'AND', 'OR', 'NOT', 'BITWISE_AND', 'BITWISE_OR',
@@ -92,13 +92,29 @@ def t_ID(t):
    t.type = reservadas.get(t.value,'ID')
    return t
 
+#TRANSFORMAÇÃO ERRADA não é int(t.value)
+def t_NUMBER_BIN(t):
+   r'0b[01]+' #ou ... [0|1]
+   t.value = int(t.value) #int() mesmo?
+   return t
+
+def t_NUMBER_OCTAL(t):
+ r'0[0-7]+'
+ t.value = int(t.value)
+ return t
+
+def t_NUMBER_HEXA(t):
+   r'0(x|X)[a-fA-F0-9]+' #para que o underline?
+   t.value = int(t.value)
+   return t
+  
 def t_NUMBER_DOUBLE(t):
    r'\d+\.\d+d'
    t.value = double(t.value)
    return t
 
 def t_NUMBER_FLOAT(t):
-   r'\d+\.\d+'
+   r'\d+\.\d+f?'
    t.value = float(t.value)
    return t
   
@@ -107,6 +123,24 @@ def t_NUMBER_INT(t):
    t.value = int(t.value)
    return t
   
+def t_CHAR(t):
+  r"'(.|\n)?'"
+  return t
+
+def t_STRING(t):
+    r'"(.|\n)?*"'
+  return t
+
+def t_comments_1(t):
+   r'/\* [^ *\\]\'
+   t.lexer.lineno += len(t.value)
+t_ignore = ' \t'
+
+def t_comments_2(t):
+   r'// [^ .*]' #ignorar tudo até encontrar quebra de linha
+   t.lexer.lineno += len(t.value)
+t_ignore = ' \t'
+
 
 def t_newline(t):
    r'\n+'
