@@ -95,17 +95,17 @@ def t_ID(t):
 #TRANSFORMAÇÃO ERRADA não é int(t.value)
 def t_NUMBER_BIN(t):
    r'0b[01]+' #ou ... [0|1]
-   t.value = int(t.value) #int() mesmo?
+   t.value = int(t.value, base=2) #int() mesmo?
    return t
 
 def t_NUMBER_OCTAL(t):
  r'0[0-7]+'
- t.value = int(t.value)
+ t.value = int(t.value, base=8)
  return t
 
 def t_NUMBER_HEXA(t):
    r'0(x|X)[a-fA-F0-9]+' #para que o underline?
-   t.value = int(t.value)
+   t.value = int(t.value, base=16)
    return t
   
 def t_NUMBER_DOUBLE(t):
