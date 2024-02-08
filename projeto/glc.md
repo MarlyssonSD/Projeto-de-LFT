@@ -1,10 +1,10 @@
 
-exp → exp "+" exp |
-      exp "-" exp |
-      exp "/" exp |
-      exp "*" exp | 
-      exp "^" exp | 
-      call | 
-      assign | 
-      NUM | 
+exp → exp "+" exp |<br/>
+      exp "-" exp |<br/>
+      exp "/" exp |<br/>
+      exp "*" exp | <br/>
+      exp "^" exp | <br/>
+      call | <br/>
+      assign | <br/>
+      NUM | <br/>
       ID
