@@ -11,7 +11,7 @@ sigparams → ID |
 block → "{" stms "}"
 
 stms → stm  | 
-       stms stm
+       stms stm ","
 
 stm → exp ";"  | 
       WHILE "(" exp ")" block | return exp ";"
@@ -19,8 +19,9 @@ stm → exp ";"  |
 call → ID "(" params ")"
 
 exp → exp "+" exp | 
+      exp "-" exp |
       exp "*" exp | 
-      exp "^" exp | 
+      exp "/" exp |
       call | 
       assign | 
       NUM | 
@@ -33,3 +34,7 @@ params → exp "," params |
          exp
 
 assign → ID "=" exp
+
+NUM → <numero inteiro>
+
+ID → <identificador>
