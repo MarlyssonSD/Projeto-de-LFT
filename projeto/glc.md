@@ -1,39 +1,37 @@
-program → funcdecl | 
-          funcdecl program
+programa → funcao | 
+          funcao programa
 
-funcdecl → signature block
+funcao → assinatura bloco
 
-signature → TYPE ID "(" sigparams ")"
+assinatura → TYPE ID "(" sigparams ")"
 
 sigparams → ID | 
             ID "," sigparams
 
-block → "{" stms "}"
+bloco → "{" instrucoes "}"
 
-stms → stm  | 
-       stms stm ","
+instrucoes → instrucao  | 
+       instrucoes instrucao ","
 
-stm → exp ";"  | 
-      WHILE "(" exp ")" block | return exp ";"
+instrucao → expressao ";"  | 
+      WHILE "(" expressao ")" bloco | return expressao ";"
 
-call → ID "(" params ")"
-
-exp → exp "+" exp | 
-      exp "-" exp |
-      exp "*" exp | 
-      exp "/" exp |
-      call | 
+expressao → expressao "+" expressao | 
+      expressao "-" expressao |
+      expressao "*" expressao | 
+      expressao "/" expressao |
+      chamada | 
       assign | 
       NUM | 
       ID
 
-call → ID "(" params ")" | 
+chamada → ID "(" parametro ")" | 
        ID "()"
 
-params → exp "," params | 
-         exp
+parametro → expressao "," parametro | 
+         expressao
 
-assign → ID "=" exp
+assign → ID "=" expressao
 
 NUM → <numero inteiro>
 
