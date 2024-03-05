@@ -62,7 +62,7 @@ tokens = ['IGUAL', 'POT', 'LPAREN', 'RPAREN', 'COMMA', 'LCHAV', 'RCHAV', 'PV', '
           'TIMES', 'DIVIDE', 'EQ', 'NEQ', 'LT', 'GT', 'LEQ', 'GEQ', 'AND', 'OR', 'NOT', 'BITWISE_AND', 'BITWISE_OR',
           'BITWISE_XOR', 'BITWISE_NOT', 'LSHIFT', 'RSHIFT', 'URSHIFT', 'PLUS_EQ', 'MINUS_EQ', 'TIMES_EQ', 'DIVIDE_EQ',
           'MOD_EQ', 'BITWISE_AND_EQ', 'BITWISE_OR_EQ', 'BITWISE_XOR_EQ', 'LSHIFT_EQ', 'RSHIFT_EQ', 'URSHIFT_EQ', 'ID',
-          'STRING', 'RBRACKET', 'LBRACKET', 'DOT', 'COMMENTS', 'HEXA_NUMBER', 'OCTAL_NUMBER', 'BIN_NUMBER', 'INCREMENT', 'DECREMENT'] + list(reservadas.values())
+          'STRING', 'RBRACKET', 'LBRACKET', 'DOT', 'HEXA_NUMBER', 'OCTAL_NUMBER', 'BIN_NUMBER', 'INCREMENT', 'DECREMENT'] + list(reservadas.values())
 
 
 t_URSHIFT_EQ = r'>>>='
@@ -75,7 +75,6 @@ t_LEQ = r'<='
 t_GEQ = r'>='
 t_AND = r'&&'
 t_OR = r'\|\|'
-t_COMMENTS = r'//' #COMENTÁRIOS?
 t_INCREMENT = r'\+\+'
 t_DECREMENT = r'--'
 t_PLUS_EQ = r'\+='
