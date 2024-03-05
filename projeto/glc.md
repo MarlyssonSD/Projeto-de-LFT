@@ -1,55 +1,71 @@
+# GLC para o sintatico
 
-programa → funcao | 
-          funcao programa
+```
+programa → classe
+
+classe → visibility "class" ID extends ID {membros} |
+          visibility "class" ID {membros} |
+          visibility "class" ID implements ID {membros}
+
+membros → membro |
+          membro membros
+
+membro → atribute |
+          funcao
+
+atribute → visibility  //finalizar
 
 funcao → assinatura bloco
 
-assinatura → TYPE ID "(" sigparams ")"
+bloco → "{" instrucoes "}"
+
+assinatura → visibility ID ID "(" sigparams ")" //rever modificadores java
 
 sigparams → ID |  
            ID "," sigparams
 
-bloco → "{" instrucoes "}"
 
 instrucoes → instrucao  |  
        instrucoes instrucao ","
 
-instrucao → expressao ";"  |  
-      WHILE "(" expressao ")" bloco | return expressao ";"
+instrucao → exp ";"  |  
+      WHILE "(" exp ")" bloco | return exp ";"
+      FOR "(" exp ; exp ; exp ")"
 
-expressao → expressao "+" expressao |  
-            expressao "-" expressao |  
-            expressao "*" expressao |    
-            expressao "/" expressao |  
-            expressao "^" expressao |  
-            expressao "//" expressao |   
-            expressao "%" expressao |  
-            expressao ">" expressao |  
-            expressao "<" expressao |  
-            expressao "<=" expressao |  
-            expressao ">=" expressao |  
-            expressao "==" expressao |  
-            expressao "+=" expressao |  
-            expressao "-=" expressao |  
-            expressao "/=" expressao |  
-            expressao "*=" expressao |  
-            expressao "&&" expressao |  
-            expressao "||" expressao |  
-            expressao "&" expressao |  
-            expressao "|" expressao |  
+exp → exp "+" exp |  
+            exp "-" exp |  
+            exp "*" exp |    
+            exp "/" exp |  
+            exp "^" exp |  
+            exp "//" exp |   
+            exp "%" exp |  
+            exp ">" exp |  
+            exp "<" exp |  
+            exp "<=" exp |  
+            exp ">=" exp |  
+            exp "==" exp |  
+            exp "+=" exp |  
+            exp "-=" exp |  
+            exp "/=" exp |  
+            exp "*=" exp |  
+            exp "&&" exp |  
+            exp "||" exp |  
+            exp "&" exp |  
+            exp "|" exp |  
             chamada |   
             assign |   
             NUM |   
             ID  
 
-chamada → ID "(" parametro ")" | 
-       ID "()"
+chamada → ID "(" parametro ")" |
+          ID "()"
 
-parametro → expressao "," parametro | 
-         expressao
+parametro → exp "," parametro |
+          exp
 
-assign → ID "=" expressao
+assign → ID "=" exp
 
 NUM → <numero inteiro>
 
 ID → <identificador>
+```
