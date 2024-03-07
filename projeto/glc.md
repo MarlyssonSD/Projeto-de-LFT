@@ -1,9 +1,9 @@
 # GLC para o sintatico
 
 ```
-programa → classe
+programa → class
 
-classe → visibility "class" ID extends ID {membros} |
+class → visibility "class" ID extends ID {membros} |
           visibility "class" ID {membros} |
           visibility "class" ID implements ID {membros}
 
