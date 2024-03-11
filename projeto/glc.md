@@ -13,7 +13,13 @@ membros → membro |
 membro → atribute |
           funcao
 
-atribute → visibility  //finalizar
+atribute → visibility ID
+
+visibility → "PUBLIC" |
+             "PRIVATE"|
+             "PROTECTED"|
+             "DEFAULT" |      //VAZIO
+
 
 funcao → assinatura bloco
 

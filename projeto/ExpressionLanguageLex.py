@@ -4,65 +4,62 @@
 import ply.lex as lex
 
 reservadas = {
-  'abstract': 'ABSTRACT',
-  'assert': 'ASSERT',
-  'boolean': 'BOOLEAN',
-  'break': 'BREAK',
-  'byte': 'BYTE',
-  'case': 'CASE',
-  'catch': 'CATCH',
-  'char': 'CHAR',
-  'class': 'CLASS',
-  'const': 'CONST',
-  'continue': 'CONTINUE',
-  'default': 'DEFAULT',
-  'do': 'DO',
-  'double': 'DOUBLE_NUMBER',
-  'else': 'ELSE',
-  'enum': 'ENUM',
-  'extends': 'EXTENDS',
-  'final': 'FINAL',
-  'finally': 'FINALLY',
-  'float': 'FLOAT_NUMBER',
-  'for': 'FOR',
-  'goto': 'GOTO',
-  'if': 'IF',
-  'implements': 'IMPLEMENTS',
-  'import': 'IMPORT',
-  'instanceof': 'INSTANCEOF',
-  'int': 'INT_NUMBER',
-  'interface': 'INTERFACE',
-  'long': 'LONG',
-  'native': 'NATIVE',
-  'new': 'NEW',
-  'package': 'PACKAGE',
-  'private': 'PRIVATE',
-  'protected': 'PROTECTED',
-  'public': 'PUBLIC',
-  'return': 'RETURN',
-  'short': 'SHORT',
-  'static': 'STATIC',
-  'strictfp': 'STRICTFP',
-  'super': 'SUPER',
-  'switch': 'SWITCH',
-  'synchronized': 'SYNCHRONIZED',
-  'this': 'THIS',
-  'throw': 'THROW',
-  'throws': 'THROWS',
-  'transient': 'TRANSIENT',
-  'try': 'TRY',
-  'void': 'VOID',
-  'volatile': 'VOLATILE',
-  'while': 'WHILE'
+   #TIPOS
+   'boolean': 'BOOLEAN', 'int': 'INT_NUMBER', 'float': 'FLOAT_NUMBER', 'byte': 'BYTE',
+   'double': 'DOUBLE_NUMBER', 'char': 'CHAR', 'string' : 'STRING', 'long': 'LONG',
+
+   #VISIBILIDADE
+   'public': 'PUBLIC', 'private': 'PRIVATE',
+   'default': 'DEFAULT', 'protected': 'PROTECTED',
+ 
+   'abstract': 'ABSTRACT',
+   'assert': 'ASSERT',
+   'break': 'BREAK',
+   'case': 'CASE',
+   'catch': 'CATCH',
+   'class': 'CLASS',
+   'const': 'CONST',
+   'continue': 'CONTINUE',
+   'do': 'DO',
+   'else': 'ELSE',
+   'enum': 'ENUM',
+   'extends': 'EXTENDS',
+   'final': 'FINAL',
+   'finally': 'FINALLY',
+   'for': 'FOR',
+   'goto': 'GOTO',
+   'if': 'IF',
+   'implements': 'IMPLEMENTS',
+   'import': 'IMPORT',
+   'instanceof': 'INSTANCEOF',
+   'interface': 'INTERFACE',
+   'native': 'NATIVE',
+   'new': 'NEW',
+   'package': 'PACKAGE',
+   'return': 'RETURN',
+   'short': 'SHORT',
+   'static': 'STATIC',
+   'strictfp': 'STRICTFP',
+   'super': 'SUPER',
+   'switch': 'SWITCH',
+   'synchronized': 'SYNCHRONIZED',
+   'this': 'THIS',
+   'throw': 'THROW',
+   'throws': 'THROWS',
+   'transient': 'TRANSIENT',
+   'try': 'TRY',
+   'void': 'VOID',
+   'volatile': 'VOLATILE',
+   'while': 'WHILE'
 }
 
 
 
-tokens = ['IGUAL', 'POT', 'LPAREN', 'RPAREN', 'COMMA', 'LCHAV', 'RCHAV', 'PV', 'PLUS', 'MINUS',
-          'TIMES', 'DIVIDE', 'EQ', 'NEQ', 'LT', 'GT', 'LEQ', 'GEQ', 'AND', 'OR', 'NOT', 'BITWISE_AND', 'BITWISE_OR',
-          'BITWISE_XOR', 'BITWISE_NOT', 'LSHIFT', 'RSHIFT', 'URSHIFT', 'PLUS_EQ', 'MINUS_EQ', 'TIMES_EQ', 'DIVIDE_EQ',
-          'MOD_EQ', 'BITWISE_AND_EQ', 'BITWISE_OR_EQ', 'BITWISE_XOR_EQ', 'LSHIFT_EQ', 'RSHIFT_EQ', 'URSHIFT_EQ', 'ID',
-          'STRING', 'RBRACKET', 'LBRACKET', 'DOT', 'HEXA_NUMBER', 'OCTAL_NUMBER', 'BIN_NUMBER', 'INCREMENT', 'DECREMENT'] + list(reservadas.values())
+tokens = ['BITWISE_XOR_EQ', 'BITWISE_OR_EQ', 'BITWISE_AND_EQ', 'BITWISE_XOR', 'BITWISE_NOT', 'BITWISE_OR', 'BITWISE_AND',
+          'IGUAL', 'POT', 'LPAREN', 'RPAREN', 'COMMA', 'DOT', 'LCHAV', 'RCHAV', 'PV', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'EQ', 
+          'NEQ', 'LT', 'GT', 'LEQ', 'GEQ', 'AND', 'OR', 'NOT', 'LSHIFT', 'RSHIFT', 'URSHIFT', 'PLUS_EQ', 'MINUS_EQ',
+          'TIMES_EQ', 'DIVIDE_EQ', 'MOD_EQ',  'LSHIFT_EQ', 'RSHIFT_EQ', 'URSHIFT_EQ', 'ID',
+          'RBRACKET', 'LBRACKET', 'HEXA_NUMBER', 'OCTAL_NUMBER', 'BIN_NUMBER', 'INCREMENT', 'DECREMENT'] + list(reservadas.values())
 
 
 t_URSHIFT_EQ = r'>>>='
@@ -114,8 +111,8 @@ t_BITWISE_NOT = r'~'
 
 
 def t_BIN_NUMBER(t):
-   r'0b[01]+' #ou ... [0|1]
-   t.value = int(t.value, base=2) #int() mesmo?
+   r'0b[01]+'
+   t.value = int(t.value, base=2)
    return t
 
 def t_OCTAL_NUMBER(t):
@@ -177,7 +174,7 @@ def t_error(t):
 
 
 def main():
-   f = open("Teste1.java", "r")
+   f = open("projeto/Teste2.java", "r")
    lexer = lex.lex(debug=1)
    lexer.input(f.read())
    print('\n\n# lexer output:')
