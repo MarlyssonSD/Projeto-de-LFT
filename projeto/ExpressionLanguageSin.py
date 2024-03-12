@@ -3,11 +3,12 @@ import ply.yacc as yacc
 
 
 def p_program(p):
-    ''' programa : classe '''
+    ''' program : class '''
     pass
 
+
 def p_class_extends(p):
-    '''classe : modifier visibility CLASS ID EXTENDS ID LCHAV membros RCHAV'''
+    '''class : modifier visibility CLASS ID EXTENDS ID LCHAV membros RCHAV'''
     pass
 
 def p_class_default(p):
@@ -35,6 +36,7 @@ def p_visibility_default(p): #??vazio? default
     '''visibility :  '''
     pass
 
+
 def p_modifier_static(p):
     '''modifier : static'''
     pass
@@ -42,6 +44,7 @@ def p_modifier_static(p):
 def p_modifier_final(p):
     '''modifier : final'''
     pass
+
 
 
 

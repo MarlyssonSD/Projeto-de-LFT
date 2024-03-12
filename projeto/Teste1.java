@@ -24,7 +24,7 @@ public class Teste1 {
         String nome = "JavaTest";
 
         // Saída
-        System.out.println("Teste Léxico em Java!");
+
         System.out.println("Palavras-chave:");
         // for (String palavraChave : nomes) {
         //     System.out.println(palavraChave);
