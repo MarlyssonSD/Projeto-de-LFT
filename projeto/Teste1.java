@@ -17,7 +17,9 @@ public class Teste1 {
         int resultadoMultiplicacao = a * b;
         int resultadoDivisao = a / b;
         boolean condicao = (a > b) && (a < resultadoSoma);
-
+        while (condicao) {
+            
+        }
         // Identificador
         String nome = "JavaTest";
 

@@ -6,18 +6,42 @@ def p_program(p):
     ''' programa : classe '''
     pass
 
-def p_class1(p):
-    '''classe : visibility CLASS ID EXTENDS ID LCHAV membros RCHAV'''
+def p_class_extends(p):
+    '''classe : modifier visibility CLASS ID EXTENDS ID LCHAV membros RCHAV'''
     pass
 
-def p_class2(p):
-    '''classe : visibility CLASS ID LCHAV membros RCHAV'''
+def p_class_default(p):
+    '''classe : modifier visibility CLASS ID LCHAV membros RCHAV'''
     pass
 
-def p_class3(p):
-    ''' class : visibility CLASS ID IMPLEMENTS LCHAV membros RCHAV '''
+def p_class_implements(p):
+    ''' class : modifier visibility CLASS ID IMPLEMENTS LCHAV membros RCHAV '''
     pass
 
+
+def p_visibility_public(p):
+    '''visibility : PUBLIC '''
+    pass
+
+def p_visibility_private(p):
+    '''visibility : PRIVATE '''
+    pass
+
+def p_visibility_protected(p):
+    '''visibility : PROTECTED '''
+    pass
+
+def p_visibility_default(p): #??vazio? default
+    '''visibility :  '''
+    pass
+
+def p_modifier_static(p):
+    '''modifier : static'''
+    pass
+
+def p_modifier_final(p):
+    '''modifier : final'''
+    pass
 
 
 

@@ -3,9 +3,18 @@
 ```
 programa → class
 
-class → visibility "class" ID extends ID {membros} |
-          visibility "class" ID {membros} |
-          visibility "class" ID implements ID {membros}
+class → visibility modifier "class" ID extends ID {membros} |
+          visibility modifier "class" ID {membros} |
+          visibility modifier "class" ID implements ID {membros}
+
+visibility → "PUBLIC"   |
+             "PRIVATE"  |
+             "PROTECTED"|
+             ""               // "DEFAULT"= VAZIO
+
+modifier →  "static"|
+            "final" |
+            ""                // "DEFAULT"= VAZIO
 
 membros → membro |
           membro membros
@@ -13,55 +22,78 @@ membros → membro |
 membro → atribute |
           funcao
 
-atribute → visibility ID
+atribute → visibility  ID |
 
-visibility → "PUBLIC" |
-             "PRIVATE"|
-             "PROTECTED"|
-             "DEFAULT" |      //VAZIO
+atributemodifier →   "abstract" |
+                        "final" |
+                        "default"          
 
+funcao → signature  body 
 
-funcao → assinatura bloco
+body  → "{" stms "}"
 
-bloco → "{" instrucoes "}"
+signature  → visibility ID ID "(" sigparams ")"
 
-assinatura → visibility ID ID "(" sigparams ")" //rever modificadores java
-
-sigparams → ID |  
-           ID "," sigparams
+sigparams → ID    |  
+            ID "," sigparams
 
 
-instrucoes → instrucao  |  
-       instrucoes instrucao ","
+stms → stm  |  
+       stm stms
 
-instrucao → exp ";"  |  
-      WHILE "(" exp ")" bloco | return exp ";"
-      FOR "(" exp ; exp ; exp ")"
+stm → exp ";"                       |  
+      WHILE "(" exp ")" body        |
+      DO body WHILE "("exp")"       |
+      FOR "(" exp ; exp ; exp ")"   |
+      IF "(" exp ")"
+      return exp ";"
 
-exp → exp "+" exp |  
-            exp "-" exp |  
-            exp "*" exp |    
-            exp "/" exp |  
-            exp "^" exp |  
-            exp "//" exp |   
-            exp "%" exp |  
-            exp ">" exp |  
-            exp "<" exp |  
-            exp "<=" exp |  
-            exp ">=" exp |  
-            exp "==" exp |  
-            exp "+=" exp |  
-            exp "-=" exp |  
-            exp "/=" exp |  
-            exp "*=" exp |  
-            exp "&&" exp |  
-            exp "||" exp |  
-            exp "&" exp |  
-            exp "|" exp |  
-            chamada |   
-            assign |   
-            NUM |   
-            ID  
+exp → exp ">>>=" exp |
+      exp ">>>" exp |
+      exp "<<=" exp |
+      exp ">>=" exp |
+      exp "<<" exp |
+      exp ">>" exp |
+      exp "<=" exp |
+      exp ">=" exp |
+      exp "&&" exp |
+      exp "\|\|" exp |
+      exp "\+\+" exp |
+      exp "--" exp | 
+      exp "\+=" exp | 
+      exp "-=" exp | 
+      exp "\*=" exp | 
+      exp "%=" exp | 
+      exp "&=" exp | 
+      exp "\|=" exp | 
+      exp "^=" exp | 
+      exp "==" exp | 
+      exp "!=" exp | 
+      exp "=" exp | 
+      exp "\(" exp | 
+      exp "\)" exp | 
+      exp "\[" exp | 
+      exp "\]" exp | 
+      exp "," exp | 
+      exp "\." exp | 
+      exp "{" exp | 
+      exp "}" exp | 
+      exp ";" exp | 
+      exp "\+" exp | 
+      exp "-" exp | 
+      exp "\*" exp | 
+      exp "/" exp | 
+      exp "<" exp | 
+      exp ">" exp | 
+      exp "!" exp | 
+      exp "&" exp | 
+      exp "\|" exp | 
+      exp "\^" exp | 
+      exp "~" exp |  
+      chamada |   
+      assign |   
+      NUM |   
+      ID  
 
 chamada → ID "(" parametro ")" |
           ID "()"
@@ -74,4 +106,5 @@ assign → ID "=" exp
 NUM → <numero inteiro>
 
 ID → <identificador>
+
 ```

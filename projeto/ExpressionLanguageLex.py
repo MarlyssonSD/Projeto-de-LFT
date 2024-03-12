@@ -58,7 +58,7 @@ reservadas = {
 tokens = ['BITWISE_XOR_EQ', 'BITWISE_OR_EQ', 'BITWISE_AND_EQ', 'BITWISE_XOR', 'BITWISE_NOT', 'BITWISE_OR', 'BITWISE_AND',
           'IGUAL', 'POT', 'LPAREN', 'RPAREN', 'COMMA', 'DOT', 'LCHAV', 'RCHAV', 'PV', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'EQ', 
           'NEQ', 'LT', 'GT', 'LEQ', 'GEQ', 'AND', 'OR', 'NOT', 'LSHIFT', 'RSHIFT', 'URSHIFT', 'PLUS_EQ', 'MINUS_EQ',
-          'TIMES_EQ', 'DIVIDE_EQ', 'MOD_EQ',  'LSHIFT_EQ', 'RSHIFT_EQ', 'URSHIFT_EQ', 'ID',
+          'TIMES_EQ', 'DIVIDE_EQ', 'MOD_EQ',  'LSHIFT_EQ', 'RSHIFT_EQ', 'URSHIFT_EQ',
           'RBRACKET', 'LBRACKET', 'HEXA_NUMBER', 'OCTAL_NUMBER', 'BIN_NUMBER', 'INCREMENT', 'DECREMENT'] + list(reservadas.values())
 
 
