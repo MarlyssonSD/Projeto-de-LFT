@@ -1,4 +1,4 @@
-import ply.lex as lex
+from ExpressionLanguageLex import *
 import ply.yacc as yacc
 
 
@@ -12,7 +12,7 @@ def p_class_extends(p):
     pass
 
 def p_class_default(p):
-    '''classe : modifier visibility CLASS ID LCHAV membros RCHAV'''
+    '''class : modifier visibility CLASS ID LCHAV membros RCHAV'''
     pass
 
 def p_class_implements(p):
@@ -38,18 +38,18 @@ def p_visibility_default(p): #??vazio? default
 
 
 def p_modifier_static(p):
-    '''modifier : static'''
+    '''modifier : STATIC'''
     pass
 
 def p_modifier_final(p):
-    '''modifier : final'''
+    '''modifier : FINAL'''
     pass
 
 
 
 
 def main():
-    f = open("projeto/Teste2.java", "r")
+    f = open("Teste2.java", "r")
     lexer = lex.lex()
     lexer.input(f.read())
     parser = yacc.yacc()
@@ -58,3 +58,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    

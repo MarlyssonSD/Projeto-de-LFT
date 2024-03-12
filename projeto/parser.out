@@ -1,0 +1,217 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    ABSTRACT
+    AND
+    ASSERT
+    BIN_NUMBER
+    BITWISE_AND
+    BITWISE_AND_EQ
+    BITWISE_NOT
+    BITWISE_OR
+    BITWISE_OR_EQ
+    BITWISE_XOR
+    BITWISE_XOR_EQ
+    BOOLEAN
+    BREAK
+    BYTE
+    CASE
+    CATCH
+    CHAR
+    COMMA
+    CONST
+    CONTINUE
+    DECREMENT
+    DEFAULT
+    DIVIDE
+    DIVIDE_EQ
+    DO
+    DOT
+    DOUBLE_NUMBER
+    ELSE
+    ENUM
+    EQ
+    FINALLY
+    FLOAT_NUMBER
+    FOR
+    GEQ
+    GOTO
+    GT
+    HEXA_NUMBER
+    IF
+    IGUAL
+    IMPORT
+    INCREMENT
+    INSTANCEOF
+    INTERFACE
+    INT_NUMBER
+    LBRACKET
+    LEQ
+    LONG
+    LPAREN
+    LSHIFT
+    LSHIFT_EQ
+    LT
+    MINUS
+    MINUS_EQ
+    MOD_EQ
+    NATIVE
+    NEQ
+    NEW
+    NOT
+    OCTAL_NUMBER
+    OR
+    PACKAGE
+    PLUS
+    PLUS_EQ
+    POT
+    PV
+    RBRACKET
+    RETURN
+    RPAREN
+    RSHIFT
+    RSHIFT_EQ
+    SHORT
+    STRICTFP
+    STRING
+    SUPER
+    SWITCH
+    SYNCHRONIZED
+    THIS
+    THROW
+    THROWS
+    TIMES
+    TIMES_EQ
+    TRANSIENT
+    TRY
+    URSHIFT
+    URSHIFT_EQ
+    VOID
+    VOLATILE
+    WHILE
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> class
+Rule 2     class -> modifier visibility CLASS ID EXTENDS ID LCHAV membros RCHAV
+Rule 3     class -> modifier visibility CLASS ID LCHAV membros RCHAV
+Rule 4     class -> modifier visibility CLASS ID IMPLEMENTS LCHAV membros RCHAV
+Rule 5     visibility -> PUBLIC
+Rule 6     visibility -> PRIVATE
+Rule 7     visibility -> PROTECTED
+Rule 8     modifier -> STATIC
+Rule 9     modifier -> FINAL
+
+Terminals, with rules where they appear
+
+ABSTRACT             : 
+AND                  : 
+ASSERT               : 
+BIN_NUMBER           : 
+BITWISE_AND          : 
+BITWISE_AND_EQ       : 
+BITWISE_NOT          : 
+BITWISE_OR           : 
+BITWISE_OR_EQ        : 
+BITWISE_XOR          : 
+BITWISE_XOR_EQ       : 
+BOOLEAN              : 
+BREAK                : 
+BYTE                 : 
+CASE                 : 
+CATCH                : 
+CHAR                 : 
+CLASS                : 2 3 4
+COMMA                : 
+CONST                : 
+CONTINUE             : 
+DECREMENT            : 
+DEFAULT              : 
+DIVIDE               : 
+DIVIDE_EQ            : 
+DO                   : 
+DOT                  : 
+DOUBLE_NUMBER        : 
+ELSE                 : 
+ENUM                 : 
+EQ                   : 
+EXTENDS              : 2
+FINAL                : 9
+FINALLY              : 
+FLOAT_NUMBER         : 
+FOR                  : 
+GEQ                  : 
+GOTO                 : 
+GT                   : 
+HEXA_NUMBER          : 
+IF                   : 
+IGUAL                : 
+IMPLEMENTS           : 4
+IMPORT               : 
+INCREMENT            : 
+INSTANCEOF           : 
+INTERFACE            : 
+INT_NUMBER           : 
+LBRACKET             : 
+LCHAV                : 2 3 4
+LEQ                  : 
+LONG                 : 
+LPAREN               : 
+LSHIFT               : 
+LSHIFT_EQ            : 
+LT                   : 
+MINUS                : 
+MINUS_EQ             : 
+MOD_EQ               : 
+NATIVE               : 
+NEQ                  : 
+NEW                  : 
+NOT                  : 
+OCTAL_NUMBER         : 
+OR                   : 
+PACKAGE              : 
+PLUS                 : 
+PLUS_EQ              : 
+POT                  : 
+PRIVATE              : 6
+PROTECTED            : 7
+PUBLIC               : 5
+PV                   : 
+RBRACKET             : 
+RCHAV                : 2 3 4
+RETURN               : 
+RPAREN               : 
+RSHIFT               : 
+RSHIFT_EQ            : 
+SHORT                : 
+STATIC               : 8
+STRICTFP             : 
+STRING               : 
+SUPER                : 
+SWITCH               : 
+SYNCHRONIZED         : 
+THIS                 : 
+THROW                : 
+THROWS               : 
+TIMES                : 
+TIMES_EQ             : 
+TRANSIENT            : 
+TRY                  : 
+URSHIFT              : 
+URSHIFT_EQ           : 
+VOID                 : 
+VOLATILE             : 
+WHILE                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+ID                   : 2 2 3 4
+class                : 1
+membros              : 2 3 4
+modifier             : 2 3 4
+program              : 0
+visibility           : 2 3 4
+

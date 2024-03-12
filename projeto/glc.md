@@ -6,6 +6,7 @@ programa → class
 class → visibility modifier "class" ID extends ID {membros} |
           visibility modifier "class" ID {membros} |
           visibility modifier "class" ID implements ID {membros}
+          
 
 visibility → "PUBLIC"   |
              "PRIVATE"  |
@@ -22,15 +23,21 @@ membros → membro |
 membro → atribute |
           funcao
 
-atribute → visibility  ID |
+atribute → visibility atributemodifier ID |
 
 atributemodifier →   "abstract" |
                         "final" |
-                        "default"          
+                        ""          
 
 funcao → signature  body 
 
 body  → "{" stms "}"
+
+stms → stm  |  
+       stm stms
+
+bodyorstm → body  |
+            stm
 
 signature  → visibility ID ID "(" sigparams ")"
 
@@ -38,14 +45,12 @@ sigparams → ID    |
             ID "," sigparams
 
 
-stms → stm  |  
-       stm stms
-
-stm → exp ";"                       |  
-      WHILE "(" exp ")" body        |
-      DO body WHILE "("exp")"       |
-      FOR "(" exp ; exp ; exp ")"   |
-      IF "(" exp ")"
+stm → exp ";"                       |  //Restos dos comandos switch etc
+      WHILE "(" exp ")" bodyorstm        |
+      DO bodyorstm WHILE "("exp")"       | // talvez faça
+      FOR "(" exp ; exp ; exp ")" bodyorstm  |
+      IF "(" exp ")" bodyorstm                 |
+      IF "(" exp ")" bodyorstm ELSE bodyorstm |
       return exp ";"
 
 exp → exp ">>>=" exp |
@@ -90,21 +95,19 @@ exp → exp ">>>=" exp |
       exp "\|" exp | 
       exp "\^" exp | 
       exp "~" exp |  
-      chamada |   
+      call |   
       assign |   
-      NUM |   
+      FLOAT_NUMBER | 
+      INT_NUMBER |  
+      STRING |
       ID  
 
-chamada → ID "(" parametro ")" |
+call → ID "(" parametro ")" |
           ID "()"
 
 parametro → exp "," parametro |
           exp
 
 assign → ID "=" exp
-
-NUM → <numero inteiro>
-
-ID → <identificador>
 
 ```
