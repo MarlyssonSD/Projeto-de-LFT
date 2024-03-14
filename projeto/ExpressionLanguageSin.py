@@ -131,9 +131,19 @@ def p_stm_for(p):
 
 def p_stm_if(p):
     '''stm : IF LPAREN exp RPAREN bodyorstm'''
+    pass
+
+def p_stm_ifelse(p):
+    '''stm : IF LPAREN exp RPAREN bodyorstm ELSE bodyorstm'''
+    pass
+
+def p_stmd_elseif(p):
+    '''stm : IF LPAREN exp RPAREN bodyorstm ELSE IF bodyorstm'''
+    pass
+
+
     
-    
-    #---------------FALTANDO COMANDOS-------------------------
+    #---------------FALTANDO COMANDOS (switch)-------------------------
 
 
 
