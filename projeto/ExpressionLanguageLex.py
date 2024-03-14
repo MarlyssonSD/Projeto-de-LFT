@@ -58,7 +58,7 @@ reservadas = {
 tokens = ['BITWISE_XOR_EQ', 'BITWISE_OR_EQ', 'BITWISE_AND_EQ', 'BITWISE_XOR', 'BITWISE_NOT', 'BITWISE_OR', 'BITWISE_AND',
           'IGUAL', 'POT', 'LPAREN', 'RPAREN', 'COMMA', 'DOT', 'LCHAV', 'RCHAV', 'PV', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'EQ', 
           'NEQ', 'LT', 'GT', 'LEQ', 'GEQ', 'AND', 'OR', 'NOT', 'LSHIFT', 'RSHIFT', 'URSHIFT', 'PLUS_EQ', 'MINUS_EQ',
-          'TIMES_EQ', 'DIVIDE_EQ', 'MOD_EQ',  'LSHIFT_EQ', 'RSHIFT_EQ', 'URSHIFT_EQ',
+          'TIMES_EQ', 'DIVIDE_EQ', 'MOD_EQ',  'LSHIFT_EQ', 'RSHIFT_EQ', 'URSHIFT_EQ', 'ID', 'UNICOMMENT', 'MULTICOMMENT',
           'RBRACKET', 'LBRACKET', 'HEXA_NUMBER', 'OCTAL_NUMBER', 'BIN_NUMBER', 'INCREMENT', 'DECREMENT'] + list(reservadas.values())
 
 
@@ -106,9 +106,8 @@ t_BITWISE_OR = r'\|'
 t_BITWISE_XOR = r'\^'
 t_BITWISE_NOT = r'~'
 
-
-
-
+t_UNICOMMENT = r'//.*\n'
+t_MULTICOMMENT = r'/\*(.|\n)*?\*/'
 
 def t_BIN_NUMBER(t):
    r'0b[01]+'
@@ -132,7 +131,7 @@ def t_FLOAT_NUMBER(t):
 
 def t_DOUBLE_NUMBER(t):
    r'\d+\.\d+'
-   t.value = float(t.value) #float/double
+   t.value = float(t.value) 
    return t
 
 def t_INT_NUMBER(t):
@@ -153,14 +152,14 @@ def t_ID(t):
    t.type = reservadas.get(t.value,'ID')
    return t
 
-def t_comments_1(t):
-  r'/\* [^ *\\]'
-  t.lexer.lineno += len(t.value)
+# def t_comments_1(t):
+#   r'/\* [^ *\\]'
+#   t.lexer.lineno += len(t.value)
   
 
-def t_comments_2(t):
-   r'// [^ .*]'
-   t.lexer.lineno += len(t.value)
+# def t_comments_2(t):
+#    r'// [^ .*]'
+#    t.lexer.lineno += len(t.value)
 
 
 def t_newline(t):

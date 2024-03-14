@@ -3,9 +3,9 @@
 ```
 programa → class
 
-class → visibility modifier "class" ID extends ID {membros} |
-          visibility modifier "class" ID {membros} |
-          visibility modifier "class" ID implements ID {membros}
+class → visibility classmodifier "class" ID extends ID {membros} |
+          visibility classmodifier "class" ID {membros} |
+          visibility classmodifier "class" ID implements ID {membros}
           
 
 visibility → "PUBLIC"   |
@@ -13,45 +13,44 @@ visibility → "PUBLIC"   |
              "PROTECTED"|
              ""               // "DEFAULT"= VAZIO
 
-modifier →  "static"|
-            "final" |
-            ""                // "DEFAULT"= VAZIO
+classmodifier →  "abstract"|
+                   "final" |
+                  ""          // "DEFAULT"= VAZIO
 
 membros → membro |
           membro membros
 
 membro → atribute |
-          funcao
+          function
 
 atribute → visibility atributemodifier ID |
 
-atributemodifier →   "abstract" |
+atributemodifier →      "static"|
                         "final" |
                         ""          
 
-funcao → signature  body 
-
-body  → "{" stms "}"
-
-stms → stm  |  
-       stm stms
-
-bodyorstm → body  |
-            stm
+function → signature  body 
 
 signature  → visibility ID ID "(" sigparams ")"
 
 sigparams → ID    |  
             ID "," sigparams
 
+body  → "{" stms "}"
+
+stms → stm  |  
+       stm stms
 
 stm → exp ";"                       |  //Restos dos comandos switch etc
       WHILE "(" exp ")" bodyorstm        |
-      DO bodyorstm WHILE "("exp")"       | // talvez faça
+      DO bodyorstm WHILE "("exp")" ";"       | // talvez faça
       FOR "(" exp ; exp ; exp ")" bodyorstm  |
       IF "(" exp ")" bodyorstm                 |
       IF "(" exp ")" bodyorstm ELSE bodyorstm |
       return exp ";"
+
+bodyorstm → body  |
+            stm
 
 exp → exp ">>>=" exp |
       exp ">>>" exp |

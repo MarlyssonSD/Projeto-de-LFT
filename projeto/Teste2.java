@@ -1,4 +1,4 @@
-public class Teste2 {
+public class  Teste2 {
     protected final int num = 0;
 
     public static void main(String[] args) {
@@ -8,10 +8,7 @@ public class Teste2 {
         /*
         dessa vez pegou o coment
          */
-        for(int teste = 0; teste<10; teste++)
-        {
-            System.out.printf("testa assim: %d", teste);;
-        }
+
     }
 
 }
