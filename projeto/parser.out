@@ -2,16 +2,9 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    AND
     ASSERT
     BIN_NUMBER
-    BITWISE_AND
-    BITWISE_AND_EQ
     BITWISE_NOT
-    BITWISE_OR
-    BITWISE_OR_EQ
-    BITWISE_XOR
-    BITWISE_XOR_EQ
     BOOLEAN
     BREAK
     BYTE
@@ -20,66 +13,45 @@ Unused terminals:
     CHAR
     CONST
     CONTINUE
-    DECREMENT
     DEFAULT
-    DIVIDE
-    DIVIDE_EQ
     DOT
     DOUBLE_NUMBER
     ENUM
-    EQ
     FINALLY
     FLOAT_NUMBER
-    GEQ
     GOTO
-    GT
     HEXA_NUMBER
-    IGUAL
     IMPORT
-    INCREMENT
     INSTANCEOF
     INTERFACE
     INT_NUMBER
     LBRACKET
-    LEQ
     LONG
     LSHIFT
-    LSHIFT_EQ
-    LT
-    MINUS
-    MINUS_EQ
-    MOD_EQ
     MULTICOMMENT
     NATIVE
-    NEQ
     NEW
-    NOT
     OCTAL_NUMBER
-    OR
     PACKAGE
-    PLUS
-    PLUS_EQ
     POT
     RBRACKET
     RETURN
     RSHIFT
-    RSHIFT_EQ
+    SEMICOLON
     SHORT
     STRICTFP
     STRING
     SUPER
     SWITCH
     SYNCHRONIZED
+    TERNARY
     THIS
     THROW
     THROWS
-    TIMES
-    TIMES_EQ
     TRANSIENT
     TRY
     UNICOMMENT
     URSHIFT
-    URSHIFT_EQ
     VOID
     VOLATILE
 
@@ -112,29 +84,71 @@ Rule 23    sigparams -> ID COMMA sigparams
 Rule 24    body -> LCHAV stms RCHAV
 Rule 25    stms -> stm
 Rule 26    stms -> stm stms
-Rule 27    stm -> exp PV
-Rule 28    stm -> WHILE LPAREN exp RPAREN bodyorstm
-Rule 29    stm -> DO bodyorstm WHILE LPAREN exp RPAREN PV
-Rule 30    stm -> FOR LPAREN exp PV exp PV exp PV RPAREN bodyorstm
-Rule 31    stm -> IF LPAREN exp RPAREN bodyorstm
-Rule 32    stm -> IF LPAREN exp RPAREN bodyorstm ELSE bodyorstm
-Rule 33    stm -> IF LPAREN exp
+Rule 27    stm -> expression PV
+Rule 28    stm -> WHILE LPAREN expression RPAREN bodyorstm
+Rule 29    stm -> DO bodyorstm WHILE LPAREN expression RPAREN PV
+Rule 30    stm -> FOR LPAREN expression PV expression PV expression PV RPAREN bodyorstm
+Rule 31    stm -> IF LPAREN expression RPAREN bodyorstm
+Rule 32    stm -> IF LPAREN expression RPAREN bodyorstm ELSE bodyorstm
+Rule 33    stm -> IF LPAREN expression RPAREN bodyorstm ELSE IF bodyorstm
 Rule 34    bodyorstm -> body
 Rule 35    bodyorstm -> stm
+Rule 36    expression -> operator
+Rule 37    operator -> expression arithmetic expression
+Rule 38    operator -> ID assign expression
+Rule 39    operator -> expression operatorcomparator expression
+Rule 40    operator -> unaryoperatorprefx ID
+Rule 41    operator -> ID unaryoperatorsufx
+Rule 42    operator -> expression operatorbittobit
+Rule 43    arithmetic -> TIMES
+Rule 44    arithmetic -> DIVIDE
+Rule 45    arithmetic -> MODULE
+Rule 46    arithmetic -> PLUS
+Rule 47    arithmetic -> MINUS
+Rule 48    assign -> EQUAL
+Rule 49    assign -> PLUS_EQ
+Rule 50    assign -> MINUS_EQ
+Rule 51    assign -> TIMES_EQ
+Rule 52    assign -> DIVIDE_EQ
+Rule 53    assign -> MOD_EQ
+Rule 54    assign -> BITWISE_AND_EQ
+Rule 55    assign -> BITWISE_OR_EQ
+Rule 56    assign -> BITWISE_XOR_EQ
+Rule 57    assign -> URSHIFT_EQ
+Rule 58    assign -> LSHIFT_EQ
+Rule 59    assign -> RSHIFT_EQ
+Rule 60    operatorcomparator -> LEQ
+Rule 61    operatorcomparator -> GEQ
+Rule 62    operatorcomparator -> LT
+Rule 63    operatorcomparator -> GT
+Rule 64    operatorcomparator -> NEQ
+Rule 65    operatorcomparator -> EQ
+Rule 66    operatorcomparator -> AND
+Rule 67    operatorcomparator -> OR
+Rule 68    operatorcomparator -> BITWISE_AND
+Rule 69    operatorcomparator -> BITWISE_OR
+Rule 70    operatorcomparator -> BITWISE_XOR
+Rule 71    unaryoperatorprefx -> INCREMENT
+Rule 72    unaryoperatorprefx -> DECREMENT
+Rule 73    unaryoperatorprefx -> MINUS_EQ
+Rule 74    unaryoperatorprefx -> PLUS
+Rule 75    unaryoperatorprefx -> NOT
+Rule 76    unaryoperatorsufx -> INCREMENT
+Rule 77    unaryoperatorsufx -> DECREMENT
 
 Terminals, with rules where they appear
 
 ABSTRACT             : 10
-AND                  : 
+AND                  : 66
 ASSERT               : 
 BIN_NUMBER           : 
-BITWISE_AND          : 
-BITWISE_AND_EQ       : 
+BITWISE_AND          : 68
+BITWISE_AND_EQ       : 54
 BITWISE_NOT          : 
-BITWISE_OR           : 
-BITWISE_OR_EQ        : 
-BITWISE_XOR          : 
-BITWISE_XOR_EQ       : 
+BITWISE_OR           : 69
+BITWISE_OR_EQ        : 55
+BITWISE_XOR          : 70
+BITWISE_XOR_EQ       : 56
 BOOLEAN              : 
 BREAK                : 
 BYTE                 : 
@@ -145,66 +159,67 @@ CLASS                : 2 3 4
 COMMA                : 23
 CONST                : 
 CONTINUE             : 
-DECREMENT            : 
+DECREMENT            : 72 77
 DEFAULT              : 
-DIVIDE               : 
-DIVIDE_EQ            : 
+DIVIDE               : 44
+DIVIDE_EQ            : 52
 DO                   : 29
 DOT                  : 
 DOUBLE_NUMBER        : 
-ELSE                 : 32
+ELSE                 : 32 33
 ENUM                 : 
-EQ                   : 
+EQ                   : 65
+EQUAL                : 48
 EXTENDS              : 2
 FINAL                : 11 19
 FINALLY              : 
 FLOAT_NUMBER         : 
 FOR                  : 30
-GEQ                  : 
+GEQ                  : 61
 GOTO                 : 
-GT                   : 
+GT                   : 63
 HEXA_NUMBER          : 
-ID                   : 2 2 3 4 16 21 21 22 23
-IF                   : 31 32 33
-IGUAL                : 
+ID                   : 2 2 3 4 16 21 21 22 23 38 40 41
+IF                   : 31 32 33 33
 IMPLEMENTS           : 4
 IMPORT               : 
-INCREMENT            : 
+INCREMENT            : 71 76
 INSTANCEOF           : 
 INTERFACE            : 
 INT_NUMBER           : 
 LBRACKET             : 
 LCHAV                : 2 3 4 24
-LEQ                  : 
+LEQ                  : 60
 LONG                 : 
 LPAREN               : 21 28 29 30 31 32 33
 LSHIFT               : 
-LSHIFT_EQ            : 
-LT                   : 
-MINUS                : 
-MINUS_EQ             : 
-MOD_EQ               : 
+LSHIFT_EQ            : 58
+LT                   : 62
+MINUS                : 47
+MINUS_EQ             : 50 73
+MODULE               : 45
+MOD_EQ               : 53
 MULTICOMMENT         : 
 NATIVE               : 
-NEQ                  : 
+NEQ                  : 64
 NEW                  : 
-NOT                  : 
+NOT                  : 75
 OCTAL_NUMBER         : 
-OR                   : 
+OR                   : 67
 PACKAGE              : 
-PLUS                 : 
-PLUS_EQ              : 
+PLUS                 : 46 74
+PLUS_EQ              : 49
 POT                  : 
 PRIVATE              : 6
 PROTECTED            : 7
 PUBLIC               : 5
-PV                   : 27 29 30 30 30
 RBRACKET             : 
 RCHAV                : 2 3 4 24
 RETURN               : 
-RPAREN               : 21 28 29 30 31 32
+RPAREN               : 21 28 29 30 31 32 33
 RSHIFT               : 
-RSHIFT_EQ            : 
+RSHIFT_EQ            : 59
+SEMICOLON            : 
 SHORT                : 
 STATIC               : 18
 STRICTFP             : 
@@ -212,16 +227,17 @@ STRING               :
 SUPER                : 
 SWITCH               : 
 SYNCHRONIZED         : 
+TERNARY              : 
 THIS                 : 
 THROW                : 
 THROWS               : 
-TIMES                : 
-TIMES_EQ             : 
+TIMES                : 43
+TIMES_EQ             : 51
 TRANSIENT            : 
 TRY                  : 
 UNICOMMENT           : 
 URSHIFT              : 
-URSHIFT_EQ           : 
+URSHIFT_EQ           : 57
 VOID                 : 
 VOLATILE             : 
 WHILE                : 28 29
@@ -229,20 +245,28 @@ error                :
 
 Nonterminals, with rules where they appear
 
+PV                   : 27 29 30 30 30
+arithmetic           : 37
+assign               : 38
 atribute             : 14
 atributemodifier     : 16
 body                 : 20 34
-bodyorstm            : 28 29 30 31 32 32
+bodyorstm            : 28 29 30 31 32 32 33 33
 class                : 1
 classmodifier        : 2 3 4
-exp                  : 27 28 29 30 30 30 31 32 33
+expression           : 27 28 29 30 30 30 31 32 33 37 37 38 39 39 42
 function             : 15
 membro               : 12 13
 membros              : 2 3 4 13
+operator             : 36
+operatorbittobit     : 42
+operatorcomparator   : 39
 program              : 0
 signature            : 20
 sigparams            : 21 23
 stm                  : 25 26 35
 stms                 : 24 26
+unaryoperatorprefx   : 40
+unaryoperatorsufx    : 41
 visibility           : 2 3 4 16 21
 

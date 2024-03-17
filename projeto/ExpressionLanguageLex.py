@@ -56,10 +56,10 @@ reservadas = {
 
 
 tokens = ['BITWISE_XOR_EQ', 'BITWISE_OR_EQ', 'BITWISE_AND_EQ', 'BITWISE_XOR', 'BITWISE_NOT', 'BITWISE_OR', 'BITWISE_AND',
-          'IGUAL', 'POT', 'LPAREN', 'RPAREN', 'COMMA', 'DOT', 'LCHAV', 'RCHAV', 'PV', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'EQ', 
+          'EQUAL', 'POT', 'LPAREN', 'RPAREN', 'COMMA', 'DOT', 'LCHAV', 'RCHAV', 'SEMICOLON', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'EQ', 
           'NEQ', 'LT', 'GT', 'LEQ', 'GEQ', 'AND', 'OR', 'NOT', 'LSHIFT', 'RSHIFT', 'URSHIFT', 'PLUS_EQ', 'MINUS_EQ',
           'TIMES_EQ', 'DIVIDE_EQ', 'MOD_EQ',  'LSHIFT_EQ', 'RSHIFT_EQ', 'URSHIFT_EQ', 'ID', 'UNICOMMENT', 'MULTICOMMENT',
-          'RBRACKET', 'LBRACKET', 'HEXA_NUMBER', 'OCTAL_NUMBER', 'BIN_NUMBER', 'INCREMENT', 'DECREMENT'] + list(reservadas.values())
+          'RBRACKET', 'LBRACKET', 'HEXA_NUMBER', 'OCTAL_NUMBER', 'BIN_NUMBER', 'INCREMENT', 'DECREMENT', 'TERNARY', 'MODULE'] + list(reservadas.values())
 
 
 t_URSHIFT_EQ = r'>>>='
@@ -79,12 +79,13 @@ t_MINUS_EQ = r'-='
 t_TIMES_EQ = r'\*='
 t_DIVIDE_EQ = r'/='
 t_MOD_EQ = r'%='
+t_MODULE = r'%'
 t_BITWISE_AND_EQ = r'&='
 t_BITWISE_OR_EQ = r'\|='
 t_BITWISE_XOR_EQ = r'^='
 t_EQ = r'=='
 t_NEQ = r'!='
-t_IGUAL = r'='
+t_EQUAL = r'='
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_LBRACKET  = r'\['
@@ -93,7 +94,7 @@ t_COMMA = r','
 t_DOT = r'\.'
 t_LCHAV = r'{'
 t_RCHAV = r'}'
-t_PV = r';'
+t_SEMICOLON = r';'
 t_PLUS = r'\+'
 t_MINUS = r'-'
 t_TIMES = r'\*'
@@ -101,6 +102,7 @@ t_DIVIDE = r'/'
 t_LT = r'<'
 t_GT = r'>'
 t_NOT = r'!'
+t_TERNARY = r'\?'
 t_BITWISE_AND = r'&'
 t_BITWISE_OR = r'\|'
 t_BITWISE_XOR = r'\^'

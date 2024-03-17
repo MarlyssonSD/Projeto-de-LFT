@@ -52,54 +52,66 @@ stm → exp ";"                       |  //Restos dos comandos switch etc
 bodyorstm → body  |
             stm
 
-exp → exp ">>>=" exp |
-      exp ">>>" exp |
-      exp "<<=" exp |
-      exp ">>=" exp |
-      exp "<<" exp |
-      exp ">>" exp |
-      exp "<=" exp |
-      exp ">=" exp |
-      exp "&&" exp |
-      exp "\|\|" exp |
-      exp "\+\+" exp |
-      exp "--" exp | 
-      exp "\+=" exp | 
-      exp "-=" exp | 
-      exp "\*=" exp | 
-      exp "%=" exp | 
-      exp "&=" exp | 
-      exp "\|=" exp | 
-      exp "^=" exp | 
-      exp "==" exp | 
-      exp "!=" exp | 
-      exp "=" exp | 
-      exp "\(" exp | 
-      exp "\)" exp | 
-      exp "\[" exp | 
-      exp "\]" exp | 
-      exp "," exp | 
-      exp "\." exp | 
-      exp "{" exp | 
-      exp "}" exp | 
-      exp ";" exp | 
-      exp "\+" exp | 
-      exp "-" exp | 
-      exp "\*" exp | 
-      exp "/" exp | 
-      exp "<" exp | 
-      exp ">" exp | 
-      exp "!" exp | 
-      exp "&" exp | 
-      exp "\|" exp | 
-      exp "\^" exp | 
-      exp "~" exp |  
-      call |   
-      assign |   
+exp → operator|
+      call |      
       FLOAT_NUMBER | 
       INT_NUMBER |  
       STRING |
       ID  
+
+operator →  exp arithmetic exp|
+            ID assign exp|
+            exp operatorcomparator exp|
+            unaryoperatorprefx ID|
+            ID unaryoperatorsufx|
+            exp operatorbittobit
+
+arithmetic → "*"  |
+             "/"  |
+             "%"  |
+             "+"  |
+             "-"  
+
+assign →    "=" exp|
+            "+=" exp|
+            "-=" exp|
+            "*=" exp|
+            "/=" exp|
+            "%=" exp|
+            "&=" exp|
+            "|=" exp|
+            "^=" exp|
+            ">>>=" exp|
+            ">>=" exp|
+            "<<=" exp   
+
+operatorcomparator →    ">="|
+                        "<="|
+                        ">"|
+                        "<"|
+                        "!="|
+                        "=="|
+                        "&&"|
+                        "||"|
+                        "&"|
+                        "|"|
+                        "^"  
+
+unaryoperatorprefx →    "++"|
+                        "--"|
+                        "-"|
+                        "+"|
+                        "!"
+
+unaryoperatorsufx →     "++"|
+                        "--"
+
+
+operatorbittobit →      ">>>"|
+                        ">>"|
+                        "<<"
+
+
 
 call → ID "(" parametro ")" |
           ID "()"
@@ -107,6 +119,5 @@ call → ID "(" parametro ")" |
 parametro → exp "," parametro |
           exp
 
-assign → ID "=" exp
 
 ```

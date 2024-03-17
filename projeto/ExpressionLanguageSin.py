@@ -114,48 +114,143 @@ def p_multistms(p):
 
 #COMANDOS SWITCH
 def p_stm_exp(p):
-    '''stm : exp PV'''
+    '''stm : expression PV'''
     pass
 
 def p_stm_while(p):
-    '''stm : WHILE LPAREN exp RPAREN bodyorstm'''
+    '''stm : WHILE LPAREN expression RPAREN bodyorstm'''
     pass
 
 def p_stm_dowhile(p):
-    '''stm : DO bodyorstm WHILE LPAREN exp RPAREN PV '''
+    '''stm : DO bodyorstm WHILE LPAREN expression RPAREN PV '''
     pass
 
 def p_stm_for(p):
-    '''stm : FOR LPAREN exp PV exp PV exp PV RPAREN bodyorstm'''
+    '''stm : FOR LPAREN expression PV expression PV expression PV RPAREN bodyorstm'''
     pass
 
 def p_stm_if(p):
-    '''stm : IF LPAREN exp RPAREN bodyorstm'''
+    '''stm : IF LPAREN expression RPAREN bodyorstm'''
     pass
 
 def p_stm_ifelse(p):
-    '''stm : IF LPAREN exp RPAREN bodyorstm ELSE bodyorstm'''
+    '''stm : IF LPAREN expression RPAREN bodyorstm ELSE bodyorstm'''
     pass
 
 def p_stmd_elseif(p):
-    '''stm : IF LPAREN exp RPAREN bodyorstm ELSE IF bodyorstm'''
+    '''stm : IF LPAREN expression RPAREN bodyorstm ELSE IF bodyorstm'''
     pass
 
 
     
     #---------------FALTANDO COMANDOS (switch)-------------------------
 
-
-
-
-
 def p_bodyorstm_body(p):
     '''bodyorstm : body'''
     pass
 
 def p_bodyorstm_stm(p):
-    '''bodyorstm : stm'''
+    '''bodyorstm : stm '''
     pass
+
+#EXPRESSÕES
+def p_expression(p):
+    ''' expression : operator '''
+    pass
+    
+#OPERADORES
+def p_operator_arithmetic(p):
+    '''operator : expression arithmetic expression'''
+    pass
+
+def p_operator_assign(p):
+    '''operator : ID assign expression'''
+    pass
+
+def p_operator_operatorcomparator(p):
+    '''operator : expression operatorcomparator expression'''
+    pass
+
+def p_operator_unaryoperatorprefx(p):
+    '''operator : unaryoperatorprefx ID'''
+    pass
+
+def p_operator_unaryoperatorsufx(p):
+    '''operator : ID unaryoperatorsufx'''
+    pass
+
+def p_operator_operatorbittobit(p):
+    '''operator : expression operatorbittobit'''
+    pass
+
+def p_arithmetic(p):
+    '''
+        arithmetic : TIMES 
+                    | DIVIDE
+                    | MODULE
+                    | PLUS
+                    | MINUS                     
+    '''
+    pass
+
+def p_assign(p):
+    '''
+    assign : EQUAL
+            | PLUS_EQ
+            | MINUS_EQ
+            | TIMES_EQ
+            | DIVIDE_EQ
+            | MOD_EQ
+            | BITWISE_AND_EQ
+            | BITWISE_OR_EQ
+            | BITWISE_XOR_EQ
+            | URSHIFT_EQ
+            | LSHIFT_EQ
+            | RSHIFT_EQ
+    '''
+    pass
+
+def p_operatorcomparator(p):
+    '''
+    operatorcomparator : LEQ
+                        | GEQ
+                        | LT
+                        | GT
+                        | NEQ
+                        | EQ
+                        | AND
+                        | OR
+                        | BITWISE_AND
+                        | BITWISE_OR
+                        | BITWISE_XOR
+    '''
+    pass
+
+def p_unaryoperatorprefx(p):
+    '''
+    unaryoperatorprefx : INCREMENT
+                        | DECREMENT
+                        | MINUS_EQ
+                        | PLUS
+                        | NOT
+    '''
+    pass
+def p_unaryoperatorsufx(p):
+    '''
+    unaryoperatorsufx : INCREMENT
+                        | DECREMENT
+    '''
+    pass
+
+def P_operatorbittobit(p):
+    '''
+    operatorbittobit : URSHIFT
+                        | LSHIFT
+                        | RSHIFT
+    
+    '''
+    pass
+
 
 def main():
     f = open("projeto/Teste2.java", "r")
