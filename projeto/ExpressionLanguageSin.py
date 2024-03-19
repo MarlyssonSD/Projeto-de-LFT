@@ -140,10 +140,10 @@ def p_stm_ifelse(p):
 def p_stm_elseif(p):
     '''stm : IF LPAREN expression RPAREN bodyorstm ELSE IF bodyorstm'''
     pass
-
-def p_stm_semicollon(p):
-    '''stm : SEMICOLON '''
-    pass
+#VERIFICAR SE ESTÁ CORRETO ==========================
+# def p_stm_semicollon(p):
+#     '''stm : SEMICOLON '''
+#     pass
     
     #---------------FALTANDO COMANDOS (switch)-------------------------
 
