@@ -105,7 +105,7 @@ def p_body(p):
     pass
 
 def p_stms(p):
-    '''stms : stm'''
+    '''stms : stm '''
     pass
 
 def p_multistms(p):
@@ -137,11 +137,13 @@ def p_stm_ifelse(p):
     '''stm : IF LPAREN expression RPAREN bodyorstm ELSE bodyorstm'''
     pass
 
-def p_stmd_elseif(p):
+def p_stm_elseif(p):
     '''stm : IF LPAREN expression RPAREN bodyorstm ELSE IF bodyorstm'''
     pass
 
-
+def p_stm_semicollon(p):
+    '''stm : SEMICOLON '''
+    pass
     
     #---------------FALTANDO COMANDOS (switch)-------------------------
 
@@ -157,7 +159,27 @@ def p_bodyorstm_stm(p):
 def p_expression(p):
     ''' expression : operator '''
     pass
-    
+
+def p_expression_call(p):
+    ''' expression : call '''
+    pass
+
+def p_expression_FLOAT_NUMBER(p):
+    ''' expression : FLOAT_NUMBER '''
+    pass
+
+def p_expression_INT_NUMBER(p):
+    ''' expression : INT_NUMBER '''
+    pass
+
+def p_expression_STRING(p):
+    ''' expression : STRING '''
+    pass
+
+def p_expression_ID (p):
+    ''' expression : ID  '''
+    pass
+
 #OPERADORES
 def p_operator_arithmetic(p):
     '''operator : expression arithmetic expression'''
@@ -251,6 +273,21 @@ def P_operatorbittobit(p):
     '''
     pass
 
+def p_call(p):
+    ''' call : ID LPAREN params RPAREN'''
+    pass
+
+def p_call_default(p):
+    ''' call : ID LPAREN RPAREN'''
+    pass
+
+def p_params_multi(p):
+    ''' params : expression COMMA params'''
+    pass
+
+def p_params_unique(p):
+    ''' params : expression'''
+    pass
 
 def main():
     f = open("projeto/Teste2.java", "r")

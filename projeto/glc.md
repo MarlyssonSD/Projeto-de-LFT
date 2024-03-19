@@ -113,10 +113,10 @@ operatorbittobit →      ">>>"|
 
 
 
-call → ID "(" parametro ")" |
+call → ID "(" params ")" |
           ID "()"
 
-parametro → exp "," parametro |
+params → exp "," params |
           exp
 
 
