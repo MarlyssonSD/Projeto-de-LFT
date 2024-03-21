@@ -1,6 +1,9 @@
 from ExpressionLanguageLex import *
 import ply.yacc as yacc
 
+def p_precedence(p):
+    ('left', 'PLUS', 'MINUS')
+    ('left', 'TIMES', 'DIVIDE')
 
 def p_program(p):
     ''' program : class '''
@@ -114,7 +117,7 @@ def p_multistms(p):
 
 #COMANDOS SWITCH
 def p_stm_exp(p):
-    '''stm : expression PV'''
+    '''stm : expression SEMICOLON'''
     pass
 
 def p_stm_while(p):
@@ -122,11 +125,11 @@ def p_stm_while(p):
     pass
 
 def p_stm_dowhile(p):
-    '''stm : DO bodyorstm WHILE LPAREN expression RPAREN PV '''
+    '''stm : DO bodyorstm WHILE LPAREN expression RPAREN SEMICOLON '''
     pass
 
 def p_stm_for(p):
-    '''stm : FOR LPAREN expression PV expression PV expression PV RPAREN bodyorstm'''
+    '''stm : FOR LPAREN expression SEMICOLON expression SEMICOLON expression SEMICOLON RPAREN bodyorstm'''
     pass
 
 def p_stm_if(p):
@@ -141,9 +144,10 @@ def p_stm_elseif(p):
     '''stm : IF LPAREN expression RPAREN bodyorstm ELSE IF bodyorstm'''
     pass
 #VERIFICAR SE ESTÁ CORRETO ==========================
-# def p_stm_semicollon(p):
-#     '''stm : SEMICOLON '''
-#     pass
+
+def p_stm_semicollon(p):
+    '''stm : SEMICOLON '''
+    pass
     
     #---------------FALTANDO COMANDOS (switch)-------------------------
 
@@ -151,9 +155,9 @@ def p_bodyorstm_body(p):
     '''bodyorstm : body'''
     pass
 
-def p_bodyorstm_stm(p):
-    '''bodyorstm : stm '''
-    pass
+# def p_bodyorstm_stm(p):
+#     '''bodyorstm : stm '''
+#     pass
 
 #EXPRESSÕES
 def p_expression(p):
@@ -264,7 +268,7 @@ def p_unaryoperatorsufx(p):
     '''
     pass
 
-def P_operatorbittobit(p):
+def p_operatorbittobit(p):
     '''
     operatorbittobit : URSHIFT
                         | LSHIFT
@@ -290,11 +294,11 @@ def p_params_unique(p):
     pass
 
 def main():
-    f = open("projeto/Teste2.java", "r")
+    f = open("projeto\\Teste2.java", "r")
     lexer = lex.lex()
     lexer.input(f.read())
     parser = yacc.yacc()
-    result = parser.parse(debug=True)
+    result = parser.parse(debug=False) #True
 
 
 if __name__ == "__main__":

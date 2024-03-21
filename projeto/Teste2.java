@@ -11,6 +11,8 @@ public class Teste2 {
         if (!true)
             return;
 
+        float vetor [];
+
     }
 
 }
