@@ -1,9 +1,23 @@
 from ExpressionLanguageLex import *
 import ply.yacc as yacc
 
-def p_precedence(p):
-    ('left', 'PLUS', 'MINUS')
-    ('left', 'TIMES', 'DIVIDE')
+#https://docs.oracle.com/javase/tutorial/java/nutsandbolts/operators.html
+
+precedence = (
+    ('left', 'EQUAL','MINUS_EQ','TIMES_EQ','PLUS_EQ','DIVIDE_EQ','MOD_EQ','BITWISE_AND_EQ','BITWISE_OR_EQ','BITWISE_XOR_EQ','URSHIFT_EQ','LSHIFT_EQ','RSHIFT_EQ'),
+    ('left','OR'),
+    ('left','AND'),
+    ('left','BITWISE_OR'),
+    ('left','BITWISE_XOR'),
+    ('left','BITWISE_AND'),
+    ('left','EQ','NEQ'),
+    ('left','LT','GT','LEQ','GEQ'),
+    ('left','LSHIFT','RSHIFT','URSHIFT'),
+    ('left','PLUS','MINUS'),
+    ('left','TIMES','DIVIDE','MODULE'),
+    ('left','LINCREMENT','LDECREMENT','UPLUS','UMINUS','NOT'),
+    ('left','RINCREMENT','RDECREMENT'),
+)
 
 def p_program(p):
     ''' program : class '''
@@ -52,6 +66,10 @@ def p_classmodifier_final(p):
     '''classmodifier : FINAL'''
     pass
 
+def p_classmodifier_package(p):
+    '''classmodifier : PACKAGE'''
+    pass
+
 #MEMBROS
 def p_membros(p):
     '''membros : membro'''
@@ -71,7 +89,15 @@ def p_membrofunction(p):
 
 #ATRIBUTOS
 def p_atribute(p):
-    '''atribute :  visibility atributemodifier ID'''
+    '''atribute : visibility atributemodifier type ID SEMICOLON'''
+    pass
+
+def p_atribute_inicialized_ID(p):
+    '''atribute : visibility atributemodifier type ID EQUAL ID SEMICOLON'''
+    pass
+
+def p_atribute_inicialized_type(p):
+    '''atribute : visibility atributemodifier type ID EQUAL expression SEMICOLON'''
     pass
 
 def p_atributemodifier_default(p):
@@ -92,11 +118,11 @@ def p_function(p):
     pass
 
 def p_signature(p):
-    ''' signature : visibility ID ID LPAREN sigparams RPAREN'''
+    ''' signature : visibility atributemodifier type ID LPAREN sigparams RPAREN '''
     pass
 
 def p_sigparams_id(p):
-    '''sigparams : ID'''
+    '''sigparams : ID '''
     pass
 
 def p_sigparams_sigparams(p):
@@ -155,9 +181,6 @@ def p_bodyorstm_body(p):
     '''bodyorstm : body'''
     pass
 
-# def p_bodyorstm_stm(p):
-#     '''bodyorstm : stm '''
-#     pass
 
 #EXPRESSÕES
 def p_expression(p):
@@ -209,6 +232,31 @@ def p_operator_operatorbittobit(p):
     '''operator : expression operatorbittobit'''
     pass
 
+def p_brackets_expression(p):
+    ''' brackets_expression : LBRACKET RBRACKET
+                            | LBRACKET INT_NUMBER RBRACKET
+                            | LBRACKET ID RBRACKET
+    '''
+
+#TIPOS PRIMITIVOS
+def p_type(p):
+    ''' type : primitivetypes'''
+    pass
+
+def p_primitivetypes(p):
+    '''primitivetypes : TYPE_INT
+                        | TYPE_FLOAT
+                        | TYPE_DOUBLE
+                        | TYPE_BYTE
+                        | TYPE_BOOLEAN
+                        | TYPE_CHAR
+                        | TYPE_STRING
+                        | TYPE_LONG
+                        | TYPE_VOID
+
+    '''
+    pass
+
 def p_arithmetic(p):
     '''
         arithmetic : TIMES 
@@ -222,9 +270,9 @@ def p_arithmetic(p):
 def p_assign(p):
     '''
     assign : EQUAL
-            | PLUS_EQ
             | MINUS_EQ
             | TIMES_EQ
+            | PLUS_EQ
             | DIVIDE_EQ
             | MOD_EQ
             | BITWISE_AND_EQ
@@ -254,17 +302,17 @@ def p_operatorcomparator(p):
 
 def p_unaryoperatorprefx(p):
     '''
-    unaryoperatorprefx : INCREMENT
-                        | DECREMENT
-                        | MINUS_EQ
-                        | PLUS
+    unaryoperatorprefx : INCREMENT %prec LINCREMENT
+                        | DECREMENT %prec LDECREMENT
+                        | MINUS %prec UMINUS
+                        | PLUS %prec UPLUS
                         | NOT
     '''
     pass
 def p_unaryoperatorsufx(p):
     '''
-    unaryoperatorsufx : INCREMENT
-                        | DECREMENT
+    unaryoperatorsufx : INCREMENT %prec RINCREMENT
+                        | DECREMENT %prec RDECREMENT
     '''
     pass
 

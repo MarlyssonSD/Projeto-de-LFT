@@ -5,8 +5,9 @@ import ply.lex as lex
 
 reservadas = {
    #TIPOS
-   'boolean': 'BOOLEAN', 'int': 'INT_NUMBER', 'float': 'FLOAT_NUMBER', 'byte': 'BYTE',
-   'double': 'DOUBLE_NUMBER', 'char': 'CHAR', 'string' : 'STRING', 'long': 'LONG',
+   'boolean': 'TYPE_BOOLEAN', 'int': 'TYPE_INT', 'float': 'TYPE_FLOAT', 'byte': 'TYPE_BYTE',
+   'double': 'TYPE_DOUBLE', 'char': 'TYPE_CHAR', 'string' : 'TYPE_STRING', 'long': 'TYPE_LONG',
+   'void': 'TYPE_VOID',
 
    #VISIBILIDADE
    'public': 'PUBLIC', 'private': 'PRIVATE',
@@ -48,14 +49,14 @@ reservadas = {
    'throws': 'THROWS',
    'transient': 'TRANSIENT',
    'try': 'TRY',
-   'void': 'VOID',
    'volatile': 'VOLATILE',
    'while': 'WHILE'
 }
 
 
 
-tokens = ['BITWISE_XOR_EQ', 'BITWISE_OR_EQ', 'BITWISE_AND_EQ', 'BITWISE_XOR', 'BITWISE_NOT', 'BITWISE_OR', 'BITWISE_AND',
+tokens = ['INT_NUMBER', 'FLOAT_NUMBER', 'BYTE_NUMBER', 'DOUBLE_NUMBER', 'CHAR', 'STRING', 'LONG_NUMBER',
+         'BITWISE_XOR_EQ', 'BITWISE_OR_EQ', 'BITWISE_AND_EQ', 'BITWISE_XOR', 'BITWISE_NOT', 'BITWISE_OR', 'BITWISE_AND',
           'EQUAL', 'POT', 'LPAREN', 'RPAREN', 'COMMA', 'DOT', 'LCHAV', 'RCHAV', 'SEMICOLON', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'EQ', 
           'NEQ', 'LT', 'GT', 'LEQ', 'GEQ', 'AND', 'OR', 'NOT', 'LSHIFT', 'RSHIFT', 'URSHIFT', 'PLUS_EQ', 'MINUS_EQ',
           'TIMES_EQ', 'DIVIDE_EQ', 'MOD_EQ',  'LSHIFT_EQ', 'RSHIFT_EQ', 'URSHIFT_EQ', 'ID', 'UNICOMMENT', 'MULTICOMMENT',
@@ -63,9 +64,9 @@ tokens = ['BITWISE_XOR_EQ', 'BITWISE_OR_EQ', 'BITWISE_AND_EQ', 'BITWISE_XOR', 'B
 
 
 t_URSHIFT_EQ = r'>>>='
-t_URSHIFT  = r'>>>'
 t_LSHIFT_EQ  = r'<<='
 t_RSHIFT_EQ  = r'>>='
+t_URSHIFT  = r'>>>'
 t_LSHIFT  = r'<<'
 t_RSHIFT = r'>>'
 t_LEQ = r'<='
