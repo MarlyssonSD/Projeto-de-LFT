@@ -31,6 +31,6 @@ public class Teste1 {
         // }
 
         System.out.println("\nOperadores e Variáveis:");
-        System.out.println("Soma: " + resultadoSoma);
+        System.out.println("Soma: " + resultadoSoma); 
     }
 }

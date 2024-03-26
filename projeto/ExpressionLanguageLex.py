@@ -6,7 +6,7 @@ import ply.lex as lex
 reservadas = {
    #TIPOS
    'boolean': 'TYPE_BOOLEAN', 'int': 'TYPE_INT', 'float': 'TYPE_FLOAT', 'byte': 'TYPE_BYTE',
-   'double': 'TYPE_DOUBLE', 'char': 'TYPE_CHAR', 'string' : 'TYPE_STRING', 'long': 'TYPE_LONG',
+   'double': 'TYPE_DOUBLE', 'char': 'TYPE_CHAR', 'String' : 'TYPE_STRING', 'long': 'TYPE_LONG',
    'void': 'TYPE_VOID',
 
    #VISIBILIDADE
@@ -138,7 +138,7 @@ def t_DOUBLE_NUMBER(t):
    return t
 
 def t_INT_NUMBER(t):
-   r'[+-]?\d+'
+   r'\d+'
    t.value = int(t.value)
    return t
 
