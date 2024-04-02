@@ -1,20 +1,29 @@
 public class Teste2 {
     public static void main(String args) {
         // Definindo os valores individuais
-        int valor1 = 1;
+        final int valor1 = 1;
         int valor2 = 2;
         int valor3 = 3;
         int valor4 = 4;
         int valor5 = 5;
-        float meudouble;
+        String minhaFrase;
+        boolean meudouble = false;
+        float MeuFLOAT;
+        // int[] teste = new int[20];
+
         if (false) {
             return;
         }
-        while (valor1 < 10) {
-            valor1++;
+
+        while (valor3 < 10) {
+            valor2++;
         }
-        for (int a = 0; a < 10; a++) {
-            valor1++;
+        int novo;
+        for (novo = 2; novo < 4; novo++)
+            novo++;
+
+        for (String a = "0"; a.equals("00"); a = "0" + a) {
+            valor5++;
         }
         // Calculando a soma dos valores
         int soma = valor1 + valor2 + valor3 + valor4 + valor5;

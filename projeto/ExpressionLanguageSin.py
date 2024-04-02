@@ -169,7 +169,7 @@ def p_stm_dowhile(p):
     pass
 
 def p_stm_for(p):
-    '''stm : FOR LPAREN expression SEMICOLON expression SEMICOLON expression SEMICOLON RPAREN bodyorstm'''
+    '''stm : FOR LPAREN expression_for SEMICOLON expression SEMICOLON expression RPAREN bodyorstm'''
     pass
 
 def p_stm_if(p):
@@ -215,6 +215,18 @@ def p_bodyorstm_body(p):
 
 
 #EXPRESSÕES
+
+
+
+
+def p_expression_assign_for_type(p):
+    ''' expression_for : type ID EQUAL expression  '''
+    pass
+
+def p_expression_assign_for(p):
+    ''' expression_for : ID EQUAL expression  '''
+    pass
+
 def p_expression(p):
     ''' expression : operator '''
     pass
@@ -250,6 +262,7 @@ def p_expression_new(p):
 def p_expression_new_list(p):
     '''expression : NEW type LBRACKET expression RBRACKET '''
     pass
+
 
 
 #OPERADORES
