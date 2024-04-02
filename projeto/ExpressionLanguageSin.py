@@ -80,8 +80,12 @@ def p_multimembros(p): #multimembros
     pass
 
 def p_membro_atribute(p):
-    '''membro : atribute'''    
+    '''membro : atribute'''
     pass
+
+# def p_membro_list_atribute(p):
+#     '''membro : atribute_list'''    
+#     pass
 
 def p_membrofunction(p):
     '''membro : function'''    
@@ -95,6 +99,16 @@ def p_atribute(p):
 def p_atribute_inicialized_type(p):
     '''atribute : visibility atributemodifier type ID EQUAL expression SEMICOLON'''
     pass
+
+# def p_list_atribute_inicialized_type(p):
+#     '''atribute_list : visibility atributemodifier type LBRACKET RBRACKET ID EQUAL NEW type LBRACKET INT_NUMBER RBRACKET SEMICOLON'''
+#     pass
+
+# def p_list_atribute_default(p):
+#     '''atribute_list : visibility atributemodifier type LBRACKET RBRACKET ID EQUAL expression SEMICOLON'''
+#     pass
+
+
 
 def p_atributemodifier_default(p):
     '''atributemodifier : '''
@@ -191,12 +205,7 @@ def p_stm_return(p):
     '''stm : RETURN expression SEMICOLON'''
     pass
 
-
     
-    
-    
-    #---------------FALTANDO COMANDOS (switch)-------------------------
-
 def p_bodyorstm_body(p):
     '''bodyorstm : body'''
     pass
@@ -213,6 +222,10 @@ def p_expression_call(p):
 
 def p_expression_FLOAT_NUMBER(p):
     ''' expression : FLOAT_NUMBER '''
+    pass
+
+def p_expression_DOUBLE_NUMBER(p):
+    ''' expression : DOUBLE_NUMBER '''
     pass
 
 def p_expression_INT_NUMBER(p):

@@ -59,7 +59,7 @@ tokens = ['INT_NUMBER', 'FLOAT_NUMBER', 'BYTE_NUMBER', 'DOUBLE_NUMBER', 'CHAR', 
          'BITWISE_XOR_EQ', 'BITWISE_OR_EQ', 'BITWISE_AND_EQ', 'BITWISE_XOR', 'BITWISE_NOT', 'BITWISE_OR', 'BITWISE_AND',
           'EQUAL', 'POT', 'LPAREN', 'RPAREN', 'COMMA', 'DOT', 'LCHAV', 'RCHAV', 'SEMICOLON', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'EQ', 
           'NEQ', 'LT', 'GT', 'LEQ', 'GEQ', 'AND', 'OR', 'NOT', 'LSHIFT', 'RSHIFT', 'URSHIFT', 'PLUS_EQ', 'MINUS_EQ',
-          'TIMES_EQ', 'DIVIDE_EQ', 'MOD_EQ',  'LSHIFT_EQ', 'RSHIFT_EQ', 'URSHIFT_EQ', 'ID', 'UNICOMMENT', 'MULTICOMMENT',
+          'TIMES_EQ', 'DIVIDE_EQ', 'MOD_EQ',  'LSHIFT_EQ', 'RSHIFT_EQ', 'URSHIFT_EQ', 'ID',
           'RBRACKET', 'LBRACKET', 'HEXA_NUMBER', 'OCTAL_NUMBER', 'BIN_NUMBER', 'INCREMENT', 'DECREMENT', 'TERNARY', 'MODULE'] + list(reservadas.values())
 
 
@@ -109,8 +109,15 @@ t_BITWISE_OR = r'\|'
 t_BITWISE_XOR = r'\^'
 t_BITWISE_NOT = r'~'
 
-t_UNICOMMENT = r'//.*\n'
-t_MULTICOMMENT = r'/\*(.|\n)*?\*/'
+
+def t_comments_1(t):
+   r'//.*\n'
+   t.lexer.lineno += 1
+
+def t_comments_2(t):
+  r'/\*(.|\n)*?\*/'
+  t.lexer.lineno += len(t.value)  
+
 
 def t_BIN_NUMBER(t):
    r'0b[01]+'
@@ -154,16 +161,6 @@ def t_ID(t):
    r'[a-zA-Z_][a-zA-Z_0-9]*'
    t.type = reservadas.get(t.value,'ID')
    return t
-
-# def t_comments_1(t):
-#   r'/\* [^ *\\]'
-#   t.lexer.lineno += len(t.value)
-  
-
-# def t_comments_2(t):
-#    r'// [^ .*]'
-#    t.lexer.lineno += len(t.value)
-
 
 def t_newline(t):
    r'\n+'

@@ -2,11 +2,6 @@ public class Teste1 {
     public static void main(String[] args) {
         // Palavras-chave
         double contador = 1.1;
-        0X3864F
-        0b0111
-        025361
-        ++contador;
-        --contador;
         String[] nomes = { "if", "else", "for", "while", "switch", "case", "break", "continue" };
         System.out.println("Meu contador: " + contador);
         // Operadores
