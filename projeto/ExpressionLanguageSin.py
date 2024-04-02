@@ -205,6 +205,9 @@ def p_stm_return(p):
     '''stm : RETURN expression SEMICOLON'''
     pass
 
+def p_stm_void_return(p):
+    '''stm : RETURN SEMICOLON'''
+    pass
     
 def p_bodyorstm_body(p):
     '''bodyorstm : body'''
@@ -246,7 +249,7 @@ def p_expression_new(p):
 
 def p_expression_new_list(p):
     '''expression : NEW type LBRACKET expression RBRACKET '''
-    
+    pass
 
 
 #OPERADORES
@@ -269,7 +272,6 @@ def p_operator_arithmetic_plus(p):
 def p_operator_arithmetic_minus(p):
     '''operator : expression MINUS expression'''
     pass
-
 
 def p_operator_assign_EQUAL(p):
     '''operator : ID EQUAL expression'''
@@ -365,8 +367,6 @@ def p_operator_operatorcomparator_BITWISE_XOR(p):
     pass
 
 
-
-
 def p_operator_unaryoperatorprefx(p):
     '''operator : unaryoperatorprefx ID'''
     pass
@@ -379,24 +379,6 @@ def p_operator_operatorbittobit(p):
     '''operator : expression operatorbittobit'''
     pass
 
-
-
-
-# def p_operatorcomparator(p):
-#     '''
-#     operatorcomparator : LEQ
-#                         | GEQ
-#                         | LT
-#                         | GT
-#                         | NEQ
-#                         | EQ
-#                         | AND
-#                         | OR
-#                         | BITWISE_AND
-#                         | BITWISE_OR
-#                         | BITWISE_XOR
-#     '''
-#     pass
 
 def p_unaryoperatorprefx(p):
     '''
