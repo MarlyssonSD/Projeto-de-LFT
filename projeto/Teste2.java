@@ -14,20 +14,20 @@ public class Teste2 {
         if (false) {
             return;
         }
-
+        valor2++;
         while (valor3 < 10) {
             valor2++;
         }
         int novo;
-        for (novo = 2; novo < 4; novo++)
+        for (novo = 2; novo < 4; novo++){
             novo++;
-
-        for (String a = "0"; a.equals("00"); a = "0" + a) {
-            valor5++;
         }
+
+
+
         // Calculando a soma dos valores
         int soma = valor1 + valor2 + valor3 + valor4 + valor5;
         // Exibindo o resultado da soma
-        System.out.println("A soma dos valores é: " + soma);
+        //System.out.println("A soma dos valores é: " + soma);
     }
 }
