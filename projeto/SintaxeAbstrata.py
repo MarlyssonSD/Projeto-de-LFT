@@ -255,7 +255,7 @@ class Body(metaclass=ABCMeta):
     def accept(self, visitor):
         pass
     
-class BodyStm(Body):
+class BodyStms(Body):
     def __init__(self, stms):
         self.stms = stms
     def accept(self, visitor):
@@ -412,60 +412,60 @@ class Expression(metaclass=ABCMeta):
         pass
 
 class ExpressionOperator(Expression):
-        def __init__(self, operator):
-            self.operator = operator
-        def accept(self, visitor):
-            pass
+    def __init__(self, operator):
+        self.operator = operator
+    def accept(self, visitor):
+        pass
 
 class ExpressionCall(Expression):
-        def __init__(self, call):
-            self.call = call
-        def accept(self, visitor):
-            pass
+    def __init__(self, call):
+        self.call = call
+    def accept(self, visitor):
+        pass
     
 class ExpressionFloatNumber(Expression):
-        def __init__(self, float_number):
-            self.float_number = float_number
-        def accept(self, visitor):
-            pass
+    def __init__(self, float_number):
+        self.float_number = float_number
+    def accept(self, visitor):
+        pass
         
 class ExpressionDoubleNumber(Expression):
-        def __init__(self, double_number):
-            self.double_number = double_number
-        def accept(self, visitor):
-            pass
+    def __init__(self, double_number):
+        self.double_number = double_number
+    def accept(self, visitor):
+        pass
         
 class ExpressionIntNumber(Expression):
-        def __init__(self, int_number):
-            self.int_number = int_number
-        def accept(self, visitor):
-            pass
-        
+    def __init__(self, int_number):
+        self.int_number = int_number
+    def accept(self, visitor):
+        pass
+    
 class ExpressionString(Expression):
-        def __init__(self, string):
-            self.string = string
-        def accept(self, visitor):
-            pass
+    def __init__(self, string):
+        self.string = string
+    def accept(self, visitor):
+        pass
         
 class ExpressionId(Expression):
-        def __init__(self, ID):
-            self.ID = ID
-        def accept(self, visitor):
-            pass
+    def __init__(self, ID):
+        self.ID = ID
+    def accept(self, visitor):
+        pass
         
 class ExpressionNew(Expression):
-        def __init__(self, type, params_call):
-            self.type = type
-            self.params_call = params_call
-        def accept(self, visitor):
-            pass
+    def __init__(self, type, params_call):
+        self.type = type
+        self.params_call = params_call
+    def accept(self, visitor):
+        pass
         
 class ExpressionNewList(Expression):
-        def __init__(self, type, expression):
-            self.type = type
-            self.expression = expression
-        def accept(self, visitor):
-            pass       
+    def __init__(self, type, expression):
+        self.type = type
+        self.expression = expression
+    def accept(self, visitor):
+        pass       
         
 
 #OPERATOR
@@ -473,13 +473,225 @@ class Operator(metaclass=ABCMeta):
     @abstractmethod
     def accept(self, visitor):
         pass
+
+class OperatorArithmeticTimes(Operator):
+    def __init__(self,expression_1, expression_2):
+        self.expression_1 = expression_1
+        self.expression_2 = expression_2
+    def accept(self, visitor):
+        pass
     
+class OperatorArithmeticDivide(Operator):
+    def __init__(self,expression_1, expression_2):
+        self.expression_1 = expression_1
+        self.expression_2 = expression_2
+    def accept(self, visitor):
+        pass
     
+class OperatorArithmeticModule(Operator):
+    def __init__(self,expression_1, expression_2):
+        self.expression_1 = expression_1
+        self.expression_2 = expression_2
+    def accept(self, visitor):
+        pass
     
+class OperatorArithmeticPlus(Operator):
+    def __init__(self,expression_1, expression_2):
+        self.expression_1 = expression_1
+        self.expression_2 = expression_2
+    def accept(self, visitor):
+        pass
     
+class OperatorArithmeticMinus(Operator):
+    def __init__(self,expression_1, expression_2):
+            self.expression_1 = expression_1
+            self.expression_2 = expression_2
+    def accept(self, visitor):
+        pass
+
+class OperatorAssignEqual(Operator):
+    def __init__(self, ID, expression):
+        self.ID = ID
+        self.expression = expression
+    def accept(self, visitor):
+        pass
     
+class OperatorAssignMinusEQ(Operator):
+    def __init__(self, ID, expression):
+        self.ID = ID
+        self.expression = expression
+    def accept(self, visitor):
+        pass
     
+class OperatorAssignTimesEQ(Operator):
+    def __init__(self, ID, expression):
+        self.ID = ID
+        self.expression = expression
+    def accept(self, visitor):
+        pass
+
+class OperatorAssignPlusEQ(Operator):
+    def __init__(self, ID, expression):
+        self.ID = ID
+        self.expression = expression
+    def accept(self, visitor):
+        pass
+
+class OperatorAssignDivideEQ(Operator):
+    def __init__(self, ID, expression):
+        self.ID = ID
+        self.expression = expression
+    def accept(self, visitor):
+        pass
     
+class OperatorAssignModuleEQ(Operator):
+    def __init__(self, ID, expression):
+        self.ID = ID
+        self.expression = expression
+    def accept(self, visitor):
+        pass
+    
+class OperatorAssignBitwiseAndEQ(Operator):
+    def __init__(self, ID, expression):
+        self.ID = ID
+        self.expression = expression
+    def accept(self, visitor):
+        pass
+    
+class OperatorAssignBitwiseOrEQ(Operator):
+    def __init__(self, ID, expression):
+        self.ID = ID
+        self.expression = expression
+    def accept(self, visitor):
+        pass
+    
+class OperatorAssignBitwiseXorEQ(Operator):
+    def __init__(self, ID, expression):
+        self.ID = ID
+        self.expression = expression
+    def accept(self, visitor):
+        pass
+    
+class OperatorAssignUrshiftEQ(Operator):
+    def __init__(self, ID, expression):
+        self.ID = ID
+        self.expression = expression
+    def accept(self, visitor):
+        pass
+    
+class OperatorAssignLshiftEQ(Operator):
+    def __init__(self, ID, expression):
+        self.ID = ID
+        self.expression = expression
+    def accept(self, visitor):
+        pass
+
+class OperatorAssignRshiftEQ(Operator):
+    def __init__(self, ID, expression):
+        self.ID = ID
+        self.expression = expression
+    def accept(self, visitor):
+        pass
+    
+class OperatorComparatorLeq(Operator):
+    def __init__(self, expression_1, expression_2):
+        self.expression_1 = expression_1
+        self.expression_2 = expression_2
+    def accept(self, visitor):
+        pass
+
+class OperatorComparatorGeq(Operator):
+    def __init__(self, expression_1, expression_2):
+        self.expression_1 = expression_1
+        self.expression_2 = expression_2
+    def accept(self, visitor):
+        pass
+    
+class OperatorComparatorLt(Operator):
+    def __init__(self, expression_1, expression_2):
+        self.expression_1 = expression_1
+        self.expression_2 = expression_2
+    def accept(self, visitor):
+        pass
+
+class OperatorComparatorGt(Operator):
+    def __init__(self, expression_1, expression_2):
+        self.expression_1 = expression_1
+        self.expression_2 = expression_2
+    def accept(self, visitor):
+        pass
+    
+class OperatorComparatorNeq(Operator):
+    def __init__(self, expression_1, expression_2):
+        self.expression_1 = expression_1
+        self.expression_2 = expression_2
+    def accept(self, visitor):
+        pass
+    
+class OperatorComparatorEq(Operator):
+    def __init__(self, expression_1, expression_2):
+        self.expression_1 = expression_1
+        self.expression_2 = expression_2
+    def accept(self, visitor):
+        pass
+    
+class OperatorComparatorAnd(Operator):
+    def __init__(self, expression_1, expression_2):
+        self.expression_1 = expression_1
+        self.expression_2 = expression_2
+    def accept(self, visitor):
+        pass
+    
+class OperatorComparatorOr(Operator):
+    def __init__(self, expression_1, expression_2):
+        self.expression_1 = expression_1
+        self.expression_2 = expression_2
+    def accept(self, visitor):
+        pass
+    
+class OperatorComparatorBitwise_And(Operator):
+    def __init__(self, expression_1, expression_2):
+        self.expression_1 = expression_1
+        self.expression_2 = expression_2
+    def accept(self, visitor):
+        pass
+
+class OperatorComparatorBitwise_OR(Operator):
+    def __init__(self, expression_1, expression_2):
+        self.expression_1 = expression_1
+        self.expression_2 = expression_2
+    def accept(self, visitor):
+        pass
+    
+class OperatorComparatorBitwise_XOR(Operator):
+    def __init__(self, expression_1, expression_2):
+        self.expression_1 = expression_1
+        self.expression_2 = expression_2
+    def accept(self, visitor):
+        pass
+    
+class OperatorUnaryPrefix(Operator):
+    def __init__(self, ID):
+        self.ID = ID
+    def accept(self, visitor):
+        pass
+    
+class OperatorUnarySufix(Operator):
+    def __init__(self, ID):
+        self.ID = ID
+    def accept(self, visitor):
+        pass
+        
+class OperatorBitToBit(Operator):
+    def __init__(self, expression):
+        self.expression = expression
+    def accept(self, visitor):
+        pass
+
+
+
+
+
 
 #UNARYOPERATORPREFIX
 class UnaryOperatorPrefix(metaclass=ABCMeta):

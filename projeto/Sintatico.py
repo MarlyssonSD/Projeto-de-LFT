@@ -129,6 +129,7 @@ def p_function(p):
     '''function : signature body'''
     pass
 
+#SIGNATURE
 def p_signature(p):
     '''signature : visibility atributemodifier type ID LPAREN sigparams RPAREN '''
     pass
@@ -137,6 +138,7 @@ def p_signature_list(p):
     '''signature : visibility atributemodifier type brackets_expression ID LPAREN sigparams RPAREN '''
     pass
 
+#SIGPARAMS
 def p_sigparams_id(p):
     '''sigparams : type ID  '''
     pass
@@ -145,11 +147,12 @@ def p_sigparams_sigparams(p):
     '''sigparams : type ID COMMA sigparams'''
     pass
 
-
+#BODY
 def p_body(p):
     '''body : LCHAV stms RCHAV'''
     pass
 
+#STMS
 def p_stms(p):
     '''stms : stm '''
     pass
@@ -158,6 +161,7 @@ def p_multistms(p):
     '''stms : stm stms '''
     pass
 
+#STM
 def p_stm_exp(p):
     '''stm : expression SEMICOLON'''
     pass
@@ -190,9 +194,6 @@ def p_stm_semicollon(p):
     '''stm : SEMICOLON '''
     pass
 
-# def p_stm_variable(p):
-#     '''stm : '''
-    
 def p_stm_variable(p):
     '''stm : atributemodifier type ID SEMICOLON'''
     pass
@@ -209,12 +210,13 @@ def p_stm_void_return(p):
     '''stm : RETURN SEMICOLON'''
     pass
     
+#BODYORSTM
 def p_bodyorstm_body(p):
     '''bodyorstm : body'''
     pass
 
 
-#EXPRESSÕES FOR
+#EXPRESSIONFOR
 def p_expression_assign_for_type(p):
     ''' expression_for : type ID EQUAL expression  '''
     pass
@@ -333,47 +335,47 @@ def p_operator_assign_RSHIFT_EQ(p):
     pass
 
 
-def p_operator_operatorcomparator_LEQ(p):
+def p_operator_comparator_LEQ(p):
     '''operator : expression LEQ expression'''
     pass
 
-def p_operator_operatorcomparator_GEQ(p):
+def p_operator_comparator_GEQ(p):
     '''operator : expression GEQ expression'''
     pass
 
-def p_operator_operatorcomparator_LT(p):
+def p_operator_comparator_LT(p):
     '''operator : expression LT expression'''
     pass
 
-def p_operator_operatorcomparator_GT(p):
+def p_operator_comparator_GT(p):
     '''operator : expression GT expression'''
     pass
 
-def p_operator_operatorcomparator_NEQ(p):
+def p_operator_comparator_NEQ(p):
     '''operator : expression NEQ expression'''
     pass
 
-def p_operator_operatorcomparator_EQ(p):
+def p_operator_comparator_EQ(p):
     '''operator : expression EQ expression'''
     pass
 
-def p_operator_operatorcomparator_AND(p):
+def p_operator_comparator_AND(p):
     '''operator : expression AND expression'''
     pass
 
-def p_operator_operatorcomparator_OR(p):
+def p_operator_comparator_OR(p):
     '''operator : expression OR expression'''
     pass
 
-def p_operator_operatorcomparator_BITWISE_AND(p):
+def p_operator_comparator_BITWISE_AND(p):
     '''operator : expression BITWISE_AND expression'''
     pass
 
-def p_operator_operatorcomparator_BITWISE_OR(p):
+def p_operator_comparator_BITWISE_OR(p):
     '''operator : expression BITWISE_OR expression'''
     pass
 
-def p_operator_operatorcomparator_BITWISE_XOR(p):
+def p_operator_comparator_BITWISE_XOR(p):
     '''operator : expression BITWISE_XOR expression'''
     pass
 
