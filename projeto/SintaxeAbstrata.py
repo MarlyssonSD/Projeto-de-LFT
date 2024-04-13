@@ -20,7 +20,7 @@ class _Class(metaclass=ABCMeta):
     def accept(self,visitor):
         pass
     
-class _ClassExtends(_Class):
+class CClassExtends(_Class):
     def __init__(self,visibility, classmodifier,  ID_NOMECLASS, ID_NOMEEXTENDS, membros):
         self.visibility = visibility
         self.classmodifier = classmodifier
@@ -30,7 +30,7 @@ class _ClassExtends(_Class):
     def accept(self, visitor):
         pass
         
-class _ClassDefault(_Class):
+class CClassDefault(_Class):
     def __init__(self, visibility, classmodifier, ID_NOMECLASS,  membros):
         self.visibility = visibility     
         self.classmodifier = classmodifier
@@ -39,7 +39,7 @@ class _ClassDefault(_Class):
     def accept(self, visitor):
         pass
     
-class _ClassImplements(_Class):
+class CClassImplements(_Class):
     def __init__(self, visibility, classmodifier, ID_NOMECLASS, membros):
         self.visibility = visibility
         self.classmodifier = classmodifier
@@ -62,54 +62,42 @@ class VisibilityConcrete(Visibility):
     def accept(self, visitor):
         pass
 
-# class VisibilityPublic(Visibility):
-#     def __init__(self):
-#         pass
-#     def accept(self, visitor):
-#         pass
-        
-# class VisibilityPrivate(Visibility):
-#     def __init__(self):
-#         pass
-#     def accept(self, visitor):
-#         pass
-    
-# class VisibilityProtected(Visibility):
-#     def __init__(self):
-#         pass
-#     def accept(self, visitor):
-#         pass
-    
-# class VisibilityDefault(Visibility):
-#     def __init__(self):
-#         pass
-#     def accept(self, visitor):
-#         pass
-    
     
 #CLASSMODIFIER
 class ClassModifier(metaclass=ABCMeta):
     @abstractmethod
     def accept(self,visitor):
         pass
-    
-class ClassModifierDefault(ClassModifier):
-    def __init__(self):
-        pass
+  
+class ClassModifierConcrete(ClassModifier):
+    def __init__(self, classmodifier):
+        self.classmodifier = classmodifier
     def accept(self, visitor):
         pass
     
-class ClassModifierAbstract(ClassModifier):
-    def __init__(self):
-        pass
-    def accept(self, visitor):
-        pass
+# class ClassModifierDefault(ClassModifier):
+#     def __init__(self):
+#         pass
+#     def accept(self, visitor):
+#         pass
     
-class ClassModifierPackage(ClassModifier):
-    def __init__(self):
-        pass
-    def accept(self, visitor):
-        pass
+# class ClassModifierAbstract(ClassModifier):
+#     def __init__(self):
+#         pass
+#     def accept(self, visitor):
+#         pass
+    
+# class ClassModifierFinal(ClassModifier):
+#     def __init__(self):
+#         pass
+#     def accept(self, visitor):
+#         pass    
+
+# class ClassModifierPackage(ClassModifier):
+#     def __init__(self):
+#         pass
+#     def accept(self, visitor):
+        # pass
     
     
 #MEMBROS
@@ -138,7 +126,7 @@ class Membro(metaclass=ABCMeta):
     def accept(self,visitor):
         pass
     
-class Membro(Membro):
+class MembroAtribute(Membro):
     def __init__(self,atribute):
         self.atribute = atribute
     def accept(self, visitor):
@@ -230,6 +218,7 @@ class SignatureMult(Signature):
         self.sigparams = sigparams
     def accept(self, visitor):
         pass
+    
 
 #SIGPARAMS
 class Sigparams(metaclass=ABCMeta):
@@ -241,6 +230,8 @@ class SigparamsId(Sigparams):
     def __init__(self, type, ID):
         self.type = type
         self.ID = ID
+    def accept(self, visitor):
+        pass
     
 class SigparamsSigparams(Sigparams):
     def __init__(self, type, ID, sigparams):
@@ -369,8 +360,8 @@ class StmExpressionReturn(Stm):
         pass
     
 class StmExpressionVoidReturn(Stm):
-    def __init__(self):
-        pass
+    def __init__(self, void_return):
+        self.void_return = void_return
     def accept(self, visitor):
         pass
 
@@ -383,6 +374,8 @@ class BodyOrStm(metaclass=ABCMeta):
 class BodyOrStmBody(BodyOrStm):
     def __init__(self, body):
         self.body = body
+    def accept(self, visitor):
+        pass
         
 #EXPRESSIONFOR
 class ExpressionFor(metaclass=ABCMeta):
@@ -404,6 +397,8 @@ class ExpressionForAssignFor(ExpressionFor):
         self.expression = expression 
     def accept(self, visitor):
         pass
+    
+    
     
 #EXPRESSION
 class Expression(metaclass=ABCMeta):
@@ -671,13 +666,15 @@ class OperatorComparatorBitwise_XOR(Operator):
         pass
     
 class OperatorUnaryPrefix(Operator):
-    def __init__(self, ID):
+    def __init__(self, unaryoperatorprefx, ID):
+        self.unaryoperatorprefx = unaryoperatorprefx
         self.ID = ID
     def accept(self, visitor):
         pass
     
 class OperatorUnarySufix(Operator):
-    def __init__(self, ID):
+    def __init__(self, ID, unaryoperatorsufix):
+        self.unaryoperatorsufix = unaryoperatorsufix
         self.ID = ID
     def accept(self, visitor):
         pass
@@ -696,8 +693,8 @@ class UnaryOperatorPrefix(metaclass=ABCMeta):
         pass
     
 class UnaryOperatorPrefixConcrete(UnaryOperatorPrefix):
-    def __init__(self):
-        pass
+    def __init__(self, unaryoperatorprefx):
+        self.unaryoperatorprefx = unaryoperatorprefx
     def accept(self, visitor):
         pass
     
@@ -709,8 +706,8 @@ class UnaryOperatorSufix(metaclass=ABCMeta):
         pass
     
 class UnaryOperatorSufixConcrete(UnaryOperatorSufix):
-    def __init__(self):
-        pass
+    def __init__(self, unaryoperatorsufix):
+        self.unaryoperatorsufix = unaryoperatorsufix
     def accept(self, visitor):
         pass
     
@@ -721,8 +718,8 @@ class UnaryOperatorBitToBit(metaclass=ABCMeta):
         pass
     
 class UnaryOperatorBitToBitConcrete(UnaryOperatorBitToBit):
-    def __init__(self):
-        pass
+    def __init__(self, unaryoperatorbit):
+        self.unaryoperatorbit = unaryoperatorbit
     def accept(self, visitor):
         pass        
         
@@ -733,8 +730,8 @@ class BracketsExpression(metaclass=ABCMeta):
         pass
           
 class BracketsExpressionSimple(BracketsExpression):
-    def __init__(self):
-        pass
+    def __init__(self, brackets_default):
+        self.brackets_default = brackets_default
     def accept(self, visitor):
         pass     
           
@@ -771,59 +768,65 @@ class PrimitiveTypes(metaclass=ABCMeta):
     def accept(self, visitor):
         pass
 
-class PrimitiveTypesInt(PrimitiveTypes):
-    def __init__(self, _int):
-        self._int = _int
-    def accept(self, visitor):
-        pass
-    
-class PrimitiveTypes(PrimitiveTypes):
-    def __init__(self, _float):
-        self._float = _float
+class PrimitiveTypesConcrete(PrimitiveTypes):
+    def __init__(self, primitivetypes):
+        self.primitivetypes = primitivetypes
     def accept(self, visitor):
         pass
 
-class PrimitiveTypesDouble(PrimitiveTypes):
-    def __init__(self, _double):
-        self._double = _double
-    def accept(self, visitor):
-        pass
+# class PrimitiveTypesInt(PrimitiveTypes):
+#     def __init__(self, _int):
+#         self._int = _int
+#     def accept(self, visitor):
+#         pass
     
-class PrimitiveTypesByte(PrimitiveTypes):
-    def __init__(self, _byte):
-        self._byte = _byte
-    def accept(self, visitor):
-        pass
+# class PrimitiveTypes(PrimitiveTypes):
+#     def __init__(self, _float):
+#         self._float = _float
+#     def accept(self, visitor):
+#         pass
 
-class PrimitiveTypesBoolean(PrimitiveTypes):
-    def __init__(self, _boolean):
-        self._boolean = _boolean
-    def accept(self, visitor):
-        pass
+# class PrimitiveTypesDouble(PrimitiveTypes):
+#     def __init__(self, _double):
+#         self._double = _double
+#     def accept(self, visitor):
+#         pass
     
-class PrimitiveTypesChar(PrimitiveTypes):
-    def __init__(self, _char):
-        self._char = _char
-    def accept(self, visitor):
-        pass
+# class PrimitiveTypesByte(PrimitiveTypes):
+#     def __init__(self, _byte):
+#         self._byte = _byte
+#     def accept(self, visitor):
+#         pass
+
+# class PrimitiveTypesBoolean(PrimitiveTypes):
+#     def __init__(self, _boolean):
+#         self._boolean = _boolean
+#     def accept(self, visitor):
+#         pass
     
-class PrimitiveTypesString(PrimitiveTypes):
-    def __init__(self, _string):
-        self._string = _string
-    def accept(self, visitor):
-        pass
+# class PrimitiveTypesChar(PrimitiveTypes):
+#     def __init__(self, _char):
+#         self._char = _char
+#     def accept(self, visitor):
+#         pass
+    
+# class PrimitiveTypesString(PrimitiveTypes):
+#     def __init__(self, _string):
+#         self._string = _string
+#     def accept(self, visitor):
+#         pass
         
-class PrimitiveTypesLong(PrimitiveTypes):
-    def __init__(self, _long):
-        self._long = _long
-    def accept(self, visitor):
-        pass
+# class PrimitiveTypesLong(PrimitiveTypes):
+#     def __init__(self, _long):
+#         self._long = _long
+#     def accept(self, visitor):
+#         pass
 
-class PrimitiveTypesVoid(PrimitiveTypes):
-    def __init__(self, _void):
-        self._void = _void
-    def accept(self, visitor):
-        pass
+# class PrimitiveTypesVoid(PrimitiveTypes):
+#     def __init__(self, _void):
+#         self._void = _void
+#     def accept(self, visitor):
+#         pass
   
     
 #CALL    

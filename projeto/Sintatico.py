@@ -1,5 +1,6 @@
 from Lexico import *
 import ply.yacc as yacc
+import SintaxeAbstrata as SA
 
 #https://docs.oracle.com/javase/tutorial/java/nutsandbolts/operators.html
 
@@ -21,72 +22,75 @@ precedence = (
 
 def p_program(p):
     ''' program : class '''
-    pass
+    p[0] = SA.ProgramConcrete(p[1])
 
-
+#CLASS
 def p_class_extends(p):
     '''class : visibility classmodifier CLASS ID EXTENDS ID LCHAV membros RCHAV'''
-    pass
+    p[0] = SA.CClassExtends(p[1], p[2], p[4], p[6], p[8])
 
 def p_class_default(p):
     '''class : visibility classmodifier CLASS ID LCHAV membros RCHAV'''
-    pass
+    p[0] = SA.CClassDefault(p[1], p[2], p[4], p[6])
 
 def p_class_implements(p):
     ''' class : visibility classmodifier CLASS ID IMPLEMENTS LCHAV membros RCHAV '''
-    pass
+    p[0] = SA.CClassImplements(p[1], p[2], p[4], p[7])
+
 
     #VISIBILIDADE
 def p_visibility_public(p):
     '''visibility : PUBLIC '''
-    pass
+    p[0] = SA.VisibilityConcrete(p[1])
 
 def p_visibility_private(p):
     '''visibility : PRIVATE '''
-    pass
+    p[0] = SA.VisibilityConcrete(p[1])
 
-def p_visibility_protected(p):
+def p_visibility_protected(p):  
     '''visibility : PROTECTED '''
-    pass
+    p[0] = SA.VisibilityConcrete(p[1])
 
 def p_visibility_default(p):
     '''visibility : '''
-    pass
+    p[0] = SA.VisibilityConcrete(p[1])
 
-    #MODIFICADORES
+
+    #CLASSMODIFIER
 def p_classmodifier_default(p):
     '''classmodifier : '''
-    pass
+    p[0] = SA.ClassModifierConcrete(None)
 
 def p_classmodifier_abstract(p):
     '''classmodifier : ABSTRACT'''
-    pass
+    p[0] = SA.ClassModifierConcrete(p[1])
 
 def p_classmodifier_final(p):
     '''classmodifier : FINAL'''
-    pass
+    p[0] = SA.ClassModifierConcrete(p[1])
 
 def p_classmodifier_package(p):
     '''classmodifier : PACKAGE'''
-    pass
+    p[0] = SA.ClassModifierConcrete(p[1])
 
 #MEMBROS
 def p_membros(p):
     '''membros : membro'''
-    pass
+    p[0] = SA.MembrosUni(p[1])
 
 def p_multimembros(p):
     '''membros : membro membros'''
-    pass
+    p[0] = SA.MembrosMult(p[1], p[2])
 
 #MEMBRO
 def p_membro_atribute(p):
     '''membro : atribute'''
-    pass
+    p[0] = SA.MembroAtribute(p[1])
 
 def p_membrofunction(p):
     '''membro : function'''    
-    pass
+    p[0] = SA.MembroFunction(p[1])
+
 
 # def p_membro_list_atribute(p):
 #     '''membro : atribute_list'''    
@@ -96,11 +100,11 @@ def p_membrofunction(p):
 #ATRIBUTOS
 def p_atribute(p):
     '''atribute : visibility atributemodifier type ID SEMICOLON'''
-    pass
+    p[0] = SA.AtributeDefault(p[1], p[2], p[3], p[4])
 
 def p_atribute_inicialized_type(p):
     '''atribute : visibility atributemodifier type ID EQUAL expression SEMICOLON'''
-    pass
+    p[0] = SA.AtributeDefaultInicializedType(p[1], p[2], p[3], p[4], p[6])
 
 # def p_list_atribute_inicialized_type(p):
 #     '''atribute_list : visibility atributemodifier type LBRACKET RBRACKET ID EQUAL NEW type LBRACKET INT_NUMBER RBRACKET SEMICOLON'''
@@ -114,282 +118,286 @@ def p_atribute_inicialized_type(p):
 #ATRIBUTEMODIFIER
 def p_atributemodifier_default(p):
     '''atributemodifier : '''
-    pass
+    p[0] = SA.AtributeModifierConcrete(None)
 
 def p_atributemodifier_static(p):
     '''atributemodifier : STATIC'''
-    pass
+    p[0] = SA.AtributeModifierConcrete(p[1])
+
 
 def p_atributemodifier_final(p):
     '''atributemodifier : FINAL'''
-    pass
+    p[0] = SA.AtributeModifierConcrete(p[1])
+
 
 #FUNÇÕES
 def p_function(p):
     '''function : signature body'''
-    pass
+    p[0] = SA.FunctionDefault(p[1], p[2])
 
 #SIGNATURE
-def p_signature(p):
+def p_signature_simple(p):
     '''signature : visibility atributemodifier type ID LPAREN sigparams RPAREN '''
-    pass
+    p[0] = SA.SignatureSimple(p[1], p[2], p[3], p[4], p[6])
 
 def p_signature_list(p):
     '''signature : visibility atributemodifier type brackets_expression ID LPAREN sigparams RPAREN '''
-    pass
+    p[0] = SA.SignatureMult(p[1], p[2], p[3], p[4], p[5], p[7])
 
 #SIGPARAMS
 def p_sigparams_id(p):
     '''sigparams : type ID  '''
-    pass
+    p[0] = SA.SigparamsId(p[1], p[2])
 
 def p_sigparams_sigparams(p):
     '''sigparams : type ID COMMA sigparams'''
-    pass
+    p[0] = SA.SigparamsSigparams(p[1], p[2], p[4])
 
 #BODY
 def p_body(p):
     '''body : LCHAV stms RCHAV'''
-    pass
+    p[0] = SA.BodyStms(p[2])
+
 
 #STMS
 def p_stms(p):
     '''stms : stm '''
-    pass
+    p[0] = SA.StmsUni(p[1])
 
 def p_multistms(p):
     '''stms : stm stms '''
-    pass
+    p[0] = SA.StmsMulti(p[1], p[2])
+
 
 #STM
 def p_stm_exp(p):
     '''stm : expression SEMICOLON'''
-    pass
+    p[0] = SA.StmExpression(p[1])
 
 def p_stm_while(p):
     '''stm : WHILE LPAREN expression RPAREN bodyorstm'''
-    pass
+    p[0] = SA.StmExpressionWhile(p[3], p[5])
 
 def p_stm_dowhile(p):
     '''stm : DO bodyorstm WHILE LPAREN expression RPAREN SEMICOLON '''
-    pass
+    p[0] = SA.StmExpressionDoWhile(p[2], p[5])
 
 def p_stm_for(p):
     '''stm : FOR LPAREN expression_for SEMICOLON expression SEMICOLON expression RPAREN bodyorstm'''
-    pass
+    p[0] = SA.StmExpressionFor(p[3], p[5], p[7], p[9])
 
 def p_stm_if(p):
     '''stm : IF LPAREN expression RPAREN bodyorstm'''
-    pass
+    p[0] = SA.StmExpressionIf(p[3], p[5])
 
 def p_stm_ifelse(p):
     '''stm : IF LPAREN expression RPAREN bodyorstm ELSE bodyorstm'''
-    pass
+    p[0] = SA.StmExpressionIfElse(p[3], p[5], p[7])
 
 def p_stm_elseif(p):
     '''stm : IF LPAREN expression RPAREN bodyorstm ELSE IF bodyorstm'''
-    pass
+    p[0] = SA.StmExpressionElseIf(p[3], p[5], p[8])
 
 def p_stm_semicollon(p):
     '''stm : SEMICOLON '''
-    pass
+    p[0] = SA.StmExpressionSemicolon(None)
 
 def p_stm_variable(p):
     '''stm : atributemodifier type ID SEMICOLON'''
-    pass
+    p[0] = SA.StmExpressionVariable(p[1], p[2], p[3])
 
 def p_stm_variable_type(p):
     '''stm : atributemodifier type ID EQUAL expression SEMICOLON'''
-    pass
+    p[0] = SA.StmExpressionVariableType(p[1], p[2], p[3], p[5])
 
 def p_stm_return(p):
     '''stm : RETURN expression SEMICOLON'''
-    pass
+    p[0] = SA.StmExpressionReturn(p[2])
 
 def p_stm_void_return(p):
     '''stm : RETURN SEMICOLON'''
-    pass
+    p[0] = SA.StmExpressionVoidReturn(None)
+    
     
 #BODYORSTM
 def p_bodyorstm_body(p):
     '''bodyorstm : body'''
-    pass
+    p[0] = SA.BodyOrStmBody(p[1])
 
 
 #EXPRESSIONFOR
 def p_expression_assign_for_type(p):
     ''' expression_for : type ID EQUAL expression  '''
-    pass
+    p[0] = SA.ExpressionForAssignForType(p[1], p[2], p[4])
 
 def p_expression_assign_for(p):
     ''' expression_for : ID EQUAL expression  '''
-    pass
+    p[0] = SA.ExpressionForAssignFor(p[1], p[3])
 
 
 #EXPRESSÕES
 def p_expression_operator(p):
     ''' expression : operator '''
-    pass
+    p[0] = SA.ExpressionOperator(p[1])
 
 def p_expression_call(p):
     ''' expression : call '''
-    pass
+    p[0] = SA.ExpressionCall(p[1])
 
 def p_expression_FLOAT_NUMBER(p):
     ''' expression : FLOAT_NUMBER '''
-    pass
+    p[0] = SA.ExpressionFloatNumber(p[1])
 
 def p_expression_DOUBLE_NUMBER(p):
     ''' expression : DOUBLE_NUMBER '''
-    pass
+    p[0] = SA.ExpressionDoubleNumber(p[1])
 
 def p_expression_INT_NUMBER(p):
     ''' expression : INT_NUMBER '''
-    pass
+    p[0] = SA.ExpressionIntNumber(p[1])
 
 def p_expression_STRING(p):
     ''' expression : STRING '''
-    pass
+    p[0] = SA.ExpressionString(p[1])
 
 def p_expression_ID (p):
     ''' expression : ID  '''
-    pass
+    p[0] = SA.ExpressionId(p[1])
 
 def p_expression_new(p):
     '''expression : NEW type LPAREN params_call RPAREN '''
-    pass
+    p[0] = SA.ExpressionNew(p[2], p[4])
 
 def p_expression_new_list(p):
     '''expression : NEW type LBRACKET expression RBRACKET '''
-    pass
+    p[0] = SA.ExpressionNewList(p[2], p[4])
 
 
 
 #OPERADORES
 def p_operator_arithmetic_times(p):
     '''operator : expression TIMES expression'''
-    pass
+    p[0] = SA.OperatorArithmeticTimes(p[1], p[3])
 
 def p_operator_arithmetic_divide(p):
     '''operator : expression DIVIDE expression'''
-    pass
+    p[0] = SA.OperatorArithmeticDivide(p[1], p[3])
 
 def p_operator_arithmetic_module(p):
     '''operator : expression MODULE expression'''
-    pass
+    p[0] = SA.OperatorArithmeticModule(p[1], p[3])
 
 def p_operator_arithmetic_plus(p):
     '''operator : expression PLUS expression'''
-    pass
+    p[0] = SA.OperatorArithmeticPlus(p[1], p[3])
 
 def p_operator_arithmetic_minus(p):
     '''operator : expression MINUS expression'''
-    pass
+    p[0] = SA.OperatorArithmeticMinus(p[1], p[3])
 
 def p_operator_assign_EQUAL(p):
     '''operator : ID EQUAL expression'''
-    pass
+    p[0] = SA.OperatorAssignEqual(p[1], p[3])
 
 def p_operator_assign_MINUS_EQ(p):
     '''operator : ID MINUS_EQ expression'''
-    pass
+    p[0] = SA.OperatorAssignMinusEQ(p[1], p[3])
 
 def p_operator_assign_TIMES_EQ(p):
     '''operator : ID TIMES_EQ expression'''
-    pass
+    p[0] = SA.OperatorAssignTimesEQ(p[1], p[3])
 
 def p_operator_assign_PLUS_EQ(p):
     '''operator : ID PLUS_EQ expression'''
-    pass
+    p[0] = SA.OperatorAssignPlusEQ(p[1], p[3])
 
 def p_operator_assign_DIVIDE_EQ(p):
     '''operator : ID DIVIDE_EQ expression'''
-    pass
+    p[0] = SA.OperatorAssignDivideEQ(p[1], p[3])
 
 def p_operator_assign_MOD_EQ(p):
     '''operator : ID MOD_EQ expression'''
-    pass
+    p[0] = SA.OperatorAssignModuleEQ(p[1], p[3])
 
 def p_operator_assign_BITWISE_AND_EQ(p):
     '''operator : ID BITWISE_AND_EQ expression'''
-    pass
+    p[0] = SA.OperatorAssignBitwiseAndEQ(p[1], p[3])
 
 def p_operator_assign_BITWISE_OR_EQ(p):
     '''operator : ID BITWISE_OR_EQ expression'''
-    pass
+    p[0] = SA.OperatorAssignBitwiseOrEQ(p[1], p[3])
 
 def p_operator_assign_BITWISE_XOR_EQ(p):
     '''operator : ID BITWISE_XOR_EQ expression'''
-    pass
+    p[0] = SA.OperatorAssignBitwiseXorEQ(p[1], p[3])
 
 def p_operator_assign_URSHIFT_EQ(p):
     '''operator : ID URSHIFT_EQ expression'''
-    pass
+    p[0] = SA.OperatorAssignUrshiftEQ(p[1], p[3])
 
 def p_operator_assign_LSHIFT_EQ(p):
     '''operator : ID LSHIFT_EQ expression'''
-    pass
+    p[0] = SA.OperatorAssignLshiftEQ(p[1], p[3])
 
 def p_operator_assign_RSHIFT_EQ(p):
     '''operator : ID RSHIFT_EQ expression'''
-    pass
-
+    p[0] = SA.OperatorAssignRshiftEQ(p[1], p[3])
 
 def p_operator_comparator_LEQ(p):
     '''operator : expression LEQ expression'''
-    pass
+    p[0] = SA.OperatorComparatorLeq(p[1], p[3])
 
 def p_operator_comparator_GEQ(p):
     '''operator : expression GEQ expression'''
-    pass
+    p[0] = SA.OperatorComparatorGeq(p[1], p[3])
 
 def p_operator_comparator_LT(p):
     '''operator : expression LT expression'''
-    pass
+    p[0] = SA.OperatorComparatorLt(p[1], p[3])
 
 def p_operator_comparator_GT(p):
     '''operator : expression GT expression'''
-    pass
+    p[0] = SA.OperatorComparatorGt(p[1], p[3])
 
 def p_operator_comparator_NEQ(p):
     '''operator : expression NEQ expression'''
-    pass
+    p[0] = SA.OperatorComparatorNeq(p[1], p[3])
 
 def p_operator_comparator_EQ(p):
     '''operator : expression EQ expression'''
-    pass
+    p[0] = SA.OperatorComparatorEq(p[1], p[3])
 
 def p_operator_comparator_AND(p):
     '''operator : expression AND expression'''
-    pass
+    p[0] = SA.OperatorComparatorAnd(p[1], p[3])
 
 def p_operator_comparator_OR(p):
     '''operator : expression OR expression'''
-    pass
+    p[0] = SA.OperatorComparatorOr(p[1], p[3])
 
 def p_operator_comparator_BITWISE_AND(p):
     '''operator : expression BITWISE_AND expression'''
-    pass
+    p[0] = SA.OperatorComparatorBitwise_And(p[1], p[3])
 
 def p_operator_comparator_BITWISE_OR(p):
     '''operator : expression BITWISE_OR expression'''
-    pass
+    p[0] = SA.OperatorComparatorBitwise_OR(p[1], p[3])
 
 def p_operator_comparator_BITWISE_XOR(p):
     '''operator : expression BITWISE_XOR expression'''
-    pass
+    p[0] = SA.OperatorComparatorBitwise_XOR(p[1], p[3])
 
 def p_operator_unaryoperatorprefx(p):
     '''operator : unaryoperatorprefx ID'''
-    pass
+    p[0] = SA.OperatorUnaryPrefix(p[1], p[2])
 
 def p_operator_unaryoperatorsufx(p):
     '''operator : ID unaryoperatorsufx'''
-    pass
+    p[0] = SA.OperatorUnarySufix(p[1], p[2])
 
 def p_operator_operatorbittobit(p):
     '''operator : expression operatorbittobit'''
-    pass
+    p[0] = SA.OperatorBitToBit(p[1], p[2])
 
 
 #UNARYOPERATORPREFIX
@@ -401,7 +409,7 @@ def p_unaryoperatorprefx(p):
                         | PLUS %prec UPLUS
                         | NOT
     '''
-    pass
+    p[0] = SA.UnaryOperatorPrefixConcrete(p[1])
 
 #UNARYOPERATORSUFIX
 def p_unaryoperatorsufx(p):
@@ -409,7 +417,8 @@ def p_unaryoperatorsufx(p):
     unaryoperatorsufx : INCREMENT %prec RINCREMENT
                         | DECREMENT %prec RDECREMENT
     '''
-    pass
+    p[0] = SA.UnaryOperatorSufixConcrete(p[1])
+
 
 
 #UNARYOPERATORBITTOBIT
@@ -420,19 +429,29 @@ def p_operatorbittobit(p):
                         | RSHIFT
     
     '''
-    pass
+    p[0] = SA.UnaryOperatorBitToBitConcrete(p[1])
+
 
 #BRACKETSEXPRESSION
-def p_brackets_expression(p):
-    ''' brackets_expression : LBRACKET RBRACKET
-                            | LBRACKET INT_NUMBER RBRACKET
-                            | LBRACKET ID RBRACKET
-    '''
+def p_brackets_expression_defalt(p):
+    ''' brackets_expression : LBRACKET RBRACKET'''
+    p[0] = SA.BracketsExpressionSimple(None)
+
+def p_brackets_expression_int(p):
+    ''' brackets_expression : LBRACKET INT_NUMBER RBRACKET'''
+    p[0] = SA.BracketsExpressionIntNumber(p[2])
+
+
+def p_brackets_expression_id(p):
+    ''' brackets_expression : LBRACKET ID RBRACKET'''
+    p[0] = SA.BracketsExpressionId(p[2])
+
+
 
 #TIPOS PRIMITIVOS
 def p_type(p):
     ''' type : primitivetypes'''
-    pass
+    p[0] = SA.Type(p[1])
 
 def p_primitivetypes(p):
     '''primitivetypes : TYPE_INT
@@ -446,26 +465,27 @@ def p_primitivetypes(p):
                         | TYPE_VOID
 
     '''
-    pass
+    p[0] = SA.PrimitiveTypesConcrete(p[1])
+
 
 
 #CALL    
 def p_call(p):
     ''' call : ID LPAREN params_call RPAREN'''
-    pass
+    p[0] = SA.CallParams(p[1], p[3])
 
 def p_call_default(p):
     ''' call : ID LPAREN RPAREN'''
-    pass
+    p[0] = SA.CallDefault(p[1])
 
 #PARAMSCALL
 def p_params_multi(p):
     ''' params_call : expression COMMA params_call'''
-    pass
+    p[0] = SA.ParamsCallMulti(p[1], p[3])
 
 def p_params_unique(p):
     ''' params_call : expression'''
-    pass
+    p[0] = SA.ParamsCallUnique(p[1])
 
 
 
