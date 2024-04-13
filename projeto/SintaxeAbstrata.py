@@ -353,6 +353,66 @@ class StmExpressionVariableType(Stm):
     def accept(self, visitor):
         pass
     
+class StmExpressionVariableTypeList(Stm):
+    def __init__(self, atributemodifier, type, ID):
+        self.atributemodifier = atributemodifier
+        self.type = type
+        self.ID = ID
+    def accept(self, visitor):
+        pass
+    
+class StmExpressionVariableTypeListPre(Stm):
+    def __init__(self, atributemodifier, type, ID):
+        self.atributemodifier = atributemodifier
+        self.type = type
+        self.ID = ID
+    def accept(self, visitor):
+        pass
+    
+class StmExpressionVariableTypeListListPre(Stm):
+    def __init__(self, atributemodifier, type, ID, chav_exp):
+        self.atributemodifier = atributemodifier
+        self.type = type
+        self.ID = ID
+        self.chav_exp = chav_exp
+    def accept(self, visitor):
+        pass
+    
+class StmExpressionVariableTypeListExpression(Stm):
+    def __init__(self, atributemodifier, type, ID, expression):
+        self.atributemodifier = atributemodifier
+        self.type = type
+        self.ID = ID
+        self.expression = expression
+    def accept(self, visitor):
+        pass
+    
+class StmExpressionVariableTypeListExpressionInicialized(Stm):
+    def __init__(self, atributemodifier, type, ID, chav_exp):
+        self.atributemodifier = atributemodifier
+        self.type = type
+        self.ID = ID
+        self.chav_exp = chav_exp
+    def accept(self, visitor):
+        pass
+    
+class StmExpressionVariableTypeListList(Stm):
+    def __init__(self, atributemodifier, type, ID):
+        self.atributemodifier = atributemodifier
+        self.type = type
+        self.ID = ID
+    def accept(self, visitor):
+        pass
+    
+class StmExpressionVariableTypeListListInicialized(Stm):
+    def __init__(self, atributemodifier, type, ID, chav_exp):
+        self.atributemodifier = atributemodifier
+        self.type = type
+        self.ID = ID
+        self.chav_exp = chav_exp
+    def accept(self, visitor):
+        pass
+
 class StmExpressionReturn(Stm):
     def __init__(self, expression):
         self.expression = expression
@@ -867,5 +927,46 @@ class ParamsCallUnique(ParamsCall):
     def accept(self, visitor):
         pass
 
-
+#CHAVEXPRESSION
+class ChavExp(metaclass=ABCMeta):
+    @abstractmethod
+    def accept(self, visitor):
+        pass
+    
+class ChavExpEmpty(ChavExp):
+    def __init__(self):
+        pass
+    def accept(self, visitor):
+        pass
+    
+class ChavExpExpressionChav(ChavExp):
+    def __init__(self, expression_chav):
+        self.expression_chav = expression_chav
+    def accept(self, visitor):
+        pass
+    
+#EXPRESSIONCHAV
+class ExpressionChav(metaclass=ABCMeta):
+    @abstractmethod
+    def accept(self, visitor):
+        pass
+    
+class ExpressionChavMult(ExpressionChav):
+    def __init__(self, expression, expression_chav):
+        self.expression = expression
+        self.expression_chav = expression_chav
+    def accept(self, visitor):
+        pass
+    
+class ExpressionChavUni(ExpressionChav):
+    def __init__(self, expression):
+        self.expression = expression
+    def accept(self, visitor):
+        pass
+    
+class ExpressionChavComma(ExpressionChav):
+    def __init__(self, expression):
+        self.expression = expression
+    def accept(self, visitor):
+        pass
     

@@ -53,7 +53,7 @@ def p_visibility_protected(p):
 
 def p_visibility_default(p):
     '''visibility : '''
-    p[0] = SA.VisibilityConcrete(p[1])
+    p[0] = SA.VisibilityConcrete(None)
 
 
     #CLASSMODIFIER
@@ -209,6 +209,37 @@ def p_stm_variable(p):
 def p_stm_variable_type(p):
     '''stm : atributemodifier type ID EQUAL expression SEMICOLON'''
     p[0] = SA.StmExpressionVariableType(p[1], p[2], p[3], p[5])
+
+
+def p_stm_variable_type_list(p):
+    '''stm : atributemodifier type ID LBRACKET RBRACKET SEMICOLON'''
+    p[0] = SA.StmExpressionVariableTypeList(p[1], p[2], p[3])
+
+def p_stm_variable_type_list_pre(p):
+    '''stm : atributemodifier type LBRACKET RBRACKET ID SEMICOLON'''
+    p[0] = SA.StmExpressionVariableTypeListPre(p[1], p[2], p[5])	
+
+def p_stm_variable_type_list_list_pre(p):
+    '''stm : atributemodifier type LBRACKET RBRACKET ID EQUAL chav_exp SEMICOLON'''
+    p[0] = SA.StmExpressionVariableTypeListListPre(p[1], p[2], p[5], p[7])
+
+def p_stm_variable_type_list_expression(p):
+    '''stm : atributemodifier type ID LBRACKET RBRACKET EQUAL expression SEMICOLON'''
+    p[0] = SA.StmExpressionVariableTypeListExpression(p[1], p[2], p[3], p[7])
+
+def p_stm_variable_type_list_expression_inicialized(p):
+    '''stm : atributemodifier type ID LBRACKET RBRACKET EQUAL chav_exp SEMICOLON'''
+    p[0] = SA.StmExpressionVariableTypeListExpressionInicialized(p[1], p[2], p[3], p[7])
+
+def p_stm_variable_type_list_list(p):
+    '''stm : atributemodifier type LBRACKET RBRACKET ID LBRACKET RBRACKET SEMICOLON'''
+    p[0] = SA.StmExpressionVariableTypeListList(p[1], p[2], p[5])
+
+def p_stm_variable_type_list_list_inicialized(p):
+    '''stm : atributemodifier type LBRACKET RBRACKET ID LBRACKET RBRACKET EQUAL chav_exp SEMICOLON'''
+    p[0] = SA.StmExpressionVariableTypeListListInicialized(p[1], p[2], p[5], p[9])
+
+
 
 def p_stm_return(p):
     '''stm : RETURN expression SEMICOLON'''
@@ -433,7 +464,7 @@ def p_operatorbittobit(p):
 
 
 #BRACKETSEXPRESSION
-def p_brackets_expression_defalt(p):
+def p_brackets_expression_default(p):
     ''' brackets_expression : LBRACKET RBRACKET'''
     p[0] = SA.BracketsExpressionSimple(None)
 
@@ -450,8 +481,10 @@ def p_brackets_expression_id(p):
 
 #TIPOS PRIMITIVOS
 def p_type(p):
-    ''' type : primitivetypes'''
+    ''' type : primitivetypes
+               '''
     p[0] = SA.Type(p[1])
+
 
 def p_primitivetypes(p):
     '''primitivetypes : TYPE_INT
@@ -487,11 +520,34 @@ def p_params_unique(p):
     ''' params_call : expression'''
     p[0] = SA.ParamsCallUnique(p[1])
 
+#CHAV_EMPTY
+def p_chav_exp(p):
+    '''chav_exp : LCHAV RCHAV'''
+    p[0] = SA.ChavExpEmpty(None)
+
+def p_chav_exp_expchav(p):
+    '''chav_exp : LCHAV expression_chav
+    '''
+    p[0] = SA.ChavExpExpressionChav(p[2])
+
+
+#EXPRESSION_CHAV
+def p_expression_chav_mult(p):
+    '''expression_chav : expression COMMA expression_chav'''
+    p[0] = SA.ExpressionChavMult(p[1], p[3])
+
+def p_expression_chav_expression_uni(p):
+    '''expression_chav : expression RCHAV'''
+    p[0] = SA.ExpressionChavUni(p[1])
+
+def p_expression_chav_expression_comma(p):
+    '''expression_chav :  expression COMMA RCHAV'''
+    p[0] = SA.ExpressionChavComma(p[1])
 
 
 
 def main():
-    f = open("projeto\\Teste2.java", "r")
+    f = open("projeto\\Teste1.java", "r")
     lexer = lex.lex()
     lexer.input(f.read())
     parser = yacc.yacc()

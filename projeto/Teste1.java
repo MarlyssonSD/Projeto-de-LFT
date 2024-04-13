@@ -1,9 +1,22 @@
 public class Teste1 {
-    public static void main(String[] args) {
+    String nome = "JavaTest";
+
+    public int[] teste(String args) {
+        
+        int vetdiferente[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ,};	
+        int[] vet_lista_antes = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ,};
+        int meuvet[] = new int[10];
+        int vet_inicializado [] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ,};
+        int[] outrovet[];	
+        int[] maisoutrovet;	
+
+        return meuvet;
+    }
+    public static void main(String args) {
         // Palavras-chave
         double contador = 1.1;
         String[] nomes = { "if", "else", "for", "while", "switch", "case", "break", "continue" };
-        System.out.println("Meu contador: " + contador);
+        // System.out.println("Meu contador: " + contador);
         // Operadores
         int a = 5;
         int b = 10;
@@ -11,21 +24,20 @@ public class Teste1 {
         int resultadoSubtracao = a - b;
         int resultadoMultiplicacao = a * b;
         int resultadoDivisao = a / b;
-        boolean condicao = (a > b) && (a < resultadoSoma);
+        boolean condicao = a > b && a < resultadoSoma;
         while (condicao) {
-            
+            a=1;
         }
         // Identificador
-        String nome = "JavaTest";
 
         // Saída
 
         System.out.println("Palavras-chave:");
-        // for (String palavraChave : nomes) {
-        //     System.out.println(palavraChave);
-        // }
+
 
         System.out.println("\nOperadores e Variáveis:");
         System.out.println("Soma: " + resultadoSoma); 
+        
     }
+
 }
