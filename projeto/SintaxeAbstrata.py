@@ -689,10 +689,6 @@ class OperatorBitToBit(Operator):
         pass
 
 
-
-
-
-
 #UNARYOPERATORPREFIX
 class UnaryOperatorPrefix(metaclass=ABCMeta):
     @abstractmethod
@@ -736,7 +732,7 @@ class BracketsExpression(metaclass=ABCMeta):
     def accept(self, visitor):
         pass
           
-class BracketsExpressionConcrete(BracketsExpression):
+class BracketsExpressionSimple(BracketsExpression):
     def __init__(self):
         pass
     def accept(self, visitor):
@@ -774,3 +770,99 @@ class PrimitiveTypes(metaclass=ABCMeta):
     @abstractmethod
     def accept(self, visitor):
         pass
+
+class PrimitiveTypesInt(PrimitiveTypes):
+    def __init__(self, _int):
+        self._int = _int
+    def accept(self, visitor):
+        pass
+    
+class PrimitiveTypes(PrimitiveTypes):
+    def __init__(self, _float):
+        self._float = _float
+    def accept(self, visitor):
+        pass
+
+class PrimitiveTypesDouble(PrimitiveTypes):
+    def __init__(self, _double):
+        self._double = _double
+    def accept(self, visitor):
+        pass
+    
+class PrimitiveTypesByte(PrimitiveTypes):
+    def __init__(self, _byte):
+        self._byte = _byte
+    def accept(self, visitor):
+        pass
+
+class PrimitiveTypesBoolean(PrimitiveTypes):
+    def __init__(self, _boolean):
+        self._boolean = _boolean
+    def accept(self, visitor):
+        pass
+    
+class PrimitiveTypesChar(PrimitiveTypes):
+    def __init__(self, _char):
+        self._char = _char
+    def accept(self, visitor):
+        pass
+    
+class PrimitiveTypesString(PrimitiveTypes):
+    def __init__(self, _string):
+        self._string = _string
+    def accept(self, visitor):
+        pass
+        
+class PrimitiveTypesLong(PrimitiveTypes):
+    def __init__(self, _long):
+        self._long = _long
+    def accept(self, visitor):
+        pass
+
+class PrimitiveTypesVoid(PrimitiveTypes):
+    def __init__(self, _void):
+        self._void = _void
+    def accept(self, visitor):
+        pass
+  
+    
+#CALL    
+class Call(metaclass=ABCMeta):
+    @abstractmethod
+    def accept(self, visitor):
+        pass
+
+class CallParams(Call):
+    def __init__(self,ID , callparams):
+        self.ID = ID
+        self.callparams = callparams
+    def accept(self, visitor):
+        pass
+
+class CallDefault(Call):
+    def __init__(self, ID):
+        self.ID = ID
+    def accept(self, visitor):
+        pass
+    
+#PARAMSCALL
+class ParamsCall(metaclass=ABCMeta):
+    @abstractmethod
+    def accept(self, visitor):
+        pass
+    
+class ParamsCallMulti(ParamsCall):
+    def __init__(self, expression, params_call):
+        self.expression = expression
+        self.params_call = params_call
+    def accept(self, visitor):
+        pass
+    
+class ParamsCallUnique(ParamsCall):
+    def __init__(self, expression):
+        self.expression = expression
+    def accept(self, visitor):
+        pass
+
+
+    

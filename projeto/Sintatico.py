@@ -449,7 +449,7 @@ def p_primitivetypes(p):
     pass
 
 
-
+#CALL    
 def p_call(p):
     ''' call : ID LPAREN params_call RPAREN'''
     pass
@@ -458,6 +458,7 @@ def p_call_default(p):
     ''' call : ID LPAREN RPAREN'''
     pass
 
+#PARAMSCALL
 def p_params_multi(p):
     ''' params_call : expression COMMA params_call'''
     pass
