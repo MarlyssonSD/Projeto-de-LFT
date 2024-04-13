@@ -1,6 +1,6 @@
 public class Teste1 {
     String nome = "JavaTest";
-
+    
     public int[] teste(String args) {
         
         int vetdiferente[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ,};	
@@ -24,16 +24,15 @@ public class Teste1 {
         int resultadoSubtracao = a - b;
         int resultadoMultiplicacao = a * b;
         int resultadoDivisao = a / b;
-        boolean condicao = a > b && a < resultadoSoma;
+        boolean condicao = true;
         while (condicao) {
             a=1;
         }
         // Identificador
 
         // Saída
-
+        
         System.out.println("Palavras-chave:");
-
 
         System.out.println("\nOperadores e Variáveis:");
         System.out.println("Soma: " + resultadoSoma); 

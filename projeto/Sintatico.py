@@ -92,10 +92,6 @@ def p_membrofunction(p):
     p[0] = SA.MembroFunction(p[1])
 
 
-# def p_membro_list_atribute(p):
-#     '''membro : atribute_list'''    
-#     pass
-
 
 #ATRIBUTOS
 def p_atribute(p):
@@ -209,7 +205,7 @@ def p_stm_variable(p):
 def p_stm_variable_type(p):
     '''stm : atributemodifier type ID EQUAL expression SEMICOLON'''
     p[0] = SA.StmExpressionVariableType(p[1], p[2], p[3], p[5])
-
+    
 
 def p_stm_variable_type_list(p):
     '''stm : atributemodifier type ID LBRACKET RBRACKET SEMICOLON'''

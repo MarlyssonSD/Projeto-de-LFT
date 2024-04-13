@@ -27,6 +27,7 @@ public class Teste2 {
 
         // Calculando a soma dos valores
         int soma = valor1 + valor2 + valor3 + valor4 + valor5;
+        System.out.println(soma);
         // Exibindo o resultado da soma
         //System.out.println("A soma dos valores é: " + soma);
     }
