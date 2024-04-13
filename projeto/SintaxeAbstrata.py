@@ -1,5 +1,4 @@
-from abc import abstractmethod
-from abc import ABCMeta
+from abc import abstractmethod, ABCMeta 
 
 #PROGRAM
 class Program(metaclass=ABCMeta):
@@ -8,19 +7,19 @@ class Program(metaclass=ABCMeta):
         pass
         
 class ProgramConcrete(Program):
-    def __init__(self, _class):
-        self._class = _class
+    def __init__(self, cclass):
+        self.cclass = cclass
     def accept(self, visitor):
         pass
         
         
 #CLASS
-class _Class(metaclass=ABCMeta):
+class CClass(metaclass=ABCMeta):
     @abstractmethod
     def accept(self,visitor):
         pass
     
-class CClassExtends(_Class):
+class CClassExtends(CClass):
     def __init__(self,visibility, classmodifier,  ID_NOMECLASS, ID_NOMEEXTENDS, membros):
         self.visibility = visibility
         self.classmodifier = classmodifier
@@ -30,7 +29,7 @@ class CClassExtends(_Class):
     def accept(self, visitor):
         pass
         
-class CClassDefault(_Class):
+class CClassDefault(CClass):
     def __init__(self, visibility, classmodifier, ID_NOMECLASS,  membros):
         self.visibility = visibility     
         self.classmodifier = classmodifier
@@ -39,7 +38,7 @@ class CClassDefault(_Class):
     def accept(self, visitor):
         pass
     
-class CClassImplements(_Class):
+class CClassImplements(CClass):
     def __init__(self, visibility, classmodifier, ID_NOMECLASS, membros):
         self.visibility = visibility
         self.classmodifier = classmodifier
@@ -74,30 +73,6 @@ class ClassModifierConcrete(ClassModifier):
         self.classmodifier = classmodifier
     def accept(self, visitor):
         pass
-    
-# class ClassModifierDefault(ClassModifier):
-#     def __init__(self):
-#         pass
-#     def accept(self, visitor):
-#         pass
-    
-# class ClassModifierAbstract(ClassModifier):
-#     def __init__(self):
-#         pass
-#     def accept(self, visitor):
-#         pass
-    
-# class ClassModifierFinal(ClassModifier):
-#     def __init__(self):
-#         pass
-#     def accept(self, visitor):
-#         pass    
-
-# class ClassModifierPackage(ClassModifier):
-#     def __init__(self):
-#         pass
-#     def accept(self, visitor):
-        # pass
     
     
 #MEMBROS
@@ -815,7 +790,7 @@ class Type(metaclass=ABCMeta):
     def accept(self, visitor):
         pass
 
-class Type(Type):
+class TypePrimitive(Type):
     def __init__(self, primitivetypes):
         self.primitivetypes = primitivetypes
     def accept(self, visitor):
