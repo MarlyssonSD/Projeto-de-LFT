@@ -10,404 +10,416 @@ def blank():
         p = p + ' '
     return p
 
-
 class Visitor(AbstractVisitor):
 
     def VisitProgramConcrete(self, programConcrete):
-        pass
-    
-    
-    def VisitCClassExtends(self, cclassExtends):
-        pass
-    
-    
-    def VisitCClassDefault(self, cclassDefault):
-        pass
-    
-    
-    def VisitCClassImplements(self, CClassImplements):
-        pass  
+        for cclass in programConcrete.cclass:
+            cclass.accept(self)
 
-    
+    def VisitCClassExtends(self, cclassExtends):
+        cclassExtends.visibility.accept(self)
+        print(cclassExtends.extendClass.name, end='')
+        if cclassExtends.classModifiers != None:
+            for classModifier in cclassExtends.classModifiers:
+                classModifier.accept(self)
+        print(blank() + '{')
+        cclassExtends.membrosUni.accept(self)
+        print(blank() + '}')
+
+    def VisitCClassDefault(self, cclassDefault):
+        cclassDefault.visibility.accept(self)
+        print('class', end='')
+        if cclassDefault.classModifiers != None:
+            for classModifier in cclassDefault.classModifiers:
+                classModifier.accept(self)
+        print(cclassDefault.name, end='')
+        if cclassDefault.extendsClass != None:
+            print('extends', end='')
+            cclassDefault.extendsClass.accept(self)
+        if cclassDefault.implementsClasses != None:
+            for cclassImplements in cclassDefault.implementsClasses:
+                cclassImplements.accept(self)
+        print(blank() + '{')
+        cclassDefault.membrosUni.accept(self)
+        print(blank() + '}')
+
+    def VisitCClassImplements(self, CClassImplements):
+        print('implements', end='')
+        CClassImplements.className.accept(self)
+
     def VisitVisibilityConcrete(self, visibility):
-        pass
-          
-    
+        if (visibility.visibilityType == 'public'):
+            print('public', end='')
+        elif (visibility.visibilityType == 'private'):
+            print('private', end='')
+        elif (visibility.visibilityType == 'protected'):
+            print('protected', end='')
+
     def VisitClassModifierConcrete(self, classmodifier):
-        pass
-          
-    
+        if (classmodifier.classModifierType == 'final'):
+            print('final', end='')
+        elif (classmodifier.classModifierType == 'abstract'):
+            print('abstract', end='')
+
     def VisitMembrosUni(self, membrosUni):
-        pass
-          
-    
+        if membrosUni != None:
+            for membro in membrosUni:
+                membro.accept(self)
+
     def VisitMembrosMult(self, membrosMult):
-        pass
-          
-    
+        if membrosMult != None:
+            for membro in membrosMult:
+                membro.accept(self)
+
     def VisitMembroAtribute(self, membroAtribute):
-        pass
-          
-    
+        atributeDefault = membroAtribute.atributeDefault
+        if atributeDefault != None:
+            atributeDefault.accept(self)
+        print(membroAtribute.type.name, end='')
+        print(' ', membroAtribute.id.name, ';', sep='')
+
     def VisitMembroFunction(self, membroFunction):
-        pass
-          
-    
+        functionDefault = membroFunction.functionDefault
+        if functionDefault != None:
+            functionDefault.accept(self)
+        functionDefault.signature.accept(self)
+        functionDefault.body.accept(self)
+
     def VisitAtributeDefault(self, atributeDefault):
-        pass
-          
-    
+        print('final', end='')
+
     def VisitAtributeDefaultInicializedType(self, atributeDefaultInicializedType):
-        pass
-          
-    
+        atributeDefaultInicializedType.type.accept(self)
+        print(' ', atributeDefaultInicializedType.id.name, '=', end='')
+        atributeDefaultInicializedType.expression.accept(self)
+        print(';', end='')
+
     def VisitAtributeModifierConcrete(self, atributeModifierConcrete):
-        pass
-          
-    
+        if (atributeModifierConcrete.atributeModifierType == 'final'):
+            print('final', end='')
+
     def VisitFunctionDefault(self, functionDefault):
-        pass
-          
-    
+        functionDefault.visibility.accept(self)
+        functionDefault.returnType.accept(self)
+        functionDefault.id.accept(self)
+        functionDefault.signature.accept(self)
+
     def VisitSignatureSimple(self, SignatureSimple):
-        pass
-          
-    
+        print('(', end='')
+        SignatureSimple.params.accept(self)
+        print(')', end='')
+
     def VisitSignatureMult(self, signatureMult):
-        pass
-          
-    
+        print('(', end='')
+        if (signatureMult.params != []):
+            signatureMult.params[0].accept(self)
+        for param in signatureMult.params[1:]:
+            print(',', end='')
+            param.accept(self)
+        print(')', end='')
+
     def VisitSigparamsSigparams(self, sigparamsSigparams):
-        pass
-              
-    
+        sigparamsSigparams.accept(self)
+        for sigparam in sigparamsSigparams.sigparams:
+            sigparam.accept(self)
+
     def VisitBodyStms(self, bodyStms):
-        pass
-              
-    
+        bodyStms.accept(self)
+        for stm in bodyStms.stms:
+            stm.accept(self)
+
     def VisitStmsUni(self, stmsUni):
-        pass
-              
-    
+        stmsUni.accept(self)
+        for stm in stmsUni.stms:
+            stm.accept(self)
+
     def VisitStmsMulti(self, stmsMulti):
-        pass
-              
-    
+        stmsMulti.accept(self)
+        for stm in stmsMulti.stms:
+            stm.accept(self)
+
     def VisitStmExpression(self, stmExpression):
-        pass
-              
-    
+        print(blank(), end='')
+        stmExpression.expression.accept(self)
+        print(';', end='')
+
     def VisitStmExpressionWhile(self, stmExpressionWhile):
-        pass
-              
-    
+        print(blank(), end='')
+        print('while(', end='')
+        stmExpressionWhile.expression.accept(self)
+        print(') ', end='')
+        stmExpressionWhile.stm.accept(self)
+
     def VisitStmExpressionDoWhile(self, stmExpressionDoWhile):
-        pass
-              
-    
+        print(blank(), end='')
+        print('do ', end='')
+        stmExpressionDoWhile.stm.accept(self)
+        print('while(', end='')
+        stmExpressionDoWhile.expression.accept(self)
+        print(');', end='')
+
     def VisitStmExpressionFor(self, stmExpressionFor):
-        pass
-              
-    
+        print(blank(), end='')
+        print('for(', end='')
+        stmExpressionFor.expressionForAssignForType.accept(self)
+        print(';', end='')
+        stmExpressionFor.expressionForAssignFor.accept(self)
+        print(';', end='')
+        stmExpressionFor.expressionOperator.accept(self)
+        print(') ', end='')
+        stmExpressionFor.stm.accept(self)
+
     def VisitStmExpressionIf(self, stmExpressionIf):
-        pass
-              
-    
+        print(blank(), end='')
+        print('if(', end='')
+        stmExpressionIf.expression.accept(self)
+        print(') ', end='')
+        stmExpressionIf.stm.accept(self)
+
     def VisitStmExpressionIfElse(self, stmExpressionIfElse):
-        pass
-              
-    
+        print(blank(), end='')
+        print('if(', end='')
+        stmExpressionIfElse.expression.accept(self)
+        print(') ', end='')
+        stmExpressionIfElse.stm.accept(self)
+        print('else ', end='')
+        stmExpressionIfElse.stmElse.accept(self)
+
     def VisitStmExpressionElseIf(self, stmExpressionElseIf):
-        pass
-              
-    
+        print(blank(), end='')
+        print('else ', end='')
+        stmExpressionElseIf.expression.accept(self)
+        print('if(', end='')
+        stmExpressionElseIf.expressionElseIf.accept(self)
+        print(') ', end='')
+        stmExpressionElseIf.stm.accept(self)
+
     def VisitStmExpressionSemicolon(self, stmExpressionSemicolon):
-        pass
-              
-    
+        print(blank(), end='')
+        print(';', end='')
+
     def VisitStmExpressionVariable(self, stmExpressionVariable):
-        pass
-              
-    
+        print(blank(), end='')
+        stmExpressionVariable.expressionVariableTypeList.accept(self)
+        print(stmExpressionVariable.id.name, end='')
+
     def VisitStmExpressionVariableType(self, stmExpressionVariableType):
-        pass
-              
-    
+        print(blank(), end='')
+        stmExpressionVariableType.expressionVariableTypeList.accept(self)
+        print(stmExpressionVariableType.id.name, end='')
+
     def VisitStmExpressionVariableTypeList(self, stmExpressionVariableTypeList):
-        pass
-              
-    
+        stmExpressionVariableTypeList.accept(self)
+
     def VisitStmExpressionVariableTypeListPre(self, stmExpressionVariableTypeListPre):
-        pass
-              
-    
+        stmExpressionVariableTypeListPre.accept(self)
+
     def VisitStmExpressionVariableTypeListListPre(self, stmExpressionVariableTypeListListPre):
-        pass
-              
-    
+       stmExpressionVariableTypeListListPre.accept(self)
+
     def VisitStmExpressionVariableTypeListExpression(self, stmExpressionVariableTypeListExpression):
-        pass
-              
-    
+        stmExpressionVariableTypeListExpression.accept(self)
+
     def VisitStmExpressionVariableTypeListExpressionInicialized(self, stmExpressionVariableTypeListExpressionInicialized):
-        pass
-              
-    
+        stmExpressionVariableTypeListExpressionInicialized.accept(self)
+
     def VisitStmExpressionVariableTypeListList(self, stmExpressionVariableTypeListList):
-        pass
-              
-    
+        stmExpressionVariableTypeListList.accept(self)
+
     def VisitStmExpressionVariableTypeListListInicialized(self, stmExpressionVariableTypeListListInicialized):
-        pass
-              
-    
+        stmExpressionVariableTypeListListInicialized.accept(self)
+
     def VisitStmExpressionReturn(self, stmExpressionReturn):
-        pass
-              
-    
+        print(blank(), end='')
+        print('return ', end='')
+        stmExpressionReturn.expression.accept(self)
+        print(';', end='')
+
     def VisitStmExpressionVoidReturn(self, stmExpressionVoidReturn):
-        pass
-              
-    
+        print(blank(), end='')
+        print('return;', end='')
+
     def VisitBodyOrStmBody(self, bodyOrStmBody):
-        pass
-              
-    
+        bodyOrStmBody.accept(self)
+
     def VisitExpressionForAssignForType(self, expressionForAssignForType):
-        pass
-              
-    
+        expressionForAssignForType.accept(self)
+
     def VisitExpressionForAssignFor(self, expressionForAssignFor):
-        pass
-              
-    
+        expressionForAssignFor.accept(self)
+
     def VisitExpressionOperator(self, expressionOperator):
-        pass
-              
-    
+        expressionOperator.accept(self)
+
     def VisitExpressionCall(self, expressionCall):
-        pass
-              
-    
+        expressionCall.accept(self)
+
     def VisitExpressionFloatNumber(self, expressionFloatNumber):
-        pass
-              
-    
+        print(expressionFloatNumber.value, end='')
+
     def VisitExpressionDoubleNumber(self, expressionDoubleNumber):
-        pass
-              
-    
+        print(expressionDoubleNumber.value, end='')
+
     def VisitExpressionIntNumber(self, expressionIntNumber):
-        pass
-              
-    
+        print(expressionIntNumber.value, end='')
+
     def VisitExpressionString(self, expressionString):
-        pass
-              
+        print(expressionString.value, end='')
+
     def VisitExpressionId(self, expressionId):
-        pass
-              
-    
+        print(expressionId.id.name, end='')
+
     def VisitExpressionNew(self, expressionNew):
-        pass
-              
-    
+        print('new ', end='')
+        expressionNew.type.accept(self)
+
     def VisitExpressionNewList(self, expressionNewList):
-        pass
-              
-    
+        print('new ', end='')
+        expressionNewList.type.accept(self)
+        print('[]', end='')
+
     def VisitOperatorArithmeticTimes(self, operatorArithmeticTimes):
-        pass
-              
-    
+        print('*', end='')
+
     def VisitOperatorArithmeticDivide(self, operatorArithmeticDivide):
-        pass
-              
-    
+        print('/', end='')
+
     def VisitOperatorArithmeticModule(self, operatorArithmeticModule):
-        pass
-              
-    
+        print('%', end='')
+
     def VisitOperatorArithmeticPlus(self, operatorArithmeticPlus):
-        pass
-              
-    
+        print('+', end='')
+
     def VisitOperatorArithmeticMinus(self, operatorArithmeticMinus):
-        pass
-              
-    
+        print('-', end='')
+
     def VisitOperatorAssignEqual(self, operatorAssignEqual):
-        pass
-              
-    
+        print('=', end='')
+
     def VisitOperatorAssignMinusEQ(self, operatorAssignMinusEQ):
-        pass
-              
-    
+        print('-=', end='')
+
     def VisitOperatorAssignTimesEQ(self, operatorAssignTimesEQ):
-        pass
-              
-    
+        print('*=', end='')
+
     def VisitOperatorAssignPlusEQ(self, operatorAssignPlusEQ):
-        pass
-              
-    
+        print('+=', end='')
+
     def VisitOperatorAssignDivideEQ(self, operatorAssignDivideEQ):
-        pass
-              
-    
+        print('/=', end='')
+
     def VisitOperatorAssignModuleEQ(self, operatorAssignModuleEQ):
-        pass
-              
-    
+        print('%=', end='')
+
     def VisitOperatorAssignBitwiseAndEQ(self, operatorAssignBitwiseAndEQ):
-        pass
-              
-    
+        print('&=', end='')
+
     def VisitOperatorAssignBitwiseOrEQ(self, operatorAssignBitwiseOrEQ):
-        pass
-              
-    
+        print('|=', end='')
+
     def VisitOperatorAssignBitwiseXorEQ(self, operatorAssignBitwiseXorEQ):
-        pass
-                  
-    
+        print('^=', end='')
+
     def VisitOperatorAssignUrshiftEQ(self, operatorAssignUrshiftEQ):
-        pass
-                  
-    
+        print('>>=', end='')
+
     def VisitOperatorAssignLshiftEQ(self, operatorAssignLshiftEQ):
-        pass
-                  
-    
+        print('<<=', end='')
+
     def VisitOperatorAssignRshiftEQ(self, operatorAssignRshiftEQ):
-        pass
-                  
-    
+        print('>>>=', end='')
+
     def VisitOperatorComparatorLeq(self, operatorComparatorLeq):
-        pass
-                  
-    
+        print('<=', end='')
+
     def VisitOperatorComparatorGeq(self, operatorComparatorGeq):
-        pass
-                  
-    
+        print('>=', end='')
+
     def VisitOperatorComparatorLt(self, operatorComparatorLt):
-        pass
-                  
-    
+        print('<', end='')
+
     def VisitOperatorComparatorGt(self, operatorComparatorGt):
-        pass
-                  
-    
+        print('>', end='')
+
     def VisitOperatorComparatorNeq(self, operatorComparatorNeq):
-        pass
-                  
-    
+        print('!=', end='')
+
     def VisitOperatorComparatorEq(self, operatorComparatorEq):
-        pass
-                  
-    
+        print('==', end='')
+
     def VisitOperatorComparatorAnd(self, operatorComparatorAnd):
-        pass
-                  
-    
+        print('&&', end='')
+
     def VisitOperatorComparatorOr(self, operatorComparatorOr):
-        pass
-                  
-    
+        print('||', end='')
+
     def VisitOperatorComparatorBitwise_And(self, operatorComparatorBitwise_And):
-        pass
-                  
-    
+        print('&', end='')
+
     def VisitOperatorComparatorBitwise_OR(self, operatorComparatorBitwise_OR):
-        pass
-                  
-    
+        print('|', end='')
+
     def VisitOperatorComparatorBitwise_XOR(self, operatorComparatorBitwise_XOR):
-        pass
-                  
-    
-    def VisitOperatorUnaryPrefix(self, operatorUnaryPrefix):
-        pass
-                  
-    
-    def VisitOperatorUnarySufix(self, operatorUnarySufix):
-        pass
-                  
-    
-    def VisitOperatorBitToBit(self, operatorBitToBit):
-        pass
-                  
-    
+        print('^', end='')
+
     def VisitUnaryOperatorPrefixConcrete(self, UnaryOperatorPrefixConcrete):
-        pass
-                  
-    
+        UnaryOperatorPrefixConcrete.accept(self)
+
     def VisitUnaryOperatorSufixConcrete(self, UnaryOperatorSufixConcrete):
-        pass
-                  
-    
-    def VisitUnaryOperatorBitToBitConcrete(self, UnaryOperatorBitToBitConcrete):
-        pass
-                  
-    
-    def VisitBracketsExpressionSimple(self, BracketsExpressionSimple):
-        pass
-                  
-    
-    def VisitBracketsExpressionIntNumber(self, BracketsExpressionIntNumber):
-        pass
-                  
-    
-    def VisitBracketsExpressionId(self, BracketsExpressionId):
-        pass
-                  
-    
-    def VisitTypePrimitive(self, TypePrimitive):
-        pass
-                  
-    
-    def VisitPrimitiveTypesConcrete(self, PrimitiveTypesConcrete):
-        pass
-                  
-    
-    def VisitCallParams(self, CallParams):
-        pass
-                      
-    
-    def VisitCallDefault(self, CallDefault):
-        pass
-                      
-    
-    def VisitParamsCallMulti(self, ParamsCallMulti):
-        pass
-                      
-    
-    def VisitParamsCallUnique(self, ParamsCallUnique):
-        pass
-                      
-    
-    def VisitChavExpEmpty(self, ChavExpEmpty):
-        pass
-                      
-    
-    def VisitChavExpExpressionChav(self, ChavExpExpressionChav):
-        pass
-                      
-    
-    def VisitExpressionChavMult(self, ExpressionChavMult):
-        pass
-                          
-    
-    def VisitExpressionChavUni(self, ExpressionChavUni):
-        pass
-                          
-    
-    def VisitExpressionChavComma(self, ExpressionChavComma):
-        pass
-    
-    
+        UnaryOperatorSufixConcrete.accept(self)
+
+        def VisitUnaryOperatorBitToBitConcrete(self, UnaryOperatorBitToBitConcrete):
+            print(UnaryOperatorBitToBitConcrete.operator, end='')
+
+        def VisitBracketsExpressionSimple(self, BracketsExpressionSimple):
+            print('(', end='')
+            BracketsExpressionSimple.expression.accept(self)
+            print(')', end='')
+
+        def VisitBracketsExpressionIntNumber(self, BracketsExpressionIntNumber):
+            print('(', end='')
+            BracketsExpressionIntNumber.intNumber.accept(self)
+            print(')', end='')
+
+        def VisitBracketsExpressionId(self, BracketsExpressionId):
+            print('(', end='')
+            BracketsExpressionId.id.accept(self)
+            print(')', end='')
+
+        def VisitTypePrimitive(self, TypePrimitive):
+            print(TypePrimitive.type, end='')
+
+        def VisitPrimitiveTypesConcrete(self, PrimitiveTypesConcrete):
+            PrimitiveTypesConcrete.accept(self)
+
+        def VisitCallParams(self, CallParams):
+            CallParams.accept(self)
+
+        def VisitCallDefault(self, CallDefault):
+            CallDefault.accept(self)
+
+        def VisitParamsCallMulti(self, ParamsCallMulti):
+            ParamsCallMulti.accept(self)
+
+        def VisitParamsCallUnique(self, ParamsCallUnique):
+            ParamsCallUnique.accept(self)
+
+        def VisitChavExpEmpty(self, ChavExpEmpty):
+            pass
+
+        def VisitChavExpExpressionChav(self, ChavExpExpressionChav):
+            ChavExpExpressionChav.accept(self)
+
+        def VisitExpressionChavMult(self, ExpressionChavMult):
+            ExpressionChavMult.accept(self)
+
+        def VisitExpressionChavUni(self, ExpressionChavUni):
+            ExpressionChavUni.accept(self)
+
+        def VisitExpressionChavComma(self, ExpressionChavComma):
+            ExpressionChavComma.accept(self)
+
+
 def main():
     f = open("Teste2.java", "r")
     lexer = lex.lex()
