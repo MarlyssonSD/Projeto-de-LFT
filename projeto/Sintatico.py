@@ -479,7 +479,7 @@ def p_brackets_expression_id(p):
 def p_type(p):
     ''' type : primitivetypes
                '''
-    p[0] = SA.Type(p[1])
+    p[0] = SA.TypePrimitive(p[1])
 
 
 def p_primitivetypes(p):

@@ -1,5 +1,5 @@
 from AbstractVisitor import AbstractVisitor
-from projeto.Sintatico import *
+from Sintatico import *
 
 # global tab
 tab = 0
@@ -409,7 +409,7 @@ class Visitor(AbstractVisitor):
     
     
 def main():
-    f = open("Teste2.java", "r")
+    f = open("projeto/Teste2.java", "r")
     lexer = lex.lex()
     lexer.input(f.read())
     parser = yacc.yacc()
