@@ -67,6 +67,10 @@ class AbstractVisitor(metaclass=ABCMeta):
         pass
           
     @abstractmethod
+    def VisitSigparamsId(self, sigparams):
+        pass
+          
+    @abstractmethod
     def VisitSigparamsSigparams(self, sigparams):
         pass
               

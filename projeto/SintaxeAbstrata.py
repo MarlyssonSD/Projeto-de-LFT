@@ -10,7 +10,7 @@ class ProgramConcrete(Program):
     def __init__(self, cclass):
         self.cclass = cclass
     def accept(self, visitor):
-        pass
+        return visitor.VisitProgramConcrete(self)
         
         
 #CLASS
@@ -27,7 +27,7 @@ class CClassExtends(CClass):
         self.ID_NOMEEXTENDS = ID_NOMEEXTENDS
         self.membros = membros
     def accept(self, visitor):
-        pass
+        return visitor.VisitCClassExtends(self)
         
 class CClassDefault(CClass):
     def __init__(self, visibility, classmodifier, ID_NOMECLASS,  membros):
@@ -36,7 +36,7 @@ class CClassDefault(CClass):
         self.ID_NOMECLASS = ID_NOMECLASS
         self.membros = membros
     def accept(self, visitor):
-        pass
+        return visitor.VisitCClassDefault(self)
     
 class CClassImplements(CClass):
     def __init__(self, visibility, classmodifier, ID_NOMECLASS, membros):
@@ -45,7 +45,7 @@ class CClassImplements(CClass):
         self.ID_NOMECLASS = ID_NOMECLASS
         self.membros = membros
     def accept(self, visitor):
-        pass
+        return visitor.VisitCClassImplements(self)
 
 
 #VISIBILIDADE
@@ -59,7 +59,7 @@ class VisibilityConcrete(Visibility):
     def __init__(self,visibilidade):
         self.visibilidade = visibilidade
     def accept(self, visitor):
-        pass
+        return visitor.VisitVisibilityConcrete(self)
 
     
 #CLASSMODIFIER
@@ -72,7 +72,7 @@ class ClassModifierConcrete(ClassModifier):
     def __init__(self, classmodifier):
         self.classmodifier = classmodifier
     def accept(self, visitor):
-        pass
+        return visitor.VisitClassModifierConcrete(self)
     
     
 #MEMBROS
@@ -85,14 +85,14 @@ class MembrosUni(Membros):
     def __init__(self, membro):
         self.membro = membro
     def accept(self, visitor):
-        pass
+        return visitor.VisitMembrosUni(self)
     
 class MembrosMult(Membros):
     def __init__(self, membro, membros):
         self.membro = membro
         self.membros = membros
     def accept(self, visitor):
-        pass
+        return visitor.VisitMembrosMult(self)
     
     
 #MEMBRO
@@ -105,13 +105,13 @@ class MembroAtribute(Membro):
     def __init__(self,atribute):
         self.atribute = atribute
     def accept(self, visitor):
-        pass
+        return visitor.VisitMembroAtribute(self)
 
 class MembroFunction(Membro):
     def __init__(self, function):
         self.function = function
     def accept(self, visitor):
-        pass
+        return visitor.VisitMembroFunction(self)
 
 
 #ATRIBUTOS
@@ -127,7 +127,7 @@ class AtributeDefault(Atribute):
         self.type = type
         self.ID = ID
     def accept(self, visitor):
-        pass
+        return visitor.VisitAtributeDefault(self)
     
 class AtributeDefaultInicializedType(Atribute):
     def __init__(self, visibility, atributemodifier, type, ID, expression):
@@ -137,7 +137,7 @@ class AtributeDefaultInicializedType(Atribute):
         self.ID = ID
         self.expression = expression
     def accept(self, visitor):
-        pass
+        return visitor.VisitAtributeDefaultInicializedType(self)
     
     
 #ATRIBUTEMODIFIER
@@ -150,7 +150,7 @@ class AtributeModifierConcrete(AtributeModifier):
     def __init__(self,atributemodifier):
         self.atributemodifier = atributemodifier
     def accept(self, visitor):
-        pass
+        return visitor.VisitAtributeModifierConcrete(self)
 
 
 #FUNÇÕES
@@ -164,7 +164,7 @@ class FunctionDefault(Function):
         self.signature = signature
         self.body = body
     def accept(self, visitor):
-        pass
+        return visitor.VisitFunctionDefault(self)
     
 
 #SIGNATURE
@@ -181,7 +181,7 @@ class SignatureSimple(Signature):
         self.ID = ID
         self.sigparams = sigparams
     def accept(self, visitor):
-        pass
+        visitor.VisitSignatureSimple(self)
         
 class SignatureMult(Signature):
     def __init__(self, visibility, atributemodifier, type, brackets_expression, ID, sigparams):
@@ -192,7 +192,7 @@ class SignatureMult(Signature):
         self.ID = ID
         self.sigparams = sigparams
     def accept(self, visitor):
-        pass
+        visitor.VisitSignatureMult(self)
     
 
 #SIGPARAMS
@@ -206,14 +206,16 @@ class SigparamsId(Sigparams):
         self.type = type
         self.ID = ID
     def accept(self, visitor):
-        pass
+        return visitor.VisitSigparamsId(self)
     
 class SigparamsSigparams(Sigparams):
     def __init__(self, type, ID, sigparams):
         self.type = type
         self.ID = ID
         self.sigparams = sigparams
-               
+    def accept(self, visitor):
+        return visitor.VisitSigparamsSigparams(self)
+           
                
 #BODY
 class Body(metaclass=ABCMeta):
@@ -225,7 +227,7 @@ class BodyStms(Body):
     def __init__(self, stms):
         self.stms = stms
     def accept(self, visitor):
-        pass
+        return visitor.VisitBodyStms(self)
     
 #STMS
 class Stms(metaclass=ABCMeta):
@@ -237,14 +239,14 @@ class StmsUni(Stms):
     def __init__(self, stm):
         self.stm = stm
     def accept(self, visitor):
-        pass
+        return visitor.VisitStmsUni(self)
     
 class StmsMulti(Stms):
     def __init__(self, stm, stms):
         self.stm = stm
         self.stms = stms
     def accept(self, visitor):
-        pass
+        return visitor.VisitStmsMulti(self)
 
 
 #STM
@@ -257,21 +259,21 @@ class StmExpression(Stm):
     def __init__(self, expression):
         self.expression = expression
     def accept(self, visitor):
-        pass
+        return visitor.VisitStmExpression(self)
     
 class StmExpressionWhile(Stm):
     def __init__(self, expression, bodyorstm):
         self.expression = expression
         self.bodyorstm = bodyorstm
     def accept(self, visitor):
-        pass
+        return visitor.VisitStmExpressionWhile(self)
     
 class StmExpressionDoWhile(Stm):
     def __init__(self, bodyorstm, expression):
         self.bodyorstm = bodyorstm
         self.expression = expression
     def accept(self, visitor):
-        pass
+        return visitor.VisitStmExpressionDoWhile(self)
     
 class StmExpressionFor(Stm):
     def __init__(self, expression_for, expression_mid, expression_final, bodyorstm):
@@ -280,14 +282,14 @@ class StmExpressionFor(Stm):
         self.expression_final = expression_final
         self.bodyorstm = bodyorstm
     def accept(self, visitor):
-        pass
+        return visitor.VisitStmExpressionFor(self)
         
 class StmExpressionIf(Stm):
     def __init__(self, expression, bodyorstm):
         self.expression = expression
         self.bodyorstm = bodyorstm
     def accept(self, visitor):
-        pass
+        return visitor.VisitStmExpressionIf(self)
         
 class StmExpressionIfElse(Stm):
     def __init__(self, expression, bodyorstm_1,bodyorstm_2):
@@ -295,7 +297,7 @@ class StmExpressionIfElse(Stm):
         self.bodyorstm_1 = bodyorstm_1
         self.bodyorstm_2 = bodyorstm_2
     def accept(self, visitor):
-        pass
+        return visitor.VisitStmExpressionIfElse(self)
         
 class StmExpressionElseIf(Stm):
     def __init__(self, expression, bodyorstm_1,bodyorstm_2):
@@ -303,13 +305,13 @@ class StmExpressionElseIf(Stm):
         self.bodyorstm_1 = bodyorstm_1
         self.bodyorstm_2 = bodyorstm_2
     def accept(self, visitor):
-        pass
+        return visitor.VisitStmExpressionElseIf(self)
     
 class StmExpressionSemicolon(Stm):
     def __init__(self):
         pass
     def accept(self, visitor):
-        pass     
+        return visitor.VisitStmExpressionSemicolon(self)     
         
 class StmExpressionVariable(Stm):
     def __init__(self, atributemodifier, type, ID):
@@ -317,7 +319,7 @@ class StmExpressionVariable(Stm):
         self.type = type
         self.ID = ID
     def accept(self, visitor):
-        pass        
+        return visitor.VisitStmExpressionVariable(self)        
                 
 class StmExpressionVariableType(Stm):
     def __init__(self, atributemodifier, type, ID, expression):
@@ -326,7 +328,7 @@ class StmExpressionVariableType(Stm):
         self.ID = ID
         self.expression = expression
     def accept(self, visitor):
-        pass
+        return visitor.VisitStmExpressionVariableType(self)
     
 class StmExpressionVariableTypeList(Stm):
     def __init__(self, atributemodifier, type, ID):
@@ -334,7 +336,7 @@ class StmExpressionVariableTypeList(Stm):
         self.type = type
         self.ID = ID
     def accept(self, visitor):
-        pass
+        return visitor.VisitStmExpressionVariableTypeList(self)
     
 class StmExpressionVariableTypeListPre(Stm):
     def __init__(self, atributemodifier, type, ID):
@@ -342,7 +344,7 @@ class StmExpressionVariableTypeListPre(Stm):
         self.type = type
         self.ID = ID
     def accept(self, visitor):
-        pass
+        return visitor.VisitStmExpressionVariableTypeListPre(self)
     
 class StmExpressionVariableTypeListListPre(Stm):
     def __init__(self, atributemodifier, type, ID, chav_exp):
@@ -351,7 +353,7 @@ class StmExpressionVariableTypeListListPre(Stm):
         self.ID = ID
         self.chav_exp = chav_exp
     def accept(self, visitor):
-        pass
+        return visitor.VisitStmExpressionVariableTypeListListPre(self)
     
 class StmExpressionVariableTypeListExpression(Stm):
     def __init__(self, atributemodifier, type, ID, expression):
@@ -360,7 +362,7 @@ class StmExpressionVariableTypeListExpression(Stm):
         self.ID = ID
         self.expression = expression
     def accept(self, visitor):
-        pass
+        return visitor.VisitStmExpressionVariableTypeListExpression(self)
     
 class StmExpressionVariableTypeListExpressionInicialized(Stm):
     def __init__(self, atributemodifier, type, ID, chav_exp):
@@ -369,7 +371,7 @@ class StmExpressionVariableTypeListExpressionInicialized(Stm):
         self.ID = ID
         self.chav_exp = chav_exp
     def accept(self, visitor):
-        pass
+        return visitor.VisitStmExpressionVariableTypeListExpressionInicialized(self)
     
 class StmExpressionVariableTypeListList(Stm):
     def __init__(self, atributemodifier, type, ID):
@@ -377,7 +379,7 @@ class StmExpressionVariableTypeListList(Stm):
         self.type = type
         self.ID = ID
     def accept(self, visitor):
-        pass
+        return visitor.VisitStmExpressionVariableTypeListList(self)
     
 class StmExpressionVariableTypeListListInicialized(Stm):
     def __init__(self, atributemodifier, type, ID, chav_exp):
@@ -386,19 +388,19 @@ class StmExpressionVariableTypeListListInicialized(Stm):
         self.ID = ID
         self.chav_exp = chav_exp
     def accept(self, visitor):
-        pass
+        return visitor.VisitStmExpressionVariableTypeListListInicialized(self)
 
 class StmExpressionReturn(Stm):
     def __init__(self, expression):
         self.expression = expression
     def accept(self, visitor):
-        pass
+        return visitor.VisitStmExpressionReturn(self)
     
 class StmExpressionVoidReturn(Stm):
     def __init__(self, void_return):
         self.void_return = void_return
     def accept(self, visitor):
-        pass
+        return visitor.VisitStmExpressionVoidReturn(self)
 
 #BODYORSTM
 class BodyOrStm(metaclass=ABCMeta):
@@ -410,7 +412,7 @@ class BodyOrStmBody(BodyOrStm):
     def __init__(self, body):
         self.body = body
     def accept(self, visitor):
-        pass
+        return visitor.VisitBodyOrStmBody(self)
         
 #EXPRESSIONFOR
 class ExpressionFor(metaclass=ABCMeta):
@@ -424,14 +426,14 @@ class ExpressionForAssignForType(ExpressionFor):
         self.ID = ID 
         self.expression = expression 
     def accept(self, visitor):
-        pass
+        return visitor.VisitExpressionForAssignForType(self)
     
 class ExpressionForAssignFor(ExpressionFor):
     def __init__(self, ID, expression):
         self.ID = ID 
         self.expression = expression 
     def accept(self, visitor):
-        pass
+        return visitor.VisitExpressionForAssignFor(self)
     
     
     
@@ -445,57 +447,57 @@ class ExpressionOperator(Expression):
     def __init__(self, operator):
         self.operator = operator
     def accept(self, visitor):
-        pass
+        return visitor.VisitExpressionOperator(self)
 
 class ExpressionCall(Expression):
     def __init__(self, call):
         self.call = call
     def accept(self, visitor):
-        pass
+        return visitor.VisitExpressionCall(self)
     
 class ExpressionFloatNumber(Expression):
     def __init__(self, float_number):
         self.float_number = float_number
     def accept(self, visitor):
-        pass
+        return visitor.VisitExpressionFloatNumber(self)
         
 class ExpressionDoubleNumber(Expression):
     def __init__(self, double_number):
         self.double_number = double_number
     def accept(self, visitor):
-        pass
+        return visitor.VisitExpressionDoubleNumber(self)
         
 class ExpressionIntNumber(Expression):
     def __init__(self, int_number):
         self.int_number = int_number
     def accept(self, visitor):
-        pass
+        return visitor.VisitExpressionIntNumber(self)
     
 class ExpressionString(Expression):
     def __init__(self, string):
         self.string = string
     def accept(self, visitor):
-        pass
+        return visitor.VisitExpressionString(self)
         
 class ExpressionId(Expression):
     def __init__(self, ID):
         self.ID = ID
     def accept(self, visitor):
-        pass
+        return visitor.VisitExpressionId(self)
         
 class ExpressionNew(Expression):
     def __init__(self, type, params_call):
         self.type = type
         self.params_call = params_call
     def accept(self, visitor):
-        pass
+        return visitor.VisitExpressionNew(self)
         
 class ExpressionNewList(Expression):
     def __init__(self, type, expression):
         self.type = type
         self.expression = expression
     def accept(self, visitor):
-        pass       
+        return visitor.VisitExpressionNewList(self)   
         
 
 #OPERATOR
@@ -509,216 +511,216 @@ class OperatorArithmeticTimes(Operator):
         self.expression_1 = expression_1
         self.expression_2 = expression_2
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorArithmeticTimes(self)
     
 class OperatorArithmeticDivide(Operator):
     def __init__(self,expression_1, expression_2):
         self.expression_1 = expression_1
         self.expression_2 = expression_2
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorArithmeticDivide(self)
     
 class OperatorArithmeticModule(Operator):
     def __init__(self,expression_1, expression_2):
         self.expression_1 = expression_1
         self.expression_2 = expression_2
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorArithmeticModule(self)
     
 class OperatorArithmeticPlus(Operator):
     def __init__(self,expression_1, expression_2):
         self.expression_1 = expression_1
         self.expression_2 = expression_2
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorArithmeticPlus(self)
     
 class OperatorArithmeticMinus(Operator):
     def __init__(self,expression_1, expression_2):
             self.expression_1 = expression_1
             self.expression_2 = expression_2
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorArithmeticMinus(self)
 
 class OperatorAssignEqual(Operator):
     def __init__(self, ID, expression):
         self.ID = ID
         self.expression = expression
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorAssignEqual(self)
     
 class OperatorAssignMinusEQ(Operator):
     def __init__(self, ID, expression):
         self.ID = ID
         self.expression = expression
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorAssignMinusEQ(self)
     
 class OperatorAssignTimesEQ(Operator):
     def __init__(self, ID, expression):
         self.ID = ID
         self.expression = expression
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorAssignTimesEQ(self)
 
 class OperatorAssignPlusEQ(Operator):
     def __init__(self, ID, expression):
         self.ID = ID
         self.expression = expression
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorAssignPlusEQ(self)
 
 class OperatorAssignDivideEQ(Operator):
     def __init__(self, ID, expression):
         self.ID = ID
         self.expression = expression
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorAssignDivideEQ(self)
     
 class OperatorAssignModuleEQ(Operator):
     def __init__(self, ID, expression):
         self.ID = ID
         self.expression = expression
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorAssignModuleEQ(self)
     
 class OperatorAssignBitwiseAndEQ(Operator):
     def __init__(self, ID, expression):
         self.ID = ID
         self.expression = expression
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorAssignBitwiseAndEQ(self)
     
 class OperatorAssignBitwiseOrEQ(Operator):
     def __init__(self, ID, expression):
         self.ID = ID
         self.expression = expression
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorAssignBitwiseAndEQ(self)
     
 class OperatorAssignBitwiseXorEQ(Operator):
     def __init__(self, ID, expression):
         self.ID = ID
         self.expression = expression
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorAssignBitwiseXorEQ(self)
     
 class OperatorAssignUrshiftEQ(Operator):
     def __init__(self, ID, expression):
         self.ID = ID
         self.expression = expression
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorAssignUrshiftEQ(self)
     
 class OperatorAssignLshiftEQ(Operator):
     def __init__(self, ID, expression):
         self.ID = ID
         self.expression = expression
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorAssignLshiftEQ(self)
 
 class OperatorAssignRshiftEQ(Operator):
     def __init__(self, ID, expression):
         self.ID = ID
         self.expression = expression
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorAssignRshiftEQ(self)
     
 class OperatorComparatorLeq(Operator):
     def __init__(self, expression_1, expression_2):
         self.expression_1 = expression_1
         self.expression_2 = expression_2
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorComparatorLeq(self)
 
 class OperatorComparatorGeq(Operator):
     def __init__(self, expression_1, expression_2):
         self.expression_1 = expression_1
         self.expression_2 = expression_2
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorComparatorGeq(self)
     
 class OperatorComparatorLt(Operator):
     def __init__(self, expression_1, expression_2):
         self.expression_1 = expression_1
         self.expression_2 = expression_2
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorComparatorLt(self)
 
 class OperatorComparatorGt(Operator):
     def __init__(self, expression_1, expression_2):
         self.expression_1 = expression_1
         self.expression_2 = expression_2
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorComparatorGt(self)
     
 class OperatorComparatorNeq(Operator):
     def __init__(self, expression_1, expression_2):
         self.expression_1 = expression_1
         self.expression_2 = expression_2
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorComparatorNeq(self)
     
 class OperatorComparatorEq(Operator):
     def __init__(self, expression_1, expression_2):
         self.expression_1 = expression_1
         self.expression_2 = expression_2
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorComparatorEq(self)
     
 class OperatorComparatorAnd(Operator):
     def __init__(self, expression_1, expression_2):
         self.expression_1 = expression_1
         self.expression_2 = expression_2
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorComparatorAnd(self)
     
 class OperatorComparatorOr(Operator):
     def __init__(self, expression_1, expression_2):
         self.expression_1 = expression_1
         self.expression_2 = expression_2
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorComparatorOr(self)
     
 class OperatorComparatorBitwise_And(Operator):
     def __init__(self, expression_1, expression_2):
         self.expression_1 = expression_1
         self.expression_2 = expression_2
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorComparatorBitwise_And(self)
 
 class OperatorComparatorBitwise_OR(Operator):
     def __init__(self, expression_1, expression_2):
         self.expression_1 = expression_1
         self.expression_2 = expression_2
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorComparatorBitwise_OR(self)
     
 class OperatorComparatorBitwise_XOR(Operator):
     def __init__(self, expression_1, expression_2):
         self.expression_1 = expression_1
         self.expression_2 = expression_2
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorComparatorBitwise_XOR(self)
     
 class OperatorUnaryPrefix(Operator):
     def __init__(self, unaryoperatorprefx, ID):
         self.unaryoperatorprefx = unaryoperatorprefx
         self.ID = ID
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorUnaryPrefix(self)
     
 class OperatorUnarySufix(Operator):
     def __init__(self, ID, unaryoperatorsufix):
         self.unaryoperatorsufix = unaryoperatorsufix
         self.ID = ID
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorUnarySufix(self)
         
 class OperatorBitToBit(Operator):
     def __init__(self, expression):
         self.expression = expression
     def accept(self, visitor):
-        pass
+        return visitor.VisitOperatorBitToBit(self)
 
 
 #UNARYOPERATORPREFIX
@@ -731,7 +733,7 @@ class UnaryOperatorPrefixConcrete(UnaryOperatorPrefix):
     def __init__(self, unaryoperatorprefx):
         self.unaryoperatorprefx = unaryoperatorprefx
     def accept(self, visitor):
-        pass
+        return visitor.VisitUnaryOperatorPrefixConcrete(self)
     
 
 #UNARYOPERATORSUFIX
@@ -744,7 +746,7 @@ class UnaryOperatorSufixConcrete(UnaryOperatorSufix):
     def __init__(self, unaryoperatorsufix):
         self.unaryoperatorsufix = unaryoperatorsufix
     def accept(self, visitor):
-        pass
+        return visitor.VisitUnaryOperatorSufixConcrete(self)
     
 #UNARYOPERATORBITTOBIT
 class UnaryOperatorBitToBit(metaclass=ABCMeta):
@@ -756,7 +758,7 @@ class UnaryOperatorBitToBitConcrete(UnaryOperatorBitToBit):
     def __init__(self, unaryoperatorbit):
         self.unaryoperatorbit = unaryoperatorbit
     def accept(self, visitor):
-        pass        
+        return visitor.VisitUnaryOperatorBitToBitConcrete(self)
         
 #BRACKETSEXPRESSION       
 class BracketsExpression(metaclass=ABCMeta):
@@ -768,19 +770,19 @@ class BracketsExpressionSimple(BracketsExpression):
     def __init__(self, brackets_default):
         self.brackets_default = brackets_default
     def accept(self, visitor):
-        pass     
+        return visitor.VisitBracketsExpressionSimple(self)
           
 class BracketsExpressionIntNumber(BracketsExpression):
     def __init__(self, int_number):
         self.int_number = int_number
     def accept(self, visitor):
-        pass 
+        return visitor.VisitBracketsExpressionIntNumber(self)
     
 class BracketsExpressionId(BracketsExpression):
     def __init__(self, ID):
         self.ID = ID
     def accept(self, visitor):
-        pass 
+        return visitor.VisitBracketsExpressionId(self)
     
 
     
@@ -794,7 +796,7 @@ class TypePrimitive(Type):
     def __init__(self, primitivetypes):
         self.primitivetypes = primitivetypes
     def accept(self, visitor):
-        pass
+        return visitor.VisitTypePrimitive(self)
         
         
 #PRIMITIVETYPES
@@ -807,7 +809,7 @@ class PrimitiveTypesConcrete(PrimitiveTypes):
     def __init__(self, primitivetypes):
         self.primitivetypes = primitivetypes
     def accept(self, visitor):
-        pass
+        return visitor.VisitPrimitiveTypesConcrete(self)
 
 # class PrimitiveTypesInt(PrimitiveTypes):
 #     def __init__(self, _int):
@@ -875,13 +877,13 @@ class CallParams(Call):
         self.ID = ID
         self.callparams = callparams
     def accept(self, visitor):
-        pass
+        return visitor.VisitCallParams(self)
 
 class CallDefault(Call):
     def __init__(self, ID):
         self.ID = ID
     def accept(self, visitor):
-        pass
+        return visitor.VisitCallDefault(self)
     
 #PARAMSCALL
 class ParamsCall(metaclass=ABCMeta):
@@ -894,13 +896,13 @@ class ParamsCallMulti(ParamsCall):
         self.expression = expression
         self.params_call = params_call
     def accept(self, visitor):
-        pass
+        return visitor.VisitParamsCallMulti(self)
     
 class ParamsCallUnique(ParamsCall):
     def __init__(self, expression):
         self.expression = expression
     def accept(self, visitor):
-        pass
+        return visitor.VisitParamsCallUnique(self)
 
 #CHAVEXPRESSION
 class ChavExp(metaclass=ABCMeta):
@@ -912,13 +914,13 @@ class ChavExpEmpty(ChavExp):
     def __init__(self):
         pass
     def accept(self, visitor):
-        pass
+        return visitor.VisitChavExpEmpty(self)
     
 class ChavExpExpressionChav(ChavExp):
     def __init__(self, expression_chav):
         self.expression_chav = expression_chav
     def accept(self, visitor):
-        pass
+        return visitor.VisitChavExpExpressionChav(self)
     
 #EXPRESSIONCHAV
 class ExpressionChav(metaclass=ABCMeta):
@@ -931,17 +933,17 @@ class ExpressionChavMult(ExpressionChav):
         self.expression = expression
         self.expression_chav = expression_chav
     def accept(self, visitor):
-        pass
+        return visitor.VisitExpressionChavMult(self)
     
 class ExpressionChavUni(ExpressionChav):
     def __init__(self, expression):
         self.expression = expression
     def accept(self, visitor):
-        pass
+        return visitor.VisitExpressionChavUni(self)
     
 class ExpressionChavComma(ExpressionChav):
     def __init__(self, expression):
         self.expression = expression
     def accept(self, visitor):
-        pass
+        return visitor.VisitExpressionChavComma(self)
     

@@ -14,12 +14,10 @@ def blank():
 class Visitor(AbstractVisitor):
 
     def VisitProgramConcrete(self, programConcrete):
-        pass
-    
+        pass    
     
     def VisitCClassExtends(self, cclassExtends):
         pass
-    
     
     def VisitCClassDefault(self, cclassDefault):
         pass
@@ -76,6 +74,8 @@ class Visitor(AbstractVisitor):
     def VisitSignatureMult(self, signatureMult):
         pass
           
+    def VisitSigparamsId(self, sigparamsId):
+        pass
     
     def VisitSigparamsSigparams(self, sigparamsSigparams):
         pass
@@ -409,7 +409,7 @@ class Visitor(AbstractVisitor):
     
     
 def main():
-    f = open("projeto/Teste2.java", "r")
+    f = open("projeto/Teste3.java", "r")
     lexer = lex.lex()
     lexer.input(f.read())
     parser = yacc.yacc()
